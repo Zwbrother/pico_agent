@@ -1,0 +1,3862 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "f54ad9c8aa92aaaebf5d68c354487fa388698513",
+  "generatedAt": "2026-05-25T02:00:16.659Z",
+  "files": {
+    ".env.example": {
+      "filePath": ".env.example",
+      "contentHash": "4da00e04fe55e72f7fbf7c42885a3e7301b5a5798604eabf622e40039bb8a473",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    ".understand-anything/.understandignore": {
+      "filePath": ".understand-anything/.understandignore",
+      "contentHash": "bd46f3d223519227253daae02ab08c9f6fac19d8bfb914702cffe648efd9dc88",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 43,
+      "hasStructuralAnalysis": false
+    },
+    "benchmarks/coding_tasks.json": {
+      "filePath": "benchmarks/coding_tasks.json",
+      "contentHash": "b7f3d76e9ae8ec4962d58a99c8b2e6a994178adca771b01e5c407446c1aac9ff",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 148,
+      "hasStructuralAnalysis": true
+    },
+    "pico/__init__.py": {
+      "filePath": "pico/__init__.py",
+      "contentHash": "345f738a27331ed92deb9a99e111e6f98ef7b80fc37cae80a35ba367b1af3965",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".cli",
+          "specifiers": [
+            "build_agent",
+            "build_arg_parser",
+            "build_welcome",
+            "main"
+          ]
+        },
+        {
+          "source": ".models",
+          "specifiers": [
+            "AnthropicCompatibleModelClient",
+            "FakeModelClient",
+            "OllamaModelClient",
+            "OpenAICompatibleModelClient"
+          ]
+        },
+        {
+          "source": ".runtime",
+          "specifiers": [
+            "MiniAgent",
+            "Pico",
+            "SessionStore"
+          ]
+        },
+        {
+          "source": ".workspace",
+          "specifiers": [
+            "WorkspaceContext"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "pico/__main__.py": {
+      "filePath": "pico/__main__.py",
+      "contentHash": "b2557ccf866c981fd65bc19b07e7280cc6963a4ee9558bbc1a08fa3cbe5e6158",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".cli",
+          "specifiers": [
+            "main"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "pico/cli.py": {
+      "filePath": "pico/cli.py",
+      "contentHash": "5f1f462d000718332ba276688961e1b13526318056ad28c7a00db7fbf7067aea",
+      "functions": [
+        {
+          "name": "_effective_model",
+          "params": [
+            "args",
+            "provider"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "_configured_secret_names",
+          "params": [
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "_build_model_client",
+          "params": [
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 50
+        },
+        {
+          "name": "build_welcome",
+          "params": [
+            "agent",
+            "model",
+            "host"
+          ],
+          "exported": true,
+          "lineCount": 43
+        },
+        {
+          "name": "build_agent",
+          "params": [
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "build_arg_parser",
+          "params": [],
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "main",
+          "params": [
+            "argv"
+          ],
+          "exported": true,
+          "lineCount": 52
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "textwrap",
+          "specifiers": [
+            "textwrap"
+          ]
+        },
+        {
+          "source": ".config",
+          "specifiers": [
+            "load_project_env",
+            "provider_env"
+          ]
+        },
+        {
+          "source": ".models",
+          "specifiers": [
+            "AnthropicCompatibleModelClient",
+            "OllamaModelClient",
+            "OpenAICompatibleModelClient"
+          ]
+        },
+        {
+          "source": ".runtime",
+          "specifiers": [
+            "Pico",
+            "SessionStore"
+          ]
+        },
+        {
+          "source": ".workspace",
+          "specifiers": [
+            "WorkspaceContext",
+            "middle"
+          ]
+        }
+      ],
+      "exports": [
+        "_effective_model",
+        "_configured_secret_names",
+        "_build_model_client",
+        "build_welcome",
+        "build_agent",
+        "build_arg_parser",
+        "main"
+      ],
+      "totalLines": 338,
+      "hasStructuralAnalysis": true
+    },
+    "pico/config.py": {
+      "filePath": "pico/config.py",
+      "contentHash": "8fcec964b3c8f0d7ce5974cbfaf6c98c29d7ff84f5a2ce5328b814d1d7600d84",
+      "functions": [
+        {
+          "name": "_strip_quotes",
+          "params": [
+            "value"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_parse_env_line",
+          "params": [
+            "line"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "find_project_env",
+          "params": [
+            "start"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "load_project_env",
+          "params": [
+            "start",
+            "override"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "provider_env",
+          "params": [
+            "name",
+            "legacy_names",
+            "default"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        }
+      ],
+      "exports": [
+        "_strip_quotes",
+        "_parse_env_line",
+        "find_project_env",
+        "load_project_env",
+        "provider_env"
+      ],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "pico/context_manager.py": {
+      "filePath": "pico/context_manager.py",
+      "contentHash": "0fb5db14c5fa5e3747ec121169a1178f98f421510f23d8a5d069a04dd7b43f13",
+      "functions": [
+        {
+          "name": "_tail_clip",
+          "params": [
+            "text",
+            "limit"
+          ],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "SectionRender",
+          "methods": [
+            "raw_chars",
+            "rendered_chars"
+          ],
+          "properties": [
+            "raw",
+            "budget",
+            "rendered",
+            "details"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "ContextManager",
+          "methods": [
+            "__init__",
+            "build",
+            "_render_sections_without_reduction",
+            "_compute_section_floors",
+            "_render_sections",
+            "_render_relevant_memory",
+            "_per_note_budget",
+            "_render_history_section",
+            "_compressed_history_entries",
+            "_reusable_file_summary",
+            "_summarize_old_tool_item",
+            "_raw_history_text",
+            "_render_history_item",
+            "_assemble_prompt",
+            "_metadata"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 450
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        }
+      ],
+      "exports": [
+        "_tail_clip",
+        "SectionRender",
+        "ContextManager"
+      ],
+      "totalLines": 510,
+      "hasStructuralAnalysis": true
+    },
+    "pico/evaluator.py": {
+      "filePath": "pico/evaluator.py",
+      "contentHash": "4aab97fcd98f1998db80a446bec7c773175d60feb1c6274575c5a4bc15e864f4",
+      "functions": [
+        {
+          "name": "_git_value",
+          "params": [
+            "args",
+            "fallback",
+            "cwd"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "_current_locale",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_now_in_timezone",
+          "params": [
+            "timezone_name"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_artifact_path_for_task",
+          "params": [
+            "task"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_workspace_relative",
+          "params": [
+            "path",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_scripted_outputs_for_task",
+          "params": [
+            "task"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_fixture_snapshot_id",
+          "params": [
+            "fixture_paths"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "validate_benchmark",
+          "params": [
+            "data",
+            "repo_root"
+          ],
+          "exported": true,
+          "lineCount": 68
+        },
+        {
+          "name": "load_benchmark",
+          "params": [
+            "path",
+            "repo_root"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "summarize_rows",
+          "params": [
+            "rows"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "_checkpoint_payload",
+          "params": [
+            "checkpoint_id",
+            "current_goal",
+            "next_step",
+            "runtime_identity",
+            "schema_version",
+            "current_blocker",
+            "key_files",
+            "freshness",
+            "summary"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "_apply_task_setup",
+          "params": [
+            "agent",
+            "task",
+            "fixture_copy_root"
+          ],
+          "exported": true,
+          "lineCount": 73
+        },
+        {
+          "name": "_digest_file",
+          "params": [
+            "path"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "run_fixed_benchmark",
+          "params": [
+            "benchmark_path",
+            "artifact_path",
+            "workspace_root",
+            "model_name",
+            "model_version",
+            "temperature",
+            "top_p",
+            "max_new_tokens",
+            "timezone_name",
+            "model_client_factory"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "run_harness_regression_v2",
+          "params": [
+            "benchmark_path",
+            "artifact_path",
+            "workspace_root",
+            "model_name",
+            "model_version",
+            "temperature",
+            "top_p",
+            "max_new_tokens",
+            "timezone_name",
+            "model_client_factory"
+          ],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [
+        {
+          "name": "BenchmarkEvaluator",
+          "methods": [
+            "__init__",
+            "load",
+            "run",
+            "run_task",
+            "_failure_category",
+            "_write_artifact"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 193
+        }
+      ],
+      "imports": [
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "locale",
+          "specifiers": [
+            "locale_module"
+          ]
+        },
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "subprocess",
+          "specifiers": [
+            "subprocess"
+          ]
+        },
+        {
+          "source": "tempfile",
+          "specifiers": [
+            "tempfile"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "zoneinfo",
+          "specifiers": [
+            "ZoneInfo"
+          ]
+        },
+        {
+          "source": ".",
+          "specifiers": [
+            "memorylib"
+          ]
+        },
+        {
+          "source": ".models",
+          "specifiers": [
+            "FakeModelClient"
+          ]
+        },
+        {
+          "source": ".runtime",
+          "specifiers": [
+            "Pico",
+            "SessionStore"
+          ]
+        },
+        {
+          "source": ".run_store",
+          "specifiers": [
+            "RunStore"
+          ]
+        },
+        {
+          "source": ".task_state",
+          "specifiers": [
+            "STOP_REASON_FINAL_ANSWER_RETURNED"
+          ]
+        },
+        {
+          "source": ".workspace",
+          "specifiers": [
+            "WorkspaceContext"
+          ]
+        }
+      ],
+      "exports": [
+        "_git_value",
+        "_current_locale",
+        "_now_in_timezone",
+        "_artifact_path_for_task",
+        "_workspace_relative",
+        "_scripted_outputs_for_task",
+        "_fixture_snapshot_id",
+        "validate_benchmark",
+        "load_benchmark",
+        "summarize_rows",
+        "_checkpoint_payload",
+        "_apply_task_setup",
+        "BenchmarkEvaluator",
+        "_digest_file",
+        "run_fixed_benchmark",
+        "run_harness_regression_v2"
+      ],
+      "totalLines": 622,
+      "hasStructuralAnalysis": true
+    },
+    "pico/memory.py": {
+      "filePath": "pico/memory.py",
+      "contentHash": "79864b6e1caf602d97a372ec3a95f001806c73ebdff6166327c9636ff21b3a61",
+      "functions": [
+        {
+          "name": "default_memory_state",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "_ensure_list",
+          "params": [
+            "value"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "_dedupe_preserve_order",
+          "params": [
+            "items"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "resolve_workspace_path",
+          "params": [
+            "raw_path",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "canonicalize_path",
+          "params": [
+            "raw_path",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "file_freshness",
+          "params": [
+            "raw_path",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_tokenize",
+          "params": [
+            "text"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_parse_timestamp",
+          "params": [
+            "value"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "_normalize_note",
+          "params": [
+            "note",
+            "index"
+          ],
+          "exported": true,
+          "lineCount": 37
+        },
+        {
+          "name": "normalize_memory_state",
+          "params": [
+            "state",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 91
+        },
+        {
+          "name": "set_task_summary",
+          "params": [
+            "state",
+            "summary",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "remember_file",
+          "params": [
+            "state",
+            "path",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "append_note",
+          "params": [
+            "state",
+            "text",
+            "tags",
+            "source",
+            "created_at",
+            "workspace_root",
+            "kind"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "set_file_summary",
+          "params": [
+            "state",
+            "path",
+            "summary",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "invalidate_file_summary",
+          "params": [
+            "state",
+            "path",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "invalidate_stale_file_summaries",
+          "params": [
+            "state",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "summarize_read_result",
+          "params": [
+            "result",
+            "limit"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "retrieval_candidates",
+          "params": [
+            "state",
+            "query",
+            "limit",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "retrieval_view",
+          "params": [
+            "state",
+            "query",
+            "limit",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "render_memory_text",
+          "params": [
+            "state",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "is_effectively_empty",
+          "params": [
+            "state",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "DurableMemoryStore",
+          "methods": [
+            "__init__",
+            "topic_slugs",
+            "load_index",
+            "load_topic_notes",
+            "_subject_key",
+            "retrieval_candidates",
+            "_write_index",
+            "_write_topic",
+            "promote"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 166
+        },
+        {
+          "name": "LayeredMemory",
+          "methods": [
+            "__init__",
+            "to_dict",
+            "canonical_path",
+            "set_task_summary",
+            "remember_file",
+            "append_note",
+            "set_file_summary",
+            "invalidate_file_summary",
+            "invalidate_stale_file_summaries",
+            "retrieval_candidates",
+            "retrieval_view",
+            "render_memory_text",
+            "promote_durable"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 61
+        }
+      ],
+      "imports": [
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": ".workspace",
+          "specifiers": [
+            "clip",
+            "now"
+          ]
+        }
+      ],
+      "exports": [
+        "default_memory_state",
+        "DurableMemoryStore",
+        "_ensure_list",
+        "_dedupe_preserve_order",
+        "resolve_workspace_path",
+        "canonicalize_path",
+        "file_freshness",
+        "_tokenize",
+        "_parse_timestamp",
+        "_normalize_note",
+        "normalize_memory_state",
+        "set_task_summary",
+        "remember_file",
+        "append_note",
+        "set_file_summary",
+        "invalidate_file_summary",
+        "invalidate_stale_file_summaries",
+        "summarize_read_result",
+        "retrieval_candidates",
+        "retrieval_view",
+        "render_memory_text",
+        "is_effectively_empty",
+        "LayeredMemory"
+      ],
+      "totalLines": 660,
+      "hasStructuralAnalysis": true
+    },
+    "pico/metrics.py": {
+      "filePath": "pico/metrics.py",
+      "contentHash": "b6b25ca565b2a8a13d81721f5bab101c27eead4e4f1412d2c1577bc23a4489d1",
+      "functions": [
+        {
+          "name": "_safe_mean",
+          "params": [
+            "values"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_safe_ratio",
+          "params": [
+            "numerator",
+            "denominator"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_parse_iso8601",
+          "params": [
+            "value"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "aggregate_benchmark_artifact",
+          "params": [
+            "path"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "_infer_run_duration_ms",
+          "params": [
+            "events"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "aggregate_run_artifacts",
+          "params": [
+            "runs_root"
+          ],
+          "exported": true,
+          "lineCount": 71
+        },
+        {
+          "name": "_temporary_feature_flags",
+          "params": [
+            "agent",
+            "updates"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "measure_feature_ablation_metrics",
+          "params": [
+            "agent",
+            "user_message"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "build_stress_agent_metrics",
+          "params": [],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "_build_memory_experiment_agent",
+          "params": [
+            "workspace_root",
+            "expected_fact",
+            "filename"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "_set_irrelevant_memory",
+          "params": [
+            "agent"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "_run_memory_variant",
+          "params": [
+            "mode"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "run_memory_dependency_experiment",
+          "params": [
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "_write_memory_task_files",
+          "params": [
+            "workspace_root",
+            "task"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_bootstrap_prompt",
+          "params": [
+            "task"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_followup_prompt",
+          "params": [
+            "task"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_set_irrelevant_memory_for_task",
+          "params": [
+            "agent"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "_run_memory_task_variant",
+          "params": [
+            "task",
+            "variant"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "run_large_scale_memory_experiment",
+          "params": [
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "run_context_stress_matrix",
+          "params": [
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 82
+        },
+        {
+          "name": "_security_agent",
+          "params": [
+            "workspace_root",
+            "approval_policy",
+            "read_only"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "_scenario_invalid_patch_nonunique",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_scenario_invalid_patch_missing_field",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_scenario_timeout_out_of_range",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_scenario_empty_command",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_scenario_empty_delegate_task",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_scenario_path_escape_read",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_scenario_symlink_escape",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "_scenario_search_escape",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_scenario_approval_denied",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_scenario_read_only_block",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_scenario_repeated_call",
+          "params": [
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "run_security_experiment_suite",
+          "params": [
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "_provider_summary_from_artifact",
+          "params": [
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "_provider_profile",
+          "params": [
+            "provider"
+          ],
+          "exported": true,
+          "lineCount": 37
+        },
+        {
+          "name": "_make_provider_client",
+          "params": [
+            "provider"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "_normalize_text",
+          "params": [
+            "value"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "run_provider_experiments",
+          "params": [
+            "benchmark_path",
+            "workspace_root",
+            "artifact_root",
+            "max_new_tokens"
+          ],
+          "exported": true,
+          "lineCount": 56
+        },
+        {
+          "name": "_followup_trace_metrics",
+          "params": [
+            "agent"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_inject_memory_noise",
+          "params": [
+            "agent",
+            "rounds"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "_truncate_read_history",
+          "params": [
+            "agent"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "_build_real_agent",
+          "params": [
+            "workspace_root",
+            "provider",
+            "approval_policy",
+            "read_only"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "run_real_memory_experiment",
+          "params": [
+            "provider",
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 64
+        },
+        {
+          "name": "run_real_context_experiment",
+          "params": [
+            "provider",
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 73
+        },
+        {
+          "name": "_setup_real_security_workspace",
+          "params": [
+            "workspace_root",
+            "scenario_id"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "_security_result_row",
+          "params": [
+            "scenario_id",
+            "provider",
+            "metadata"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "_run_real_repeated_call_scenario",
+          "params": [
+            "provider"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "run_real_security_experiment_suite",
+          "params": [
+            "provider",
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "collect_resume_metrics",
+          "params": [
+            "benchmark_artifact_path",
+            "runs_root",
+            "provider_experiments",
+            "memory_repetitions",
+            "large_memory_repetitions",
+            "context_repetitions",
+            "security_repetitions",
+            "experiment_mode",
+            "real_provider"
+          ],
+          "exported": true,
+          "lineCount": 63
+        },
+        {
+          "name": "render_resume_metrics_markdown",
+          "params": [
+            "metrics"
+          ],
+          "exported": true,
+          "lineCount": 47
+        },
+        {
+          "name": "render_large_scale_experiment_report",
+          "params": [
+            "metrics"
+          ],
+          "exported": true,
+          "lineCount": 69
+        },
+        {
+          "name": "_write_json_artifact",
+          "params": [
+            "path",
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_build_recovery_agent",
+          "params": [
+            "workspace_root",
+            "required_fragments"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "_apply_recovery_setup",
+          "params": [
+            "agent",
+            "task",
+            "workspace_root"
+          ],
+          "exported": true,
+          "lineCount": 151
+        },
+        {
+          "name": "_run_recovery_task_variant",
+          "params": [
+            "task",
+            "variant"
+          ],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "_recovery_variant_summary",
+          "params": [
+            "rows"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "run_context_ablation_v2",
+          "params": [
+            "artifact_path",
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "run_memory_ablation_v2",
+          "params": [
+            "artifact_path",
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "run_recovery_ablation_v2",
+          "params": [
+            "artifact_path",
+            "repetitions"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "write_benchmark_core_report",
+          "params": [
+            "report_path",
+            "harness_artifact_path",
+            "context_artifact_path",
+            "memory_artifact_path",
+            "recovery_artifact_path"
+          ],
+          "exported": true,
+          "lineCount": 72
+        }
+      ],
+      "classes": [
+        {
+          "name": "_MemoryExperimentModelClient",
+          "methods": [
+            "__init__",
+            "complete"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 35
+        },
+        {
+          "name": "_RecoveryScenarioModelClient",
+          "methods": [
+            "__init__",
+            "complete"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "tempfile",
+          "specifiers": [
+            "tempfile"
+          ]
+        },
+        {
+          "source": "contextlib",
+          "specifiers": [
+            "contextmanager"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": ".config",
+          "specifiers": [
+            "load_project_env",
+            "provider_env"
+          ]
+        },
+        {
+          "source": ".evaluator",
+          "specifiers": [
+            "run_fixed_benchmark"
+          ]
+        },
+        {
+          "source": ".models",
+          "specifiers": [
+            "AnthropicCompatibleModelClient",
+            "FakeModelClient",
+            "OpenAICompatibleModelClient"
+          ]
+        },
+        {
+          "source": ".runtime",
+          "specifiers": [
+            "Pico",
+            "SessionStore"
+          ]
+        },
+        {
+          "source": ".workspace",
+          "specifiers": [
+            "WorkspaceContext"
+          ]
+        }
+      ],
+      "exports": [
+        "_safe_mean",
+        "_safe_ratio",
+        "_parse_iso8601",
+        "aggregate_benchmark_artifact",
+        "_infer_run_duration_ms",
+        "aggregate_run_artifacts",
+        "_temporary_feature_flags",
+        "measure_feature_ablation_metrics",
+        "build_stress_agent_metrics",
+        "_MemoryExperimentModelClient",
+        "_build_memory_experiment_agent",
+        "_set_irrelevant_memory",
+        "_run_memory_variant",
+        "run_memory_dependency_experiment",
+        "_write_memory_task_files",
+        "_bootstrap_prompt",
+        "_followup_prompt",
+        "_set_irrelevant_memory_for_task",
+        "_run_memory_task_variant",
+        "run_large_scale_memory_experiment",
+        "run_context_stress_matrix",
+        "_security_agent",
+        "_scenario_invalid_patch_nonunique",
+        "_scenario_invalid_patch_missing_field",
+        "_scenario_timeout_out_of_range",
+        "_scenario_empty_command",
+        "_scenario_empty_delegate_task",
+        "_scenario_path_escape_read",
+        "_scenario_symlink_escape",
+        "_scenario_search_escape",
+        "_scenario_approval_denied",
+        "_scenario_read_only_block",
+        "_scenario_repeated_call",
+        "run_security_experiment_suite",
+        "_provider_summary_from_artifact",
+        "_provider_profile",
+        "_make_provider_client",
+        "_normalize_text",
+        "run_provider_experiments",
+        "_followup_trace_metrics",
+        "_inject_memory_noise",
+        "_truncate_read_history",
+        "_build_real_agent",
+        "run_real_memory_experiment",
+        "run_real_context_experiment",
+        "_setup_real_security_workspace",
+        "_security_result_row",
+        "_run_real_repeated_call_scenario",
+        "run_real_security_experiment_suite",
+        "collect_resume_metrics",
+        "render_resume_metrics_markdown",
+        "render_large_scale_experiment_report",
+        "_write_json_artifact",
+        "_RecoveryScenarioModelClient",
+        "_build_recovery_agent",
+        "_apply_recovery_setup",
+        "_run_recovery_task_variant",
+        "_recovery_variant_summary",
+        "run_context_ablation_v2",
+        "run_memory_ablation_v2",
+        "run_recovery_ablation_v2",
+        "write_benchmark_core_report"
+      ],
+      "totalLines": 1687,
+      "hasStructuralAnalysis": true
+    },
+    "pico/models.py": {
+      "filePath": "pico/models.py",
+      "contentHash": "320b245bc11227e0fe79af1de184649482ed89db0b683cdb049a268c2c24e7ea",
+      "functions": [
+        {
+          "name": "_normalize_versioned_base_url",
+          "params": [
+            "base_url"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_extract_openai_text",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "_extract_openai_text_from_sse",
+          "params": [
+            "body_text"
+          ],
+          "exported": true,
+          "lineCount": 48
+        },
+        {
+          "name": "_extract_openai_response_from_sse",
+          "params": [
+            "body_text"
+          ],
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "_extract_usage_cache_details",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "_extract_anthropic_text",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [
+        {
+          "name": "FakeModelClient",
+          "methods": [
+            "__init__",
+            "complete"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "OllamaModelClient",
+          "methods": [
+            "__init__",
+            "complete"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 49
+        },
+        {
+          "name": "OpenAICompatibleModelClient",
+          "methods": [
+            "__init__",
+            "complete"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 125
+        },
+        {
+          "name": "AnthropicCompatibleModelClient",
+          "methods": [
+            "__init__",
+            "complete"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 80
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "http.client",
+          "specifiers": [
+            "RemoteDisconnected"
+          ]
+        },
+        {
+          "source": "urllib.error",
+          "specifiers": [
+            "urllib.error"
+          ]
+        },
+        {
+          "source": "urllib.request",
+          "specifiers": [
+            "urllib.request"
+          ]
+        }
+      ],
+      "exports": [
+        "FakeModelClient",
+        "OllamaModelClient",
+        "_normalize_versioned_base_url",
+        "_extract_openai_text",
+        "_extract_openai_text_from_sse",
+        "_extract_openai_response_from_sse",
+        "_extract_usage_cache_details",
+        "OpenAICompatibleModelClient",
+        "_extract_anthropic_text",
+        "AnthropicCompatibleModelClient"
+      ],
+      "totalLines": 442,
+      "hasStructuralAnalysis": true
+    },
+    "pico/run_store.py": {
+      "filePath": "pico/run_store.py",
+      "contentHash": "673df9c84891f493b17a18a2e2fbc884d086fef8647688cc267c5b004b783411",
+      "functions": [
+        {
+          "name": "_run_id",
+          "params": [
+            "value"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "RunStore",
+          "methods": [
+            "__init__",
+            "run_dir",
+            "task_state_path",
+            "trace_path",
+            "report_path",
+            "start_run",
+            "write_task_state",
+            "append_trace",
+            "write_report",
+            "load_task_state",
+            "load_report",
+            "_write_json_atomic"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 68
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "tempfile",
+          "specifiers": [
+            "tempfile"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        }
+      ],
+      "exports": [
+        "_run_id",
+        "RunStore"
+      ],
+      "totalLines": 86,
+      "hasStructuralAnalysis": true
+    },
+    "pico/runtime.py": {
+      "filePath": "pico/runtime.py",
+      "contentHash": "7f21e607ac38463746a20f4b50c5764696811b05ebd10f9486a95485552f841f",
+      "functions": [],
+      "classes": [
+        {
+          "name": "PromptPrefix",
+          "methods": [],
+          "properties": [
+            "text",
+            "hash",
+            "workspace_fingerprint",
+            "tool_signature",
+            "built_at"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "SessionStore",
+          "methods": [
+            "__init__",
+            "path",
+            "save",
+            "load",
+            "latest"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "Pico",
+          "methods": [
+            "__init__",
+            "from_session",
+            "_ensure_session_shape",
+            "current_runtime_identity",
+            "checkpoint_state",
+            "current_checkpoint",
+            "invalidate_stale_memory",
+            "evaluate_resume_state",
+            "render_checkpoint_text",
+            "remember",
+            "build_tools",
+            "tool_signature",
+            "build_prefix",
+            "_apply_prefix_state",
+            "refresh_prefix",
+            "memory_text",
+            "history_text",
+            "feature_enabled",
+            "prompt",
+            "record",
+            "looks_sensitive_env_name",
+            "is_secret_env_name",
+            "configured_secret_env_items",
+            "detected_secret_env_items",
+            "secret_env_summary",
+            "detected_secret_env_summary",
+            "redact_text",
+            "redact_artifact",
+            "shell_env",
+            "prompt_metadata",
+            "_build_prompt_and_metadata",
+            "emit_trace",
+            "capture_workspace_snapshot",
+            "diff_workspace_snapshots",
+            "create_checkpoint",
+            "infer_next_step",
+            "update_memory_after_tool",
+            "note_tool",
+            "record_process_note_for_tool",
+            "reject_durable_reason",
+            "extract_durable_promotions",
+            "promote_durable_memory",
+            "ask",
+            "run_tool",
+            "repeated_tool_call",
+            "new_task_id",
+            "new_run_id",
+            "build_report",
+            "tool_example",
+            "validate_tool",
+            "tool_list_files",
+            "tool_read_file",
+            "tool_search",
+            "tool_run_shell",
+            "tool_write_file",
+            "tool_patch_file",
+            "tool_delegate",
+            "approve",
+            "parse",
+            "retry_notice",
+            "parse_xml_tool",
+            "parse_attrs",
+            "extract",
+            "extract_raw",
+            "reset",
+            "path"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1260
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "textwrap",
+          "specifiers": [
+            "textwrap"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": ".",
+          "specifiers": [
+            "memorylib"
+          ]
+        },
+        {
+          "source": ".context_manager",
+          "specifiers": [
+            "ContextManager"
+          ]
+        },
+        {
+          "source": ".run_store",
+          "specifiers": [
+            "RunStore"
+          ]
+        },
+        {
+          "source": ".task_state",
+          "specifiers": [
+            "TaskState"
+          ]
+        },
+        {
+          "source": ".",
+          "specifiers": [
+            "toolkit"
+          ]
+        },
+        {
+          "source": ".workspace",
+          "specifiers": [
+            "IGNORED_PATH_NAMES",
+            "MAX_HISTORY",
+            "WorkspaceContext",
+            "clip",
+            "now"
+          ]
+        }
+      ],
+      "exports": [
+        "PromptPrefix",
+        "SessionStore",
+        "Pico"
+      ],
+      "totalLines": 1350,
+      "hasStructuralAnalysis": true
+    },
+    "pico/task_state.py": {
+      "filePath": "pico/task_state.py",
+      "contentHash": "4d937e84e1893a5f7a384389a20c0f3045a3de96320d3670b2dcddfc1278ba2b",
+      "functions": [],
+      "classes": [
+        {
+          "name": "TaskState",
+          "methods": [
+            "create",
+            "from_dict",
+            "record_attempt",
+            "record_tool",
+            "stop",
+            "stop_step_limit",
+            "stop_retry_limit",
+            "stop_model_error",
+            "finish_success",
+            "to_dict"
+          ],
+          "properties": [
+            "run_id",
+            "task_id",
+            "user_request",
+            "status",
+            "tool_steps",
+            "attempts",
+            "last_tool",
+            "stop_reason",
+            "final_answer",
+            "checkpoint_id",
+            "resume_status"
+          ],
+          "exported": true,
+          "lineCount": 83
+        }
+      ],
+      "imports": [
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid4"
+          ]
+        }
+      ],
+      "exports": [
+        "TaskState"
+      ],
+      "totalLines": 111,
+      "hasStructuralAnalysis": true
+    },
+    "pico/tools.py": {
+      "filePath": "pico/tools.py",
+      "contentHash": "cbc58fa0941b47a0f6bc0a2968d1abde1d7d624e5d13ee172f82e8eed5a45032",
+      "functions": [
+        {
+          "name": "build_tool_registry",
+          "params": [
+            "agent"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "tool_example",
+          "params": [
+            "name"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "validate_tool",
+          "params": [
+            "agent",
+            "name",
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 65
+        },
+        {
+          "name": "tool_list_files",
+          "params": [
+            "agent",
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "tool_read_file",
+          "params": [
+            "agent",
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "tool_search",
+          "params": [
+            "agent",
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "tool_run_shell",
+          "params": [
+            "agent",
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "tool_write_file",
+          "params": [
+            "agent",
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "tool_patch_file",
+          "params": [
+            "agent",
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "tool_delegate",
+          "params": [
+            "agent",
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "subprocess",
+          "specifiers": [
+            "subprocess"
+          ]
+        },
+        {
+          "source": "textwrap",
+          "specifiers": [
+            "textwrap"
+          ]
+        },
+        {
+          "source": "functools",
+          "specifiers": [
+            "partial"
+          ]
+        },
+        {
+          "source": ".workspace",
+          "specifiers": [
+            "IGNORED_PATH_NAMES",
+            "clip"
+          ]
+        }
+      ],
+      "exports": [
+        "build_tool_registry",
+        "tool_example",
+        "validate_tool",
+        "tool_list_files",
+        "tool_read_file",
+        "tool_search",
+        "tool_run_shell",
+        "tool_write_file",
+        "tool_patch_file",
+        "tool_delegate"
+      ],
+      "totalLines": 299,
+      "hasStructuralAnalysis": true
+    },
+    "pico/workspace.py": {
+      "filePath": "pico/workspace.py",
+      "contentHash": "7d3cb14dc8bd1ffdd24b8b0c51d6285a96849e5759e87596ef156823c0bbe8aa",
+      "functions": [
+        {
+          "name": "now",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "clip",
+          "params": [
+            "text",
+            "limit"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "middle",
+          "params": [
+            "text",
+            "limit"
+          ],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "WorkspaceContext",
+          "methods": [
+            "__init__",
+            "build",
+            "text",
+            "fingerprint"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 91
+        }
+      ],
+      "imports": [
+        {
+          "source": "subprocess",
+          "specifiers": [
+            "subprocess"
+          ]
+        },
+        {
+          "source": "textwrap",
+          "specifiers": [
+            "textwrap"
+          ]
+        },
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime",
+            "timezone"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        }
+      ],
+      "exports": [
+        "now",
+        "clip",
+        "middle",
+        "WorkspaceContext"
+      ],
+      "totalLines": 135,
+      "hasStructuralAnalysis": true
+    },
+    "pyproject.toml": {
+      "filePath": "pyproject.toml",
+      "contentHash": "15de5c3b36440735c0f5c41b8117fb70e1e859593bca61299a8b479be68a96b5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "2c5d0bf0780367b4772f879b6d789a219461f2cc3b0499cfd63314ac1a4f7fca",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 189,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/collect_resume_metrics.py": {
+      "filePath": "scripts/collect_resume_metrics.py",
+      "contentHash": "57acca2f65ccdaae29744b80399d340741e7cc257643529ada65c187f51c9711",
+      "functions": [
+        {
+          "name": "build_arg_parser",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "main",
+          "params": [
+            "argv"
+          ],
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pico.metrics",
+          "specifiers": [
+            "collect_resume_metrics",
+            "render_resume_metrics_markdown"
+          ]
+        }
+      ],
+      "exports": [
+        "build_arg_parser",
+        "main"
+      ],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/run_large_scale_experiments.py": {
+      "filePath": "scripts/run_large_scale_experiments.py",
+      "contentHash": "4900e5968dcbb7e8a25555848ea41114ccb59ae665b827f377fc5cd29946e662",
+      "functions": [
+        {
+          "name": "build_arg_parser",
+          "params": [],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "main",
+          "params": [
+            "argv"
+          ],
+          "exported": true,
+          "lineCount": 43
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pico.metrics",
+          "specifiers": [
+            "collect_resume_metrics",
+            "render_large_scale_experiment_report",
+            "render_resume_metrics_markdown",
+            "run_provider_experiments"
+          ]
+        }
+      ],
+      "exports": [
+        "build_arg_parser",
+        "main"
+      ],
+      "totalLines": 89,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/run_provider_experiments.py": {
+      "filePath": "scripts/run_provider_experiments.py",
+      "contentHash": "9f9cdecd0c3c60744a1cbf1e68fa7691215273e111ec2a1eda45abf02646f383",
+      "functions": [
+        {
+          "name": "build_arg_parser",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "main",
+          "params": [
+            "argv"
+          ],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pico.metrics",
+          "specifiers": [
+            "run_provider_experiments"
+          ]
+        }
+      ],
+      "exports": [
+        "build_arg_parser",
+        "main"
+      ],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "tests/fixtures/bench_repo_patch/sample.txt": {
+      "filePath": "tests/fixtures/bench_repo_patch/sample.txt",
+      "contentHash": "23819d922ab82f8b2de971fcd502052b14d6452351cc204f2dce10f3e9e827cf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": false
+    },
+    "tests/fixtures/bench_repo_readme/README.md": {
+      "filePath": "tests/fixtures/bench_repo_readme/README.md",
+      "contentHash": "59fbb9743e934af1227bf95ae0c2eac409cac40ff2a0f2dc350462a11a0b5e82",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_context_manager.py": {
+      "filePath": "tests/test_context_manager.py",
+      "contentHash": "b8013488db6a30445a8a29f0ced9e1ffd9406e422a02f63f719130e184269fdd",
+      "functions": [
+        {
+          "name": "build_workspace",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "build_agent",
+          "params": [
+            "tmp_path",
+            "outputs",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_context_manager_assembles_sections_in_expected_order",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_context_manager_reduces_relevant_memory_before_history_and_preserves_newer_context",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 35
+        },
+        {
+          "name": "test_context_manager_renders_top_three_episodic_notes_per_note_under_budget",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 37
+        },
+        {
+          "name": "test_context_manager_preserves_current_request_when_over_budget",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "test_context_manager_collapses_older_duplicate_reads_into_one_summary_line",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "test_context_manager_summarizes_older_tool_output_into_one_line",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "test_context_manager_relevant_memory_can_mix_durable_notes",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pico",
+          "specifiers": [
+            "FakeModelClient",
+            "MiniAgent",
+            "SessionStore",
+            "WorkspaceContext"
+          ]
+        },
+        {
+          "source": "pico.context_manager",
+          "specifiers": [
+            "ContextManager"
+          ]
+        }
+      ],
+      "exports": [
+        "build_workspace",
+        "build_agent",
+        "test_context_manager_assembles_sections_in_expected_order",
+        "test_context_manager_reduces_relevant_memory_before_history_and_preserves_newer_context",
+        "test_context_manager_renders_top_three_episodic_notes_per_note_under_budget",
+        "test_context_manager_preserves_current_request_when_over_budget",
+        "test_context_manager_collapses_older_duplicate_reads_into_one_summary_line",
+        "test_context_manager_summarizes_older_tool_output_into_one_line",
+        "test_context_manager_relevant_memory_can_mix_durable_notes"
+      ],
+      "totalLines": 240,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_evaluator.py": {
+      "filePath": "tests/test_evaluator.py",
+      "contentHash": "29f98c1b3ff433420b011308aeb576b1b140cc1212fde1d733d7f6d04f97ead2",
+      "functions": [
+        {
+          "name": "test_load_benchmark_validates_fixed_schema",
+          "params": [],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_load_benchmark_rejects_missing_required_task_fields",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "test_run_fixed_benchmark_uses_fresh_fixture_copy_and_fresh_run_directory",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "test_run_fixed_benchmark_reports_metadata_and_success_definition",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 50
+        },
+        {
+          "name": "test_run_fixed_benchmark_covers_recovery_and_durable_contract_rows",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_run_harness_regression_v2_writes_named_artifact",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_run_task_anchors_paths_to_fixture_copy_even_inside_repo_workspace",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_summarize_rows_counts_failure_categories",
+          "params": [],
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "collections",
+          "specifiers": [
+            "Counter"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "pico.evaluator",
+          "specifiers": [
+            "BenchmarkEvaluator",
+            "load_benchmark",
+            "run_harness_regression_v2",
+            "run_fixed_benchmark",
+            "summarize_rows"
+          ]
+        }
+      ],
+      "exports": [
+        "test_load_benchmark_validates_fixed_schema",
+        "test_load_benchmark_rejects_missing_required_task_fields",
+        "test_run_fixed_benchmark_uses_fresh_fixture_copy_and_fresh_run_directory",
+        "test_run_fixed_benchmark_reports_metadata_and_success_definition",
+        "test_run_fixed_benchmark_covers_recovery_and_durable_contract_rows",
+        "test_run_harness_regression_v2_writes_named_artifact",
+        "test_run_task_anchors_paths_to_fixture_copy_even_inside_repo_workspace",
+        "test_summarize_rows_counts_failure_categories"
+      ],
+      "totalLines": 228,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_memory.py": {
+      "filePath": "tests/test_memory.py",
+      "contentHash": "88806cfd632d1630a9a7ebc451fe461528517137f906bde2c2769995848d5157",
+      "functions": [
+        {
+          "name": "test_working_memory_tracks_summary_and_recent_files",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_episodic_notes_append_and_retrieve_deterministically",
+          "params": [],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "test_file_summaries_use_canonical_paths_and_freshness",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "test_process_notes_keep_kind_and_latest_duplicate_wins",
+          "params": [],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_durable_memory_index_and_topic_notes_are_loaded_and_retrieved",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pico.memory",
+          "specifiers": [
+            "LayeredMemory"
+          ]
+        }
+      ],
+      "exports": [
+        "test_working_memory_tracks_summary_and_recent_files",
+        "test_episodic_notes_append_and_retrieve_deterministically",
+        "test_file_summaries_use_canonical_paths_and_freshness",
+        "test_process_notes_keep_kind_and_latest_duplicate_wins",
+        "test_durable_memory_index_and_topic_notes_are_loaded_and_retrieved"
+      ],
+      "totalLines": 123,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_metrics.py": {
+      "filePath": "tests/test_metrics.py",
+      "contentHash": "48ad490be229f87c70e303c3ccbbce69af6b9bb1b82ff62ad41b8f8fe57dbd2a",
+      "functions": [
+        {
+          "name": "test_run_context_ablation_v2_writes_expected_artifact",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "test_provider_profile_loads_project_env_before_reading_deepseek_config",
+          "params": [
+            "tmp_path",
+            "monkeypatch"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "test_run_memory_ablation_v2_writes_expected_artifact",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "test_run_recovery_ablation_v2_writes_expected_artifact",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "test_write_benchmark_core_report_marks_resume_safe_metrics",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "patch"
+          ]
+        },
+        {
+          "source": "pico.metrics",
+          "specifiers": [
+            "_provider_profile",
+            "run_context_ablation_v2",
+            "run_memory_ablation_v2",
+            "run_recovery_ablation_v2",
+            "write_benchmark_core_report"
+          ]
+        }
+      ],
+      "exports": [
+        "test_run_context_ablation_v2_writes_expected_artifact",
+        "test_provider_profile_loads_project_env_before_reading_deepseek_config",
+        "test_run_memory_ablation_v2_writes_expected_artifact",
+        "test_run_recovery_ablation_v2_writes_expected_artifact",
+        "test_write_benchmark_core_report_marks_resume_safe_metrics"
+      ],
+      "totalLines": 118,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_pico.py": {
+      "filePath": "tests/test_pico.py",
+      "contentHash": "84c4c8e3758607fea2e3b6d1d2e14a1e130021b89ab0f68a87d906c9c1b51ebe",
+      "functions": [
+        {
+          "name": "build_workspace",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "build_agent",
+          "params": [
+            "tmp_path",
+            "outputs",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_agent_runs_tool_then_final",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "test_agent_updates_task_summary_on_each_request",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_agent_only_stores_reusable_epistemic_notes",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "test_file_summary_cache_is_invalidated_on_out_of_band_edit_and_path_spelling",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "test_agent_retries_after_empty_model_output",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_agent_retries_after_malformed_tool_payload",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "test_agent_accepts_xml_write_file_tool",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "test_retries_do_not_consume_the_whole_budget",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_agent_saves_and_resumes_session",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_delegate_uses_child_agent",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_patch_file_replaces_exact_match",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_invalid_risky_tool_does_not_prompt_for_approval",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_list_files_hides_internal_agent_state",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_repeated_identical_tool_call_is_rejected",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "test_welcome_screen_keeps_box_shape_for_long_paths",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "test_ollama_client_posts_expected_payload",
+          "params": [],
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "test_openai_compatible_client_posts_expected_responses_payload",
+          "params": [],
+          "exported": true,
+          "lineCount": 57
+        },
+        {
+          "name": "test_openai_compatible_client_sends_prompt_cache_fields_and_records_usage",
+          "params": [],
+          "exported": true,
+          "lineCount": 55
+        },
+        {
+          "name": "test_openai_compatible_client_extracts_text_from_event_stream",
+          "params": [],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "test_openai_compatible_client_extracts_text_from_event_stream_deltas",
+          "params": [],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "test_anthropic_compatible_client_posts_expected_messages_payload",
+          "params": [],
+          "exported": true,
+          "lineCount": 65
+        },
+        {
+          "name": "test_anthropic_compatible_client_extracts_first_text_block",
+          "params": [],
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "test_build_agent_uses_openai_provider_and_model_override",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 42
+        },
+        {
+          "name": "test_build_arg_parser_defaults_provider_to_openai",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_build_arg_parser_accepts_anthropic_provider",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_build_arg_parser_accepts_deepseek_provider",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_build_agent_uses_anthropic_provider_and_openai_key_fallback",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "test_build_agent_uses_anthropic_default_model_when_env_is_missing",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "test_build_agent_uses_deepseek_provider_and_env_configuration",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 59
+        },
+        {
+          "name": "test_build_agent_uses_deepseek_default_model_when_env_is_missing",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_build_agent_uses_openai_provider_by_default",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "test_successful_run_persists_run_artifacts_and_stop_reason",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "test_trace_and_report_redact_secret_env_values",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 34
+        },
+        {
+          "name": "test_prompt_budget_metadata_records_budget_decisions",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 42
+        },
+        {
+          "name": "test_prompt_metadata_refreshes_prefix_when_workspace_changes",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "test_agent_creates_checkpoint_when_context_reduction_happens_and_artifacts_only_reference_it",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "test_resume_prompt_uses_checkpoint_state_not_just_history",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "test_resume_invalidates_stale_file_summaries_and_marks_partial_stale",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 42
+        },
+        {
+          "name": "test_run_shell_nonzero_with_workspace_change_is_recorded_as_partial_success",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "test_resume_marks_workspace_mismatch_when_checkpoint_runtime_identity_is_stale",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 34
+        },
+        {
+          "name": "test_write_file_trace_records_minimum_tool_contract_fields",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "test_resume_marks_schema_mismatch_when_checkpoint_version_is_incompatible",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 34
+        },
+        {
+          "name": "test_resume_marks_no_checkpoint_when_session_has_no_checkpoint_state",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_freshness_mismatch_creates_checkpoint_before_model_completion",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "test_runtime_identity_persists_key_execution_metadata",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "test_resume_records_runtime_identity_mismatch_fields_in_metadata_and_trace",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 73
+        },
+        {
+          "name": "test_partial_success_creates_process_note_for_exploration_history",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_explicit_memory_promotion_persists_durable_memory_topics",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "test_explicit_memory_promotion_supports_chinese_intent_and_labels",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "test_explicit_memory_promotion_rejects_secret_shaped_and_transient_lines",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "test_explicit_memory_promotion_supersedes_matching_durable_fact",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_explicit_memory_promotion_dedupes_duplicate_durable_note",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_agent_records_model_cache_metadata_in_last_prompt_metadata",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "test_recent_transcript_entries_stay_richer_than_older_ones",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "test_public_api_exports_resolve_through_package_path",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "test_reviewer_skeleton_docs_exist",
+          "params": [],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_package_import_surface_includes_cli_entrypoints",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_module_execution_help_works",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "subprocess",
+          "specifiers": [
+            "subprocess"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "patch"
+          ]
+        },
+        {
+          "source": "pico",
+          "specifiers": [
+            "mini_pkg"
+          ]
+        },
+        {
+          "source": "pico",
+          "specifiers": [
+            "AnthropicCompatibleModelClient",
+            "FakeModelClient",
+            "MiniAgent",
+            "OllamaModelClient",
+            "OpenAICompatibleModelClient",
+            "SessionStore",
+            "WorkspaceContext",
+            "build_welcome"
+          ]
+        }
+      ],
+      "exports": [
+        "build_workspace",
+        "build_agent",
+        "test_agent_runs_tool_then_final",
+        "test_agent_updates_task_summary_on_each_request",
+        "test_agent_only_stores_reusable_epistemic_notes",
+        "test_file_summary_cache_is_invalidated_on_out_of_band_edit_and_path_spelling",
+        "test_agent_retries_after_empty_model_output",
+        "test_agent_retries_after_malformed_tool_payload",
+        "test_agent_accepts_xml_write_file_tool",
+        "test_retries_do_not_consume_the_whole_budget",
+        "test_agent_saves_and_resumes_session",
+        "test_delegate_uses_child_agent",
+        "test_patch_file_replaces_exact_match",
+        "test_invalid_risky_tool_does_not_prompt_for_approval",
+        "test_list_files_hides_internal_agent_state",
+        "test_repeated_identical_tool_call_is_rejected",
+        "test_welcome_screen_keeps_box_shape_for_long_paths",
+        "test_ollama_client_posts_expected_payload",
+        "test_openai_compatible_client_posts_expected_responses_payload",
+        "test_openai_compatible_client_sends_prompt_cache_fields_and_records_usage",
+        "test_openai_compatible_client_extracts_text_from_event_stream",
+        "test_openai_compatible_client_extracts_text_from_event_stream_deltas",
+        "test_anthropic_compatible_client_posts_expected_messages_payload",
+        "test_anthropic_compatible_client_extracts_first_text_block",
+        "test_build_agent_uses_openai_provider_and_model_override",
+        "test_build_arg_parser_defaults_provider_to_openai",
+        "test_build_arg_parser_accepts_anthropic_provider",
+        "test_build_arg_parser_accepts_deepseek_provider",
+        "test_build_agent_uses_anthropic_provider_and_openai_key_fallback",
+        "test_build_agent_uses_anthropic_default_model_when_env_is_missing",
+        "test_build_agent_uses_deepseek_provider_and_env_configuration",
+        "test_build_agent_uses_deepseek_default_model_when_env_is_missing",
+        "test_build_agent_uses_openai_provider_by_default",
+        "test_successful_run_persists_run_artifacts_and_stop_reason",
+        "test_trace_and_report_redact_secret_env_values",
+        "test_prompt_budget_metadata_records_budget_decisions",
+        "test_prompt_metadata_refreshes_prefix_when_workspace_changes",
+        "test_agent_creates_checkpoint_when_context_reduction_happens_and_artifacts_only_reference_it",
+        "test_resume_prompt_uses_checkpoint_state_not_just_history",
+        "test_resume_invalidates_stale_file_summaries_and_marks_partial_stale",
+        "test_run_shell_nonzero_with_workspace_change_is_recorded_as_partial_success",
+        "test_resume_marks_workspace_mismatch_when_checkpoint_runtime_identity_is_stale",
+        "test_write_file_trace_records_minimum_tool_contract_fields",
+        "test_resume_marks_schema_mismatch_when_checkpoint_version_is_incompatible",
+        "test_resume_marks_no_checkpoint_when_session_has_no_checkpoint_state",
+        "test_freshness_mismatch_creates_checkpoint_before_model_completion",
+        "test_runtime_identity_persists_key_execution_metadata",
+        "test_resume_records_runtime_identity_mismatch_fields_in_metadata_and_trace",
+        "test_partial_success_creates_process_note_for_exploration_history",
+        "test_explicit_memory_promotion_persists_durable_memory_topics",
+        "test_explicit_memory_promotion_supports_chinese_intent_and_labels",
+        "test_explicit_memory_promotion_rejects_secret_shaped_and_transient_lines",
+        "test_explicit_memory_promotion_supersedes_matching_durable_fact",
+        "test_explicit_memory_promotion_dedupes_duplicate_durable_note",
+        "test_agent_records_model_cache_metadata_in_last_prompt_metadata",
+        "test_recent_transcript_entries_stay_richer_than_older_ones",
+        "test_public_api_exports_resolve_through_package_path",
+        "test_reviewer_skeleton_docs_exist",
+        "test_package_import_surface_includes_cli_entrypoints",
+        "test_module_execution_help_works"
+      ],
+      "totalLines": 1631,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_run_store.py": {
+      "filePath": "tests/test_run_store.py",
+      "contentHash": "d22b88cf212aac5591f473d862473c4607934b2976e5b7d7c6b5a596013353a5",
+      "functions": [
+        {
+          "name": "test_run_store_creates_run_directory_and_state_file",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_run_store_appends_trace_jsonl",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_run_store_writes_report_json",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_run_store_tolerates_missing_final_report",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "pico.run_store",
+          "specifiers": [
+            "RunStore"
+          ]
+        },
+        {
+          "source": "pico.task_state",
+          "specifiers": [
+            "STOP_REASON_FINAL_ANSWER_RETURNED",
+            "TaskState"
+          ]
+        }
+      ],
+      "exports": [
+        "test_run_store_creates_run_directory_and_state_file",
+        "test_run_store_appends_trace_jsonl",
+        "test_run_store_writes_report_json",
+        "test_run_store_tolerates_missing_final_report"
+      ],
+      "totalLines": 67,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_safety_invariants.py": {
+      "filePath": "tests/test_safety_invariants.py",
+      "contentHash": "be320c44ee95725e9f6913efaeb3350d4d0ef559ccaac22cf16c56cb352aeeb9",
+      "functions": [
+        {
+          "name": "build_workspace",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "build_agent",
+          "params": [
+            "tmp_path",
+            "outputs",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_workspace_escape_is_rejected",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_symlink_path_traversal_is_rejected",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_risky_tool_deny_behavior",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_cli_build_agent_wires_secret_env_names_from_parser",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "test_cli_build_agent_uses_default_configured_secret_names",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "test_cli_build_agent_loads_project_env_secrets_before_redaction_setup",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "test_cli_build_agent_reads_secret_names_from_environment_config",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_run_shell_uses_allowlisted_environment_only",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_bound_tool_methods_delegate_into_tools_module",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "test_delegate_depth_limit_is_enforced",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_delegate_child_is_read_only",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "test_configured_secret_env_names_are_redacted_in_trace_and_report",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "shlex",
+          "specifiers": [
+            "shlex"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "patch"
+          ]
+        },
+        {
+          "source": "pico",
+          "specifiers": [
+            "FakeModelClient",
+            "MiniAgent",
+            "SessionStore",
+            "WorkspaceContext"
+          ]
+        },
+        {
+          "source": "pico",
+          "specifiers": [
+            "mini_cli"
+          ]
+        },
+        {
+          "source": "pico.task_state",
+          "specifiers": [
+            "TaskState"
+          ]
+        }
+      ],
+      "exports": [
+        "build_workspace",
+        "build_agent",
+        "test_workspace_escape_is_rejected",
+        "test_symlink_path_traversal_is_rejected",
+        "test_risky_tool_deny_behavior",
+        "test_cli_build_agent_wires_secret_env_names_from_parser",
+        "test_cli_build_agent_uses_default_configured_secret_names",
+        "test_cli_build_agent_loads_project_env_secrets_before_redaction_setup",
+        "test_cli_build_agent_reads_secret_names_from_environment_config",
+        "test_run_shell_uses_allowlisted_environment_only",
+        "test_bound_tool_methods_delegate_into_tools_module",
+        "test_delegate_depth_limit_is_enforced",
+        "test_delegate_child_is_read_only",
+        "test_configured_secret_env_names_are_redacted_in_trace_and_report"
+      ],
+      "totalLines": 249,
+      "hasStructuralAnalysis": true
+    },
+    "tests/test_task_state.py": {
+      "filePath": "tests/test_task_state.py",
+      "contentHash": "fe8636bccd213895c581370ff47001b946a33da55445c8c95f500eb9f70ef1d3",
+      "functions": [
+        {
+          "name": "test_task_state_starts_running_with_empty_progress",
+          "params": [],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_task_state_records_success_and_final_answer",
+          "params": [],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_task_state_records_step_limit_stop_reason",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_task_state_records_retry_limit_stop_reason",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_task_state_snapshot_keeps_final_answer",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "test_task_state_snapshot_keeps_checkpoint_reference_without_body",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pico.task_state",
+          "specifiers": [
+            "STOP_REASON_FINAL_ANSWER_RETURNED",
+            "STOP_REASON_RETRY_LIMIT_REACHED",
+            "STOP_REASON_STEP_LIMIT_REACHED",
+            "TaskState"
+          ]
+        }
+      ],
+      "exports": [
+        "test_task_state_starts_running_with_empty_progress",
+        "test_task_state_records_success_and_final_answer",
+        "test_task_state_records_step_limit_stop_reason",
+        "test_task_state_records_retry_limit_stop_reason",
+        "test_task_state_snapshot_keeps_final_answer",
+        "test_task_state_snapshot_keeps_checkpoint_reference_without_body"
+      ],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

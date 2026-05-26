@@ -1,0 +1,4774 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "pico",
+    "languages": [
+      "python",
+      "toml",
+      "markdown",
+      "json"
+    ],
+    "frameworks": [],
+    "description": "A lightweight local coding agent for code repositories, supporting Ollama, OpenAI-compatible, Anthropic-compatible, and DeepSeek model backends.",
+    "analyzedAt": "2026-05-25T01:57:54.153Z",
+    "gitCommitHash": "f54ad9c8aa92aaaebf5d68c354487fa388698513"
+  },
+  "nodes": [
+    {
+      "id": "file:pico/__init__.py",
+      "type": "file",
+      "label": "pico/__init__.py",
+      "path": "pico/__init__.py",
+      "language": "python",
+      "tags": [
+        "entry-point",
+        "barrel",
+        "tested"
+      ],
+      "sizeLines": 19,
+      "complexity": "moderate",
+      "name": "__init__.py",
+      "filePath": "pico/__init__.py",
+      "summary": "Python package entry point that re-exports core symbols from cli, models, runtime, and workspace modules."
+    },
+    {
+      "id": "file:pico/context_manager.py",
+      "type": "file",
+      "label": "pico/context_manager.py",
+      "path": "pico/context_manager.py",
+      "language": "python",
+      "tags": [
+        "tested"
+      ],
+      "sizeLines": 509,
+      "complexity": "moderate",
+      "name": "context_manager.py",
+      "filePath": "pico/context_manager.py",
+      "summary": "Context window manager that assembles prompt sections, clips content to token budgets, and prioritizes relevant memory."
+    },
+    {
+      "id": "file:pico/runtime.py",
+      "type": "file",
+      "label": "pico/runtime.py",
+      "path": "pico/runtime.py",
+      "language": "python",
+      "tags": [
+        "untagged"
+      ],
+      "sizeLines": 1349,
+      "complexity": "moderate",
+      "name": "runtime.py",
+      "filePath": "pico/runtime.py",
+      "summary": "Core agent runtime implementing the Pico class with tool execution loop, session persistence, and context management."
+    },
+    {
+      "id": "file:tests/test_context_manager.py",
+      "type": "file",
+      "label": "tests/test_context_manager.py",
+      "path": "tests/test_context_manager.py",
+      "language": "python",
+      "tags": [
+        "test"
+      ],
+      "sizeLines": 239,
+      "complexity": "moderate",
+      "name": "test_context_manager.py",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling."
+    },
+    {
+      "id": "file:tests/test_pico.py",
+      "type": "file",
+      "label": "tests/test_pico.py",
+      "path": "tests/test_pico.py",
+      "language": "python",
+      "tags": [
+        "test"
+      ],
+      "sizeLines": 1630,
+      "complexity": "moderate",
+      "name": "test_pico.py",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety."
+    },
+    {
+      "id": "class:pico/context_manager.py::SectionRender",
+      "type": "class",
+      "label": "SectionRender",
+      "path": "pico/context_manager.py",
+      "startLine": 45,
+      "endLine": 57,
+      "methodCount": 2,
+      "complexity": "moderate",
+      "name": "SectionRender",
+      "filePath": "pico/context_manager.py",
+      "summary": "Context window manager that assembles prompt sections, clips content to token budgets, and prioritizes relevant memory.",
+      "tags": [
+        "service"
+      ]
+    },
+    {
+      "id": "class:pico/context_manager.py::ContextManager",
+      "type": "class",
+      "label": "ContextManager",
+      "path": "pico/context_manager.py",
+      "startLine": 60,
+      "endLine": 509,
+      "methodCount": 15,
+      "complexity": "moderate",
+      "name": "ContextManager",
+      "filePath": "pico/context_manager.py",
+      "summary": "Context window manager that assembles prompt sections, clips content to token budgets, and prioritizes relevant memory.",
+      "tags": [
+        "service"
+      ]
+    },
+    {
+      "id": "class:pico/runtime.py::PromptPrefix",
+      "type": "class",
+      "label": "PromptPrefix",
+      "path": "pico/runtime.py",
+      "startLine": 56,
+      "endLine": 63,
+      "methodCount": 0,
+      "tags": [
+        "exported"
+      ],
+      "complexity": "moderate",
+      "name": "PromptPrefix",
+      "filePath": "pico/runtime.py",
+      "summary": "Core agent runtime implementing the Pico class with tool execution loop, session persistence, and context management."
+    },
+    {
+      "id": "class:pico/runtime.py::SessionStore",
+      "type": "class",
+      "label": "SessionStore",
+      "path": "pico/runtime.py",
+      "startLine": 66,
+      "endLine": 84,
+      "methodCount": 5,
+      "tags": [
+        "exported"
+      ],
+      "complexity": "moderate",
+      "name": "SessionStore",
+      "filePath": "pico/runtime.py",
+      "summary": "Core agent runtime implementing the Pico class with tool execution loop, session persistence, and context management."
+    },
+    {
+      "id": "class:pico/runtime.py::Pico",
+      "type": "class",
+      "label": "Pico",
+      "path": "pico/runtime.py",
+      "startLine": 87,
+      "endLine": 1346,
+      "methodCount": 66,
+      "tags": [
+        "exported",
+        "main-class"
+      ],
+      "complexity": "moderate",
+      "name": "Pico",
+      "filePath": "pico/runtime.py",
+      "summary": "Core agent runtime implementing the Pico class with tool execution loop, session persistence, and context management."
+    },
+    {
+      "id": "function:pico/context_manager.py::_tail_clip",
+      "type": "function",
+      "label": "_tail_clip",
+      "path": "pico/context_manager.py",
+      "startLine": 33,
+      "endLine": 41,
+      "complexity": "moderate",
+      "name": "_tail_clip",
+      "filePath": "pico/context_manager.py",
+      "summary": "Context window manager that assembles prompt sections, clips content to token budgets, and prioritizes relevant memory.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:tests/test_context_manager.py::build_agent",
+      "type": "function",
+      "label": "build_agent",
+      "path": "tests/test_context_manager.py",
+      "startLine": 10,
+      "endLine": 20,
+      "complexity": "moderate",
+      "name": "build_agent",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_context_manager.py::test_context_manager_assembles_sections_in_expected_order",
+      "type": "function",
+      "label": "test_context_manager_assembles_sections_in_expected_order",
+      "path": "tests/test_context_manager.py",
+      "startLine": 23,
+      "endLine": 36,
+      "complexity": "moderate",
+      "name": "test_context_manager_assembles_sections_in_expected_order",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_context_manager.py::test_context_manager_reduces_relevant_memory_before_history_and_preserves_newer_context",
+      "type": "function",
+      "label": "test_context_manager_reduces_relevant_memory_before_history_and_preserves_newer_context",
+      "path": "tests/test_context_manager.py",
+      "startLine": 39,
+      "endLine": 73,
+      "complexity": "moderate",
+      "name": "test_context_manager_reduces_relevant_memory_before_history_and_preserves_newer_context",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_context_manager.py::test_context_manager_renders_top_three_episodic_notes_per_note_under_budget",
+      "type": "function",
+      "label": "test_context_manager_renders_top_three_episodic_notes_per_note_under_budget",
+      "path": "tests/test_context_manager.py",
+      "startLine": 76,
+      "endLine": 112,
+      "complexity": "moderate",
+      "name": "test_context_manager_renders_top_three_episodic_notes_per_note_under_budget",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_context_manager.py::test_context_manager_preserves_current_request_when_over_budget",
+      "type": "function",
+      "label": "test_context_manager_preserves_current_request_when_over_budget",
+      "path": "tests/test_context_manager.py",
+      "startLine": 115,
+      "endLine": 136,
+      "complexity": "moderate",
+      "name": "test_context_manager_preserves_current_request_when_over_budget",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_context_manager.py::test_context_manager_collapses_older_duplicate_reads_into_one_summary_line",
+      "type": "function",
+      "label": "test_context_manager_collapses_older_duplicate_reads_into_one_summary_line",
+      "path": "tests/test_context_manager.py",
+      "startLine": 139,
+      "endLine": 174,
+      "complexity": "moderate",
+      "name": "test_context_manager_collapses_older_duplicate_reads_into_one_summary_line",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_context_manager.py::test_context_manager_summarizes_older_tool_output_into_one_line",
+      "type": "function",
+      "label": "test_context_manager_summarizes_older_tool_output_into_one_line",
+      "path": "tests/test_context_manager.py",
+      "startLine": 177,
+      "endLine": 205,
+      "complexity": "moderate",
+      "name": "test_context_manager_summarizes_older_tool_output_into_one_line",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_context_manager.py::test_context_manager_relevant_memory_can_mix_durable_notes",
+      "type": "function",
+      "label": "test_context_manager_relevant_memory_can_mix_durable_notes",
+      "path": "tests/test_context_manager.py",
+      "startLine": 208,
+      "endLine": 239,
+      "complexity": "moderate",
+      "name": "test_context_manager_relevant_memory_can_mix_durable_notes",
+      "filePath": "tests/test_context_manager.py",
+      "summary": "Tests for the context manager, verifying section ordering, memory prioritization, and budget handling.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::build_agent",
+      "type": "function",
+      "label": "build_agent",
+      "path": "tests/test_pico.py",
+      "startLine": 26,
+      "endLine": 36,
+      "complexity": "moderate",
+      "name": "build_agent",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_runs_tool_then_final",
+      "type": "function",
+      "label": "test_agent_runs_tool_then_final",
+      "path": "tests/test_pico.py",
+      "startLine": 39,
+      "endLine": 53,
+      "complexity": "moderate",
+      "name": "test_agent_runs_tool_then_final",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_updates_task_summary_on_each_request",
+      "type": "function",
+      "label": "test_agent_updates_task_summary_on_each_request",
+      "path": "tests/test_pico.py",
+      "startLine": 56,
+      "endLine": 69,
+      "complexity": "moderate",
+      "name": "test_agent_updates_task_summary_on_each_request",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_only_stores_reusable_epistemic_notes",
+      "type": "function",
+      "label": "test_agent_only_stores_reusable_epistemic_notes",
+      "path": "tests/test_pico.py",
+      "startLine": 72,
+      "endLine": 100,
+      "complexity": "moderate",
+      "name": "test_agent_only_stores_reusable_epistemic_notes",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_file_summary_cache_is_invalidated_on_out_of_band_edit_and_path_spelling",
+      "type": "function",
+      "label": "test_file_summary_cache_is_invalidated_on_out_of_band_edit_and_path_spelling",
+      "path": "tests/test_pico.py",
+      "startLine": 103,
+      "endLine": 125,
+      "complexity": "moderate",
+      "name": "test_file_summary_cache_is_invalidated_on_out_of_band_edit_and_path_spelling",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_retries_after_empty_model_output",
+      "type": "function",
+      "label": "test_agent_retries_after_empty_model_output",
+      "path": "tests/test_pico.py",
+      "startLine": 128,
+      "endLine": 141,
+      "complexity": "moderate",
+      "name": "test_agent_retries_after_empty_model_output",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_retries_after_malformed_tool_payload",
+      "type": "function",
+      "label": "test_agent_retries_after_malformed_tool_payload",
+      "path": "tests/test_pico.py",
+      "startLine": 144,
+      "endLine": 160,
+      "complexity": "moderate",
+      "name": "test_agent_retries_after_malformed_tool_payload",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_accepts_xml_write_file_tool",
+      "type": "function",
+      "label": "test_agent_accepts_xml_write_file_tool",
+      "path": "tests/test_pico.py",
+      "startLine": 163,
+      "endLine": 175,
+      "complexity": "moderate",
+      "name": "test_agent_accepts_xml_write_file_tool",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_retries_do_not_consume_the_whole_budget",
+      "type": "function",
+      "label": "test_retries_do_not_consume_the_whole_budget",
+      "path": "tests/test_pico.py",
+      "startLine": 178,
+      "endLine": 191,
+      "complexity": "moderate",
+      "name": "test_retries_do_not_consume_the_whole_budget",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_saves_and_resumes_session",
+      "type": "function",
+      "label": "test_agent_saves_and_resumes_session",
+      "path": "tests/test_pico.py",
+      "startLine": 194,
+      "endLine": 207,
+      "complexity": "moderate",
+      "name": "test_agent_saves_and_resumes_session",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_delegate_uses_child_agent",
+      "type": "function",
+      "label": "test_delegate_uses_child_agent",
+      "path": "tests/test_pico.py",
+      "startLine": 210,
+      "endLine": 225,
+      "complexity": "moderate",
+      "name": "test_delegate_uses_child_agent",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_patch_file_replaces_exact_match",
+      "type": "function",
+      "label": "test_patch_file_replaces_exact_match",
+      "path": "tests/test_pico.py",
+      "startLine": 228,
+      "endLine": 243,
+      "complexity": "moderate",
+      "name": "test_patch_file_replaces_exact_match",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_list_files_hides_internal_agent_state",
+      "type": "function",
+      "label": "test_list_files_hides_internal_agent_state",
+      "path": "tests/test_pico.py",
+      "startLine": 257,
+      "endLine": 267,
+      "complexity": "moderate",
+      "name": "test_list_files_hides_internal_agent_state",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_welcome_screen_keeps_box_shape_for_long_paths",
+      "type": "function",
+      "label": "test_welcome_screen_keeps_box_shape_for_long_paths",
+      "path": "tests/test_pico.py",
+      "startLine": 280,
+      "endLine": 299,
+      "complexity": "moderate",
+      "name": "test_welcome_screen_keeps_box_shape_for_long_paths",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_ollama_client_posts_expected_payload",
+      "type": "function",
+      "label": "test_ollama_client_posts_expected_payload",
+      "path": "tests/test_pico.py",
+      "startLine": 302,
+      "endLine": 337,
+      "complexity": "moderate",
+      "name": "test_ollama_client_posts_expected_payload",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_openai_compatible_client_posts_expected_responses_payload",
+      "type": "function",
+      "label": "test_openai_compatible_client_posts_expected_responses_payload",
+      "path": "tests/test_pico.py",
+      "startLine": 340,
+      "endLine": 396,
+      "complexity": "moderate",
+      "name": "test_openai_compatible_client_posts_expected_responses_payload",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_openai_compatible_client_sends_prompt_cache_fields_and_records_usage",
+      "type": "function",
+      "label": "test_openai_compatible_client_sends_prompt_cache_fields_and_records_usage",
+      "path": "tests/test_pico.py",
+      "startLine": 399,
+      "endLine": 453,
+      "complexity": "moderate",
+      "name": "test_openai_compatible_client_sends_prompt_cache_fields_and_records_usage",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_openai_compatible_client_extracts_text_from_event_stream",
+      "type": "function",
+      "label": "test_openai_compatible_client_extracts_text_from_event_stream",
+      "path": "tests/test_pico.py",
+      "startLine": 456,
+      "endLine": 484,
+      "complexity": "moderate",
+      "name": "test_openai_compatible_client_extracts_text_from_event_stream",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_openai_compatible_client_extracts_text_from_event_stream_deltas",
+      "type": "function",
+      "label": "test_openai_compatible_client_extracts_text_from_event_stream_deltas",
+      "path": "tests/test_pico.py",
+      "startLine": 487,
+      "endLine": 519,
+      "complexity": "moderate",
+      "name": "test_openai_compatible_client_extracts_text_from_event_stream_deltas",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_anthropic_compatible_client_posts_expected_messages_payload",
+      "type": "function",
+      "label": "test_anthropic_compatible_client_posts_expected_messages_payload",
+      "path": "tests/test_pico.py",
+      "startLine": 522,
+      "endLine": 586,
+      "complexity": "moderate",
+      "name": "test_anthropic_compatible_client_posts_expected_messages_payload",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_anthropic_compatible_client_extracts_first_text_block",
+      "type": "function",
+      "label": "test_anthropic_compatible_client_extracts_first_text_block",
+      "path": "tests/test_pico.py",
+      "startLine": 589,
+      "endLine": 620,
+      "complexity": "moderate",
+      "name": "test_anthropic_compatible_client_extracts_first_text_block",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_build_agent_uses_openai_provider_and_model_override",
+      "type": "function",
+      "label": "test_build_agent_uses_openai_provider_and_model_override",
+      "path": "tests/test_pico.py",
+      "startLine": 623,
+      "endLine": 664,
+      "complexity": "moderate",
+      "name": "test_build_agent_uses_openai_provider_and_model_override",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_build_agent_uses_anthropic_provider_and_openai_key_fallback",
+      "type": "function",
+      "label": "test_build_agent_uses_anthropic_provider_and_openai_key_fallback",
+      "path": "tests/test_pico.py",
+      "startLine": 685,
+      "endLine": 728,
+      "complexity": "moderate",
+      "name": "test_build_agent_uses_anthropic_provider_and_openai_key_fallback",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_build_agent_uses_anthropic_default_model_when_env_is_missing",
+      "type": "function",
+      "label": "test_build_agent_uses_anthropic_default_model_when_env_is_missing",
+      "path": "tests/test_pico.py",
+      "startLine": 731,
+      "endLine": 743,
+      "complexity": "moderate",
+      "name": "test_build_agent_uses_anthropic_default_model_when_env_is_missing",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_build_agent_uses_deepseek_provider_and_env_configuration",
+      "type": "function",
+      "label": "test_build_agent_uses_deepseek_provider_and_env_configuration",
+      "path": "tests/test_pico.py",
+      "startLine": 746,
+      "endLine": 804,
+      "complexity": "moderate",
+      "name": "test_build_agent_uses_deepseek_provider_and_env_configuration",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_build_agent_uses_openai_provider_by_default",
+      "type": "function",
+      "label": "test_build_agent_uses_openai_provider_by_default",
+      "path": "tests/test_pico.py",
+      "startLine": 818,
+      "endLine": 840,
+      "complexity": "moderate",
+      "name": "test_build_agent_uses_openai_provider_by_default",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_successful_run_persists_run_artifacts_and_stop_reason",
+      "type": "function",
+      "label": "test_successful_run_persists_run_artifacts_and_stop_reason",
+      "path": "tests/test_pico.py",
+      "startLine": 843,
+      "endLine": 878,
+      "complexity": "moderate",
+      "name": "test_successful_run_persists_run_artifacts_and_stop_reason",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_trace_and_report_redact_secret_env_values",
+      "type": "function",
+      "label": "test_trace_and_report_redact_secret_env_values",
+      "path": "tests/test_pico.py",
+      "startLine": 881,
+      "endLine": 914,
+      "complexity": "moderate",
+      "name": "test_trace_and_report_redact_secret_env_values",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_prompt_budget_metadata_records_budget_decisions",
+      "type": "function",
+      "label": "test_prompt_budget_metadata_records_budget_decisions",
+      "path": "tests/test_pico.py",
+      "startLine": 917,
+      "endLine": 958,
+      "complexity": "moderate",
+      "name": "test_prompt_budget_metadata_records_budget_decisions",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_prompt_metadata_refreshes_prefix_when_workspace_changes",
+      "type": "function",
+      "label": "test_prompt_metadata_refreshes_prefix_when_workspace_changes",
+      "path": "tests/test_pico.py",
+      "startLine": 961,
+      "endLine": 978,
+      "complexity": "moderate",
+      "name": "test_prompt_metadata_refreshes_prefix_when_workspace_changes",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_creates_checkpoint_when_context_reduction_happens_and_artifacts_only_reference_it",
+      "type": "function",
+      "label": "test_agent_creates_checkpoint_when_context_reduction_happens_and_artifacts_only_reference_it",
+      "path": "tests/test_pico.py",
+      "startLine": 981,
+      "endLine": 1026,
+      "complexity": "moderate",
+      "name": "test_agent_creates_checkpoint_when_context_reduction_happens_and_artifacts_only_reference_it",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_resume_prompt_uses_checkpoint_state_not_just_history",
+      "type": "function",
+      "label": "test_resume_prompt_uses_checkpoint_state_not_just_history",
+      "path": "tests/test_pico.py",
+      "startLine": 1029,
+      "endLine": 1067,
+      "complexity": "moderate",
+      "name": "test_resume_prompt_uses_checkpoint_state_not_just_history",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_resume_invalidates_stale_file_summaries_and_marks_partial_stale",
+      "type": "function",
+      "label": "test_resume_invalidates_stale_file_summaries_and_marks_partial_stale",
+      "path": "tests/test_pico.py",
+      "startLine": 1070,
+      "endLine": 1111,
+      "complexity": "moderate",
+      "name": "test_resume_invalidates_stale_file_summaries_and_marks_partial_stale",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_run_shell_nonzero_with_workspace_change_is_recorded_as_partial_success",
+      "type": "function",
+      "label": "test_run_shell_nonzero_with_workspace_change_is_recorded_as_partial_success",
+      "path": "tests/test_pico.py",
+      "startLine": 1114,
+      "endLine": 1128,
+      "complexity": "moderate",
+      "name": "test_run_shell_nonzero_with_workspace_change_is_recorded_as_partial_success",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_resume_marks_workspace_mismatch_when_checkpoint_runtime_identity_is_stale",
+      "type": "function",
+      "label": "test_resume_marks_workspace_mismatch_when_checkpoint_runtime_identity_is_stale",
+      "path": "tests/test_pico.py",
+      "startLine": 1131,
+      "endLine": 1164,
+      "complexity": "moderate",
+      "name": "test_resume_marks_workspace_mismatch_when_checkpoint_runtime_identity_is_stale",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_write_file_trace_records_minimum_tool_contract_fields",
+      "type": "function",
+      "label": "test_write_file_trace_records_minimum_tool_contract_fields",
+      "path": "tests/test_pico.py",
+      "startLine": 1167,
+      "endLine": 1190,
+      "complexity": "moderate",
+      "name": "test_write_file_trace_records_minimum_tool_contract_fields",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_resume_marks_schema_mismatch_when_checkpoint_version_is_incompatible",
+      "type": "function",
+      "label": "test_resume_marks_schema_mismatch_when_checkpoint_version_is_incompatible",
+      "path": "tests/test_pico.py",
+      "startLine": 1193,
+      "endLine": 1226,
+      "complexity": "moderate",
+      "name": "test_resume_marks_schema_mismatch_when_checkpoint_version_is_incompatible",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_resume_marks_no_checkpoint_when_session_has_no_checkpoint_state",
+      "type": "function",
+      "label": "test_resume_marks_no_checkpoint_when_session_has_no_checkpoint_state",
+      "path": "tests/test_pico.py",
+      "startLine": 1229,
+      "endLine": 1244,
+      "complexity": "moderate",
+      "name": "test_resume_marks_no_checkpoint_when_session_has_no_checkpoint_state",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_freshness_mismatch_creates_checkpoint_before_model_completion",
+      "type": "function",
+      "label": "test_freshness_mismatch_creates_checkpoint_before_model_completion",
+      "path": "tests/test_pico.py",
+      "startLine": 1247,
+      "endLine": 1285,
+      "complexity": "moderate",
+      "name": "test_freshness_mismatch_creates_checkpoint_before_model_completion",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_runtime_identity_persists_key_execution_metadata",
+      "type": "function",
+      "label": "test_runtime_identity_persists_key_execution_metadata",
+      "path": "tests/test_pico.py",
+      "startLine": 1288,
+      "endLine": 1311,
+      "complexity": "moderate",
+      "name": "test_runtime_identity_persists_key_execution_metadata",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_resume_records_runtime_identity_mismatch_fields_in_metadata_and_trace",
+      "type": "function",
+      "label": "test_resume_records_runtime_identity_mismatch_fields_in_metadata_and_trace",
+      "path": "tests/test_pico.py",
+      "startLine": 1314,
+      "endLine": 1386,
+      "complexity": "moderate",
+      "name": "test_resume_records_runtime_identity_mismatch_fields_in_metadata_and_trace",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_partial_success_creates_process_note_for_exploration_history",
+      "type": "function",
+      "label": "test_partial_success_creates_process_note_for_exploration_history",
+      "path": "tests/test_pico.py",
+      "startLine": 1389,
+      "endLine": 1409,
+      "complexity": "moderate",
+      "name": "test_partial_success_creates_process_note_for_exploration_history",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_explicit_memory_promotion_persists_durable_memory_topics",
+      "type": "function",
+      "label": "test_explicit_memory_promotion_persists_durable_memory_topics",
+      "path": "tests/test_pico.py",
+      "startLine": 1412,
+      "endLine": 1444,
+      "complexity": "moderate",
+      "name": "test_explicit_memory_promotion_persists_durable_memory_topics",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_explicit_memory_promotion_supports_chinese_intent_and_labels",
+      "type": "function",
+      "label": "test_explicit_memory_promotion_supports_chinese_intent_and_labels",
+      "path": "tests/test_pico.py",
+      "startLine": 1447,
+      "endLine": 1464,
+      "complexity": "moderate",
+      "name": "test_explicit_memory_promotion_supports_chinese_intent_and_labels",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_explicit_memory_promotion_rejects_secret_shaped_and_transient_lines",
+      "type": "function",
+      "label": "test_explicit_memory_promotion_rejects_secret_shaped_and_transient_lines",
+      "path": "tests/test_pico.py",
+      "startLine": 1467,
+      "endLine": 1493,
+      "complexity": "moderate",
+      "name": "test_explicit_memory_promotion_rejects_secret_shaped_and_transient_lines",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_explicit_memory_promotion_supersedes_matching_durable_fact",
+      "type": "function",
+      "label": "test_explicit_memory_promotion_supersedes_matching_durable_fact",
+      "path": "tests/test_pico.py",
+      "startLine": 1496,
+      "endLine": 1516,
+      "complexity": "moderate",
+      "name": "test_explicit_memory_promotion_supersedes_matching_durable_fact",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_explicit_memory_promotion_dedupes_duplicate_durable_note",
+      "type": "function",
+      "label": "test_explicit_memory_promotion_dedupes_duplicate_durable_note",
+      "path": "tests/test_pico.py",
+      "startLine": 1519,
+      "endLine": 1534,
+      "complexity": "moderate",
+      "name": "test_explicit_memory_promotion_dedupes_duplicate_durable_note",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_agent_records_model_cache_metadata_in_last_prompt_metadata",
+      "type": "function",
+      "label": "test_agent_records_model_cache_metadata_in_last_prompt_metadata",
+      "path": "tests/test_pico.py",
+      "startLine": 1537,
+      "endLine": 1563,
+      "complexity": "moderate",
+      "name": "test_agent_records_model_cache_metadata_in_last_prompt_metadata",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_recent_transcript_entries_stay_richer_than_older_ones",
+      "type": "function",
+      "label": "test_recent_transcript_entries_stay_richer_than_older_ones",
+      "path": "tests/test_pico.py",
+      "startLine": 1566,
+      "endLine": 1585,
+      "complexity": "moderate",
+      "name": "test_recent_transcript_entries_stay_richer_than_older_ones",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "function:tests/test_pico.py::test_reviewer_skeleton_docs_exist",
+      "type": "function",
+      "label": "test_reviewer_skeleton_docs_exist",
+      "path": "tests/test_pico.py",
+      "startLine": 1598,
+      "endLine": 1613,
+      "complexity": "moderate",
+      "name": "test_reviewer_skeleton_docs_exist",
+      "filePath": "tests/test_pico.py",
+      "summary": "Comprehensive integration tests for the full pico agent runtime, covering tool execution, session persistence, and safety.",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "id": "file:pico/metrics.py",
+      "type": "file",
+      "label": "pico/metrics.py",
+      "path": "pico/metrics.py",
+      "language": "python",
+      "fileCategory": "code",
+      "tags": [
+        "benchmark",
+        "metrics",
+        "experiments",
+        "ablation",
+        "tested"
+      ],
+      "sizeLines": 1686,
+      "description": "Benchmark metrics, experiments, and ablation studies for pico agent. Covers memory, context, security, provider, and recovery experiments.",
+      "complexity": "moderate",
+      "name": "metrics.py",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "file:scripts/collect_resume_metrics.py",
+      "type": "file",
+      "label": "scripts/collect_resume_metrics.py",
+      "path": "scripts/collect_resume_metrics.py",
+      "language": "python",
+      "fileCategory": "code",
+      "tags": [
+        "entry-point",
+        "script",
+        "cli",
+        "metrics"
+      ],
+      "sizeLines": 55,
+      "description": "CLI entry point that collects pico resume metrics from benchmark and run artifacts, writing JSON and Markdown output.",
+      "complexity": "moderate",
+      "name": "collect_resume_metrics.py",
+      "filePath": "scripts/collect_resume_metrics.py",
+      "summary": "CLI script that collects and reports metrics on session resume behavior across runs."
+    },
+    {
+      "id": "file:scripts/run_large_scale_experiments.py",
+      "type": "file",
+      "label": "scripts/run_large_scale_experiments.py",
+      "path": "scripts/run_large_scale_experiments.py",
+      "language": "python",
+      "fileCategory": "code",
+      "tags": [
+        "entry-point",
+        "script",
+        "cli",
+        "experiments"
+      ],
+      "sizeLines": 88,
+      "description": "CLI entry point that runs pico large-scale experiments (provider, resume, memory, context, security) and writes all artifacts and reports.",
+      "complexity": "moderate",
+      "name": "run_large_scale_experiments.py",
+      "filePath": "scripts/run_large_scale_experiments.py",
+      "summary": "CLI script for running large-scale memory and context ablation experiments."
+    },
+    {
+      "id": "file:scripts/run_provider_experiments.py",
+      "type": "file",
+      "label": "scripts/run_provider_experiments.py",
+      "path": "scripts/run_provider_experiments.py",
+      "language": "python",
+      "fileCategory": "code",
+      "tags": [
+        "entry-point",
+        "script",
+        "cli",
+        "provider"
+      ],
+      "sizeLines": 39,
+      "description": "CLI entry point that runs GPT, Claude, and DeepSeek provider experiments against pico benchmark tasks.",
+      "complexity": "moderate",
+      "name": "run_provider_experiments.py",
+      "filePath": "scripts/run_provider_experiments.py",
+      "summary": "CLI script for running provider-comparison experiments across Ollama, OpenAI, Anthropic, and DeepSeek."
+    },
+    {
+      "id": "file:tests/test_metrics.py",
+      "type": "file",
+      "label": "tests/test_metrics.py",
+      "path": "tests/test_metrics.py",
+      "language": "python",
+      "fileCategory": "code",
+      "tags": [
+        "test"
+      ],
+      "sizeLines": 117,
+      "description": "Pytest tests for pico/metrics.py covering ablation experiments (context, memory, recovery) and benchmark core report generation.",
+      "complexity": "moderate",
+      "name": "test_metrics.py",
+      "filePath": "tests/test_metrics.py",
+      "summary": "Tests for the metrics module, verifying ablation experiment artifacts and provider profile loading."
+    },
+    {
+      "id": "function:pico/metrics.py::aggregate_benchmark_artifact",
+      "type": "function",
+      "label": "aggregate_benchmark_artifact",
+      "path": "pico/metrics.py",
+      "startLine": 43,
+      "endLine": 68,
+      "params": [
+        "path"
+      ],
+      "tags": [
+        "metrics",
+        "artifact",
+        "benchmark"
+      ],
+      "description": "Loads and aggregates a benchmark artifact JSON, computing per-category stats and summary metrics.",
+      "complexity": "moderate",
+      "name": "aggregate_benchmark_artifact",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::aggregate_run_artifacts",
+      "type": "function",
+      "label": "aggregate_run_artifacts",
+      "path": "pico/metrics.py",
+      "startLine": 85,
+      "endLine": 155,
+      "params": [
+        "runs_root"
+      ],
+      "tags": [
+        "metrics",
+        "artifact",
+        "runs"
+      ],
+      "description": "Aggregates run artifacts from a .pico/runs root directory, computing timing and performance statistics.",
+      "complexity": "moderate",
+      "name": "aggregate_run_artifacts",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::measure_feature_ablation_metrics",
+      "type": "function",
+      "label": "measure_feature_ablation_metrics",
+      "path": "pico/metrics.py",
+      "startLine": 170,
+      "endLine": 188,
+      "params": [
+        "agent",
+        "user_message"
+      ],
+      "tags": [
+        "ablation",
+        "metrics",
+        "feature"
+      ],
+      "description": "Measures feature ablation metrics by running the agent with temporary feature flag overrides.",
+      "complexity": "moderate",
+      "name": "measure_feature_ablation_metrics",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::build_stress_agent_metrics",
+      "type": "function",
+      "label": "build_stress_agent_metrics",
+      "path": "pico/metrics.py",
+      "startLine": 191,
+      "endLine": 216,
+      "params": [],
+      "tags": [
+        "stress",
+        "metrics",
+        "agent"
+      ],
+      "description": "Builds a stress-test agent with injected memory noise and truncated read history for context stress experiments.",
+      "complexity": "moderate",
+      "name": "build_stress_agent_metrics",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_memory_dependency_experiment",
+      "type": "function",
+      "label": "run_memory_dependency_experiment",
+      "path": "pico/metrics.py",
+      "startLine": 309,
+      "endLine": 327,
+      "params": [
+        "repetitions"
+      ],
+      "tags": [
+        "experiment",
+        "memory"
+      ],
+      "description": "Runs the memory dependency experiment across multiple repetitions, testing memory on/off/irrelevant variants.",
+      "complexity": "moderate",
+      "name": "run_memory_dependency_experiment",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_large_scale_memory_experiment",
+      "type": "function",
+      "label": "run_large_scale_memory_experiment",
+      "path": "pico/metrics.py",
+      "startLine": 403,
+      "endLine": 435,
+      "params": [
+        "repetitions"
+      ],
+      "tags": [
+        "experiment",
+        "memory",
+        "large-scale"
+      ],
+      "description": "Runs the large-scale memory experiment across 12 synthetic tasks and multiple repetitions.",
+      "complexity": "moderate",
+      "name": "run_large_scale_memory_experiment",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_context_stress_matrix",
+      "type": "function",
+      "label": "run_context_stress_matrix",
+      "path": "pico/metrics.py",
+      "startLine": 438,
+      "endLine": 519,
+      "params": [
+        "repetitions"
+      ],
+      "tags": [
+        "experiment",
+        "context",
+        "stress"
+      ],
+      "description": "Runs a context stress matrix across multiple configurations (noise, truncation, request-type combos) for ablation.",
+      "complexity": "moderate",
+      "name": "run_context_stress_matrix",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_security_experiment_suite",
+      "type": "function",
+      "label": "run_security_experiment_suite",
+      "path": "pico/metrics.py",
+      "startLine": 626,
+      "endLine": 651,
+      "params": [
+        "repetitions"
+      ],
+      "tags": [
+        "experiment",
+        "security"
+      ],
+      "description": "Runs the full synthetic security experiment suite across all defined scenarios.",
+      "complexity": "moderate",
+      "name": "run_security_experiment_suite",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_provider_experiments",
+      "type": "function",
+      "label": "run_provider_experiments",
+      "path": "pico/metrics.py",
+      "startLine": 748,
+      "endLine": 803,
+      "params": [
+        "benchmark_path",
+        "workspace_root",
+        "artifact_root",
+        "max_new_tokens"
+      ],
+      "tags": [
+        "experiment",
+        "provider",
+        "gpt",
+        "claude",
+        "deepseek"
+      ],
+      "description": "Runs benchmark tasks against GPT, Claude, and DeepSeek providers and returns a comparison payload.",
+      "complexity": "moderate",
+      "name": "run_provider_experiments",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_real_memory_experiment",
+      "type": "function",
+      "label": "run_real_memory_experiment",
+      "path": "pico/metrics.py",
+      "startLine": 849,
+      "endLine": 912,
+      "params": [
+        "provider",
+        "repetitions"
+      ],
+      "tags": [
+        "experiment",
+        "memory",
+        "real-provider"
+      ],
+      "description": "Runs the memory dependency experiment using a real model provider instead of a synthetic client.",
+      "complexity": "moderate",
+      "name": "run_real_memory_experiment",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_real_context_experiment",
+      "type": "function",
+      "label": "run_real_context_experiment",
+      "path": "pico/metrics.py",
+      "startLine": 915,
+      "endLine": 987,
+      "params": [
+        "provider",
+        "repetitions"
+      ],
+      "tags": [
+        "experiment",
+        "context",
+        "real-provider"
+      ],
+      "description": "Runs the context stress matrix using a real model provider.",
+      "complexity": "moderate",
+      "name": "run_real_context_experiment",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_real_security_experiment_suite",
+      "type": "function",
+      "label": "run_real_security_experiment_suite",
+      "path": "pico/metrics.py",
+      "startLine": 1039,
+      "endLine": 1076,
+      "params": [
+        "provider",
+        "repetitions"
+      ],
+      "tags": [
+        "experiment",
+        "security",
+        "real-provider"
+      ],
+      "description": "Runs the security experiment suite using a real model provider.",
+      "complexity": "moderate",
+      "name": "run_real_security_experiment_suite",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::collect_resume_metrics",
+      "type": "function",
+      "label": "collect_resume_metrics",
+      "path": "pico/metrics.py",
+      "startLine": 1079,
+      "endLine": 1141,
+      "params": [
+        "benchmark_artifact_path",
+        "runs_root",
+        "provider_experiments",
+        "memory_repetitions",
+        "large_memory_repetitions",
+        "context_repetitions",
+        "security_repetitions",
+        "experiment_mode",
+        "real_provider"
+      ],
+      "tags": [
+        "metrics",
+        "resume",
+        "orchestration"
+      ],
+      "description": "Top-level orchestrator that collects all resume metrics: benchmark, run aggregation, memory, context, security, and provider experiments.",
+      "complexity": "moderate",
+      "name": "collect_resume_metrics",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::render_resume_metrics_markdown",
+      "type": "function",
+      "label": "render_resume_metrics_markdown",
+      "path": "pico/metrics.py",
+      "startLine": 1144,
+      "endLine": 1190,
+      "params": [
+        "metrics"
+      ],
+      "tags": [
+        "render",
+        "markdown",
+        "report"
+      ],
+      "description": "Renders collected resume metrics into a Markdown report string.",
+      "complexity": "moderate",
+      "name": "render_resume_metrics_markdown",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::render_large_scale_experiment_report",
+      "type": "function",
+      "label": "render_large_scale_experiment_report",
+      "path": "pico/metrics.py",
+      "startLine": 1193,
+      "endLine": 1261,
+      "params": [
+        "metrics"
+      ],
+      "tags": [
+        "render",
+        "markdown",
+        "report",
+        "large-scale"
+      ],
+      "description": "Renders a large-scale experiment report (memory, context, security, provider) as a Markdown string.",
+      "complexity": "moderate",
+      "name": "render_large_scale_experiment_report",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_context_ablation_v2",
+      "type": "function",
+      "label": "run_context_ablation_v2",
+      "path": "pico/metrics.py",
+      "startLine": 1564,
+      "endLine": 1574,
+      "params": [
+        "artifact_path",
+        "repetitions"
+      ],
+      "tags": [
+        "ablation",
+        "context",
+        "v2"
+      ],
+      "description": "Runs context ablation v2 experiment and writes the artifact JSON. Returns the artifact dict.",
+      "complexity": "moderate",
+      "name": "run_context_ablation_v2",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_memory_ablation_v2",
+      "type": "function",
+      "label": "run_memory_ablation_v2",
+      "path": "pico/metrics.py",
+      "startLine": 1577,
+      "endLine": 1589,
+      "params": [
+        "artifact_path",
+        "repetitions"
+      ],
+      "tags": [
+        "ablation",
+        "memory",
+        "v2"
+      ],
+      "description": "Runs memory ablation v2 experiment and writes the artifact JSON. Returns the artifact dict.",
+      "complexity": "moderate",
+      "name": "run_memory_ablation_v2",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::run_recovery_ablation_v2",
+      "type": "function",
+      "label": "run_recovery_ablation_v2",
+      "path": "pico/metrics.py",
+      "startLine": 1592,
+      "endLine": 1612,
+      "params": [
+        "artifact_path",
+        "repetitions"
+      ],
+      "tags": [
+        "ablation",
+        "recovery",
+        "v2"
+      ],
+      "description": "Runs recovery ablation v2 experiment testing resume_enabled vs resume_disabled variants.",
+      "complexity": "moderate",
+      "name": "run_recovery_ablation_v2",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "function:pico/metrics.py::write_benchmark_core_report",
+      "type": "function",
+      "label": "write_benchmark_core_report",
+      "path": "pico/metrics.py",
+      "startLine": 1615,
+      "endLine": 1686,
+      "params": [
+        "report_path",
+        "harness_artifact_path",
+        "context_artifact_path",
+        "memory_artifact_path",
+        "recovery_artifact_path"
+      ],
+      "tags": [
+        "report",
+        "benchmark",
+        "core"
+      ],
+      "description": "Writes the unified pico benchmark core report combining harness, context, memory, and recovery ablation artifacts.",
+      "complexity": "moderate",
+      "name": "write_benchmark_core_report",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "class:pico/metrics.py::_MemoryExperimentModelClient",
+      "type": "class",
+      "label": "_MemoryExperimentModelClient",
+      "path": "pico/metrics.py",
+      "startLine": 219,
+      "endLine": 253,
+      "methods": [
+        "__init__",
+        "complete"
+      ],
+      "tags": [
+        "model-client",
+        "memory",
+        "synthetic"
+      ],
+      "description": "Synthetic model client that simulates memory-aware completions for memory experiment scenarios.",
+      "complexity": "moderate",
+      "name": "_MemoryExperimentModelClient",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "class:pico/metrics.py::_RecoveryScenarioModelClient",
+      "type": "class",
+      "label": "_RecoveryScenarioModelClient",
+      "path": "pico/metrics.py",
+      "startLine": 1271,
+      "endLine": 1284,
+      "methods": [
+        "__init__",
+        "complete"
+      ],
+      "tags": [
+        "model-client",
+        "recovery",
+        "synthetic"
+      ],
+      "description": "Synthetic model client that simulates recovery scenario completions for recovery ablation experiments.",
+      "complexity": "moderate",
+      "name": "_RecoveryScenarioModelClient",
+      "filePath": "pico/metrics.py",
+      "summary": "Experiment runner and metrics aggregator for benchmarking memory, context, recovery, and provider-specific behaviors."
+    },
+    {
+      "id": "file:pico/run_store.py",
+      "type": "file",
+      "label": "run_store.py",
+      "path": "pico/run_store.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 85,
+      "nonEmptyLines": 68,
+      "tags": [
+        "persistence",
+        "file-system",
+        "tested"
+      ],
+      "exports": [
+        "_run_id",
+        "RunStore"
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      },
+      "complexity": "moderate",
+      "name": "run_store.py",
+      "filePath": "pico/run_store.py",
+      "summary": "Run artifact store that creates run directories and persists task state, trace logs, and report JSON files."
+    },
+    {
+      "id": "file:pico/task_state.py",
+      "type": "file",
+      "label": "task_state.py",
+      "path": "pico/task_state.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 110,
+      "nonEmptyLines": 94,
+      "tags": [
+        "state-management",
+        "persistence",
+        "tested"
+      ],
+      "exports": [
+        "TaskState"
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      },
+      "complexity": "moderate",
+      "name": "task_state.py",
+      "filePath": "pico/task_state.py",
+      "summary": "Task execution state dataclass tracking run status, step progress, stop reason, and checkpoint references."
+    },
+    {
+      "id": "file:tests/test_run_store.py",
+      "type": "file",
+      "label": "test_run_store.py",
+      "path": "tests/test_run_store.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 49,
+      "tags": [
+        "test"
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      },
+      "complexity": "moderate",
+      "name": "test_run_store.py",
+      "filePath": "tests/test_run_store.py",
+      "summary": "Tests for RunStore, verifying run directory creation, trace appending, and report writing."
+    },
+    {
+      "id": "file:tests/test_safety_invariants.py",
+      "type": "file",
+      "label": "test_safety_invariants.py",
+      "path": "tests/test_safety_invariants.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 248,
+      "nonEmptyLines": 192,
+      "tags": [
+        "test",
+        "safety"
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 14,
+        "functionCount": 14,
+        "classCount": 0
+      },
+      "complexity": "moderate",
+      "name": "test_safety_invariants.py",
+      "filePath": "tests/test_safety_invariants.py",
+      "summary": "Security invariant tests verifying workspace escape prevention, approval enforcement, and secret redaction."
+    },
+    {
+      "id": "file:tests/test_task_state.py",
+      "type": "file",
+      "label": "test_task_state.py",
+      "path": "tests/test_task_state.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 53,
+      "tags": [
+        "test"
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      },
+      "complexity": "moderate",
+      "name": "test_task_state.py",
+      "filePath": "tests/test_task_state.py",
+      "summary": "Tests for TaskState, verifying state transitions, stop reasons, and checkpoint snapshot behavior."
+    },
+    {
+      "id": "class:pico/run_store.py::RunStore",
+      "type": "class",
+      "label": "RunStore",
+      "path": "pico/run_store.py",
+      "startLine": 18,
+      "endLine": 85,
+      "methods": [
+        "__init__",
+        "run_dir",
+        "task_state_path",
+        "trace_path",
+        "report_path",
+        "start_run",
+        "write_task_state",
+        "append_trace",
+        "write_report",
+        "load_task_state",
+        "load_report",
+        "_write_json_atomic"
+      ],
+      "tags": [
+        "persistence",
+        "file-system"
+      ],
+      "complexity": "moderate",
+      "name": "RunStore",
+      "filePath": "pico/run_store.py",
+      "summary": "Run artifact store that creates run directories and persists task state, trace logs, and report JSON files."
+    },
+    {
+      "id": "class:pico/task_state.py::TaskState",
+      "type": "class",
+      "label": "TaskState",
+      "path": "pico/task_state.py",
+      "startLine": 28,
+      "endLine": 110,
+      "methods": [
+        "create",
+        "from_dict",
+        "record_attempt",
+        "record_tool",
+        "stop",
+        "stop_step_limit",
+        "stop_retry_limit",
+        "stop_model_error",
+        "finish_success",
+        "to_dict"
+      ],
+      "properties": [
+        "run_id",
+        "task_id",
+        "user_request",
+        "status",
+        "tool_steps",
+        "attempts",
+        "last_tool",
+        "stop_reason",
+        "final_answer",
+        "checkpoint_id",
+        "resume_status"
+      ],
+      "tags": [
+        "state-management",
+        "persistence"
+      ],
+      "complexity": "moderate",
+      "name": "TaskState",
+      "filePath": "pico/task_state.py",
+      "summary": "Task execution state dataclass tracking run status, step progress, stop reason, and checkpoint references."
+    },
+    {
+      "id": "file:pico/memory.py",
+      "type": "file",
+      "label": "memory.py",
+      "path": "pico/memory.py",
+      "language": "python",
+      "lines": 659,
+      "description": "Memory management: working memory, durable memory, episodic notes, file summaries. Core memory layer for the agent.",
+      "tags": [
+        "tested"
+      ],
+      "complexity": "moderate",
+      "name": "memory.py",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions."
+    },
+    {
+      "id": "file:pico/tools.py",
+      "type": "file",
+      "label": "tools.py",
+      "path": "pico/tools.py",
+      "language": "python",
+      "lines": 298,
+      "description": "Tool registry: file read/write, search, shell execution, delegate. Builds the agent's callable tool set.",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate",
+      "name": "tools.py",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing."
+    },
+    {
+      "id": "file:pico/workspace.py",
+      "type": "file",
+      "label": "workspace.py",
+      "path": "pico/workspace.py",
+      "language": "python",
+      "lines": 134,
+      "description": "Workspace context: path resolution, text clipping. Foundation module imported by most other modules.",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate",
+      "name": "workspace.py",
+      "filePath": "pico/workspace.py",
+      "summary": "Workspace context providing path resolution, text clipping utilities, and timestamp helpers for agents."
+    },
+    {
+      "id": "file:tests/test_memory.py",
+      "type": "file",
+      "label": "test_memory.py",
+      "path": "tests/test_memory.py",
+      "language": "python",
+      "lines": 122,
+      "description": "Tests for the memory module: working memory, episodic notes, file summaries, durable store.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate",
+      "name": "test_memory.py",
+      "filePath": "tests/test_memory.py",
+      "summary": "Tests for the layered memory system, verifying working memory, episodic notes, and file summary caching."
+    },
+    {
+      "id": "class:pico/memory.py:LayeredMemory",
+      "type": "class",
+      "label": "LayeredMemory",
+      "path": "pico/memory.py",
+      "startLine": 599,
+      "endLine": 659,
+      "description": "High-level memory facade combining working memory state dict and durable store. Delegates operations to module-level functions and holds a DurableMemoryStore instance.",
+      "methods": [
+        "__init__",
+        "to_dict",
+        "canonical_path",
+        "set_task_summary",
+        "remember_file",
+        "append_note",
+        "set_file_summary",
+        "invalidate_file_summary",
+        "invalidate_stale_file_summaries",
+        "retrieval_candidates",
+        "retrieval_view",
+        "render_memory_text",
+        "promote_durable"
+      ],
+      "complexity": "moderate",
+      "name": "LayeredMemory",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "service"
+      ]
+    },
+    {
+      "id": "class:pico/memory.py:DurableMemoryStore",
+      "type": "class",
+      "label": "DurableMemoryStore",
+      "path": "pico/memory.py",
+      "startLine": 59,
+      "endLine": 224,
+      "description": "Persistent memory store backed by markdown files on disk. Manages a topics index (MEMORY.md) and per-topic note files. Supports retrieval by keyword overlap.",
+      "methods": [
+        "__init__",
+        "topic_slugs",
+        "load_index",
+        "load_topic_notes",
+        "_subject_key",
+        "retrieval_candidates",
+        "_write_index",
+        "_write_topic",
+        "promote"
+      ],
+      "complexity": "moderate",
+      "name": "DurableMemoryStore",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "service"
+      ]
+    },
+    {
+      "id": "class:pico/workspace.py:WorkspaceContext",
+      "type": "class",
+      "label": "WorkspaceContext",
+      "path": "pico/workspace.py",
+      "startLine": 44,
+      "endLine": 134,
+      "description": "Workspace context capturing cwd, repo_root, branch, git status, and project docs. Foundation class imported widely across the codebase. Built via classmethod WorkspaceContext.build().",
+      "methods": [
+        "__init__",
+        "build",
+        "text",
+        "fingerprint"
+      ],
+      "complexity": "moderate",
+      "name": "WorkspaceContext",
+      "filePath": "pico/workspace.py",
+      "summary": "Workspace context providing path resolution, text clipping utilities, and timestamp helpers for agents.",
+      "tags": [
+        "service"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:default_memory_state",
+      "type": "function",
+      "label": "default_memory_state",
+      "path": "pico/memory.py",
+      "startLine": 43,
+      "endLine": 56,
+      "description": "Returns a fresh empty memory state dict with working, episodic_notes, file_summaries, and budget keys.",
+      "complexity": "moderate",
+      "name": "default_memory_state",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:normalize_memory_state",
+      "type": "function",
+      "label": "normalize_memory_state",
+      "path": "pico/memory.py",
+      "startLine": 334,
+      "endLine": 424,
+      "description": "Validates and normalizes a raw memory state dict: canonicalizes paths, deduplicates notes and files, loads durable topic slugs. Central state normalizer called by most memory operations.",
+      "complexity": "moderate",
+      "name": "normalize_memory_state",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:set_task_summary",
+      "type": "function",
+      "label": "set_task_summary",
+      "path": "pico/memory.py",
+      "startLine": 427,
+      "endLine": 431,
+      "description": "Sets the task summary string in the working memory section.",
+      "complexity": "moderate",
+      "name": "set_task_summary",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:remember_file",
+      "type": "function",
+      "label": "remember_file",
+      "path": "pico/memory.py",
+      "startLine": 434,
+      "endLine": 443,
+      "description": "Adds a canonicalized file path to working memory's recent files list, deduplicating and capping length.",
+      "complexity": "moderate",
+      "name": "remember_file",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:append_note",
+      "type": "function",
+      "label": "append_note",
+      "path": "pico/memory.py",
+      "startLine": 446,
+      "endLine": 469,
+      "description": "Appends an episodic or process note with tags, source, and timestamp to memory state.",
+      "complexity": "moderate",
+      "name": "append_note",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:set_file_summary",
+      "type": "function",
+      "label": "set_file_summary",
+      "path": "pico/memory.py",
+      "startLine": 470,
+      "endLine": 481,
+      "description": "Records a summary for a file along with its creation timestamp and content freshness hash.",
+      "complexity": "moderate",
+      "name": "set_file_summary",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:invalidate_file_summary",
+      "type": "function",
+      "label": "invalidate_file_summary",
+      "path": "pico/memory.py",
+      "startLine": 484,
+      "endLine": 490,
+      "description": "Removes a specific file's cached summary from memory state.",
+      "complexity": "moderate",
+      "name": "invalidate_file_summary",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:invalidate_stale_file_summaries",
+      "type": "function",
+      "label": "invalidate_stale_file_summaries",
+      "path": "pico/memory.py",
+      "startLine": 493,
+      "endLine": 502,
+      "description": "Scans all cached file summaries and removes those whose file content hash has changed since summarization.",
+      "complexity": "moderate",
+      "name": "invalidate_stale_file_summaries",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:retrieval_candidates",
+      "type": "function",
+      "label": "retrieval_candidates",
+      "path": "pico/memory.py",
+      "startLine": 519,
+      "endLine": 547,
+      "description": "Returns a ranked list of notes relevant to a query by token overlap, searching both episodic and durable memory stores.",
+      "complexity": "moderate",
+      "name": "retrieval_candidates",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:retrieval_view",
+      "type": "function",
+      "label": "retrieval_view",
+      "path": "pico/memory.py",
+      "startLine": 550,
+      "endLine": 558,
+      "description": "Returns a formatted text block of top retrieval candidates for a query, ready for inclusion in prompts.",
+      "complexity": "moderate",
+      "name": "retrieval_view",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:render_memory_text",
+      "type": "function",
+      "label": "render_memory_text",
+      "path": "pico/memory.py",
+      "startLine": 561,
+      "endLine": 586,
+      "description": "Renders the full memory state (task summary, recent files, file summaries, notes, budget) as a text string for agent prompts.",
+      "complexity": "moderate",
+      "name": "render_memory_text",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/memory.py:is_effectively_empty",
+      "type": "function",
+      "label": "is_effectively_empty",
+      "path": "pico/memory.py",
+      "startLine": 589,
+      "endLine": 596,
+      "description": "Returns True if memory has no meaningful content: no task summary, no recent files, and no notes.",
+      "complexity": "moderate",
+      "name": "is_effectively_empty",
+      "filePath": "pico/memory.py",
+      "summary": "Layered memory system managing working memory, durable episodic notes, and file summary caches across sessions.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/tools.py:build_tool_registry",
+      "type": "function",
+      "label": "build_tool_registry",
+      "path": "pico/tools.py",
+      "startLine": 64,
+      "endLine": 75,
+      "description": "Builds the tool registry dict mapping tool names to their OpenAI-style specs and agent-bound handler functions.",
+      "complexity": "moderate",
+      "name": "build_tool_registry",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/tools.py:tool_list_files",
+      "type": "function",
+      "label": "tool_list_files",
+      "path": "pico/tools.py",
+      "startLine": 149,
+      "endLine": 161,
+      "description": "Tool handler: lists files and subdirectories in a workspace directory path.",
+      "complexity": "moderate",
+      "name": "tool_list_files",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/tools.py:tool_read_file",
+      "type": "function",
+      "label": "tool_read_file",
+      "path": "pico/tools.py",
+      "startLine": 164,
+      "endLine": 174,
+      "description": "Tool handler: reads a workspace file with optional start/end line range, returning numbered lines.",
+      "complexity": "moderate",
+      "name": "tool_read_file",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/tools.py:tool_search",
+      "type": "function",
+      "label": "tool_search",
+      "path": "pico/tools.py",
+      "startLine": 177,
+      "endLine": 204,
+      "description": "Tool handler: searches for a pattern across workspace files using ripgrep if available, with Python fallback.",
+      "complexity": "moderate",
+      "name": "tool_search",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/tools.py:tool_run_shell",
+      "type": "function",
+      "label": "tool_run_shell",
+      "path": "pico/tools.py",
+      "startLine": 207,
+      "endLine": 233,
+      "description": "Tool handler: executes a shell command in the workspace with timeout, returns exit code, stdout, and stderr.",
+      "complexity": "moderate",
+      "name": "tool_run_shell",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/tools.py:tool_write_file",
+      "type": "function",
+      "label": "tool_write_file",
+      "path": "pico/tools.py",
+      "startLine": 236,
+      "endLine": 241,
+      "description": "Tool handler: writes full content to a workspace file, creating parent directories as needed.",
+      "complexity": "moderate",
+      "name": "tool_write_file",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/tools.py:tool_patch_file",
+      "type": "function",
+      "label": "tool_patch_file",
+      "path": "pico/tools.py",
+      "startLine": 244,
+      "endLine": 258,
+      "description": "Tool handler: replaces a unique search string in a file with replacement content (requires exactly one match).",
+      "complexity": "moderate",
+      "name": "tool_patch_file",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "function:pico/tools.py:tool_delegate",
+      "type": "function",
+      "label": "tool_delegate",
+      "path": "pico/tools.py",
+      "startLine": 261,
+      "endLine": 288,
+      "description": "Tool handler: spawns a child Pico agent with a sub-task description and returns its final answer.",
+      "complexity": "moderate",
+      "name": "tool_delegate",
+      "filePath": "pico/tools.py",
+      "summary": "Tool registry providing file read/write, search, shell execution, and delegate tools with approval and sandboxing.",
+      "tags": [
+        "utility"
+      ]
+    },
+    {
+      "id": "file:pico/__main__.py",
+      "type": "file",
+      "label": "pico/__main__.py",
+      "path": "pico/__main__.py",
+      "language": "python",
+      "tags": [
+        "entry-point",
+        "cli"
+      ],
+      "metrics": {
+        "totalLines": 5,
+        "nonEmptyLines": 3,
+        "importCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      },
+      "description": "Python module entry point. Invokes cli.main() to launch pico as `python -m pico`.",
+      "complexity": "moderate",
+      "name": "__main__.py",
+      "filePath": "pico/__main__.py",
+      "summary": "Python module entry point enabling `python -m pico` invocation by calling cli.main()."
+    },
+    {
+      "id": "file:pico/cli.py",
+      "type": "file",
+      "label": "pico/cli.py",
+      "path": "pico/cli.py",
+      "language": "python",
+      "tags": [
+        "entry-point",
+        "cli",
+        "argument-parsing"
+      ],
+      "metrics": {
+        "totalLines": 337,
+        "nonEmptyLines": 301,
+        "importCount": 4,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      },
+      "description": "Main CLI module. Parses arguments, builds the model client, constructs the Pico agent, and runs the interactive REPL.",
+      "complexity": "moderate",
+      "name": "cli.py",
+      "filePath": "pico/cli.py",
+      "summary": "CLI argument parser and agent builder — parses provider/model flags, constructs the Pico agent, and runs the interactive REPL."
+    },
+    {
+      "id": "file:pico/config.py",
+      "type": "file",
+      "label": "pico/config.py",
+      "path": "pico/config.py",
+      "language": "python",
+      "tags": [
+        "configuration",
+        "environment"
+      ],
+      "metrics": {
+        "totalLines": 65,
+        "nonEmptyLines": 52,
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      },
+      "description": "Environment variable loading from .env files. Provides utilities to locate, parse, and expose project env vars.",
+      "complexity": "moderate",
+      "name": "config.py",
+      "filePath": "pico/config.py",
+      "summary": "Environment configuration loader — reads .env files and resolves provider-specific API keys and model settings."
+    },
+    {
+      "id": "function:__nofilepath__:fn:pico/cli.py:build_agent",
+      "type": "function",
+      "label": "build_agent",
+      "path": "pico/cli.py",
+      "startLine": 205,
+      "endLine": 250,
+      "params": [
+        "args"
+      ],
+      "tags": [
+        "cli",
+        "agent-construction"
+      ],
+      "description": "Constructs and returns the Pico agent from parsed CLI args. Builds workspace context, loads env, creates model client, and either resumes from or creates a new session.",
+      "complexity": "moderate",
+      "name": "build_agent",
+      "filePath": "pico/cli.py",
+      "summary": "CLI argument parser and agent builder — parses provider/model flags, constructs the Pico agent, and runs the interactive REPL."
+    },
+    {
+      "id": "function:__nofilepath__:fn:pico/cli.py:build_arg_parser",
+      "type": "function",
+      "label": "build_arg_parser",
+      "path": "pico/cli.py",
+      "startLine": 253,
+      "endLine": 283,
+      "params": [],
+      "tags": [
+        "cli",
+        "argument-parsing"
+      ],
+      "description": "Constructs and returns the argparse.ArgumentParser for pico, declaring all CLI flags and options.",
+      "complexity": "moderate",
+      "name": "build_arg_parser",
+      "filePath": "pico/cli.py",
+      "summary": "CLI argument parser and agent builder — parses provider/model flags, constructs the Pico agent, and runs the interactive REPL."
+    },
+    {
+      "id": "function:__nofilepath__:fn:pico/cli.py:main",
+      "type": "function",
+      "label": "main",
+      "path": "pico/cli.py",
+      "startLine": 286,
+      "endLine": 337,
+      "params": [
+        "argv"
+      ],
+      "tags": [
+        "cli",
+        "repl",
+        "entry-point"
+      ],
+      "description": "Top-level entry function. Parses args, builds the agent, prints the welcome banner, and runs the interactive REPL loop.",
+      "complexity": "moderate",
+      "name": "main",
+      "filePath": "pico/cli.py",
+      "summary": "CLI argument parser and agent builder — parses provider/model flags, constructs the Pico agent, and runs the interactive REPL."
+    },
+    {
+      "id": "function:__nofilepath__:fn:pico/config.py:find_project_env",
+      "type": "function",
+      "label": "find_project_env",
+      "path": "pico/config.py",
+      "startLine": 33,
+      "endLine": 41,
+      "params": [
+        "start"
+      ],
+      "tags": [
+        "configuration",
+        "environment"
+      ],
+      "description": "Walks up the directory tree from `start` to find the nearest .env file. Returns its Path or None.",
+      "complexity": "moderate",
+      "name": "find_project_env",
+      "filePath": "pico/config.py",
+      "summary": "Environment configuration loader — reads .env files and resolves provider-specific API keys and model settings."
+    },
+    {
+      "id": "function:__nofilepath__:fn:pico/config.py:load_project_env",
+      "type": "function",
+      "label": "load_project_env",
+      "path": "pico/config.py",
+      "startLine": 44,
+      "endLine": 57,
+      "params": [
+        "start",
+        "override"
+      ],
+      "tags": [
+        "configuration",
+        "environment"
+      ],
+      "description": "Locates and parses the nearest .env file, loading key-value pairs into os.environ. Supports override mode.",
+      "complexity": "moderate",
+      "name": "load_project_env",
+      "filePath": "pico/config.py",
+      "summary": "Environment configuration loader — reads .env files and resolves provider-specific API keys and model settings."
+    },
+    {
+      "id": "function:__nofilepath__:fn:pico/config.py:provider_env",
+      "type": "function",
+      "label": "provider_env",
+      "path": "pico/config.py",
+      "startLine": 60,
+      "endLine": 65,
+      "params": [
+        "name",
+        "legacy_names",
+        "default"
+      ],
+      "tags": [
+        "configuration",
+        "environment"
+      ],
+      "description": "Looks up a provider-specific environment variable by primary name and optional legacy aliases, returning a default if absent.",
+      "complexity": "moderate",
+      "name": "provider_env",
+      "filePath": "pico/config.py",
+      "summary": "Environment configuration loader — reads .env files and resolves provider-specific API keys and model settings."
+    },
+    {
+      "id": "file:pico/evaluator.py",
+      "type": "file",
+      "label": "evaluator.py",
+      "path": "pico/evaluator.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 621,
+      "tags": [
+        "benchmark",
+        "evaluation",
+        "harness",
+        "tested"
+      ],
+      "summary": "Benchmark evaluation harness. Runs coding tasks, captures results, validates benchmarks.",
+      "complexity": "moderate",
+      "name": "evaluator.py",
+      "filePath": "pico/evaluator.py"
+    },
+    {
+      "id": "file:pico/models.py",
+      "type": "file",
+      "label": "models.py",
+      "path": "pico/models.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 441,
+      "tags": [
+        "model-client",
+        "llm-adapter",
+        "api-client"
+      ],
+      "summary": "Model client implementations — LLM API adapters for Ollama, OpenAI-compatible, and Anthropic-compatible endpoints.",
+      "complexity": "moderate",
+      "name": "models.py",
+      "filePath": "pico/models.py"
+    },
+    {
+      "id": "file:tests/test_evaluator.py",
+      "type": "file",
+      "label": "test_evaluator.py",
+      "path": "tests/test_evaluator.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 227,
+      "tags": [
+        "test"
+      ],
+      "summary": "Tests for the benchmark evaluator.",
+      "complexity": "moderate",
+      "name": "test_evaluator.py",
+      "filePath": "tests/test_evaluator.py"
+    },
+    {
+      "id": "class:pico/evaluator.py:BenchmarkEvaluator",
+      "type": "class",
+      "label": "BenchmarkEvaluator",
+      "path": "pico/evaluator.py",
+      "startLine": 372,
+      "endLine": 564,
+      "methods": [
+        "__init__",
+        "load",
+        "run",
+        "run_task",
+        "_failure_category",
+        "_write_artifact"
+      ],
+      "tags": [
+        "benchmark",
+        "evaluation",
+        "harness"
+      ],
+      "summary": "Main evaluator class that orchestrates loading benchmarks, running tasks, and writing result artifacts.",
+      "complexity": "moderate",
+      "name": "BenchmarkEvaluator",
+      "filePath": "pico/evaluator.py"
+    },
+    {
+      "id": "function:pico/evaluator.py:run_fixed_benchmark",
+      "type": "function",
+      "label": "run_fixed_benchmark",
+      "path": "pico/evaluator.py",
+      "startLine": 571,
+      "endLine": 595,
+      "params": [
+        "benchmark_path",
+        "artifact_path",
+        "workspace_root",
+        "model_name",
+        "model_version",
+        "temperature",
+        "top_p",
+        "max_new_tokens",
+        "timezone_name",
+        "model_client_factory"
+      ],
+      "tags": [
+        "benchmark",
+        "evaluation"
+      ],
+      "summary": "Convenience function that instantiates BenchmarkEvaluator and runs a fixed benchmark end-to-end.",
+      "complexity": "moderate",
+      "name": "run_fixed_benchmark",
+      "filePath": "pico/evaluator.py"
+    },
+    {
+      "id": "function:pico/evaluator.py:run_harness_regression_v2",
+      "type": "function",
+      "label": "run_harness_regression_v2",
+      "path": "pico/evaluator.py",
+      "startLine": 598,
+      "endLine": 621,
+      "params": [
+        "benchmark_path",
+        "artifact_path",
+        "workspace_root",
+        "model_name",
+        "model_version",
+        "temperature",
+        "top_p",
+        "max_new_tokens",
+        "timezone_name",
+        "model_client_factory"
+      ],
+      "tags": [
+        "benchmark",
+        "harness"
+      ],
+      "summary": "Regression harness v2 entry point that delegates to run_fixed_benchmark.",
+      "complexity": "moderate",
+      "name": "run_harness_regression_v2",
+      "filePath": "pico/evaluator.py"
+    },
+    {
+      "id": "function:pico/evaluator.py:load_benchmark",
+      "type": "function",
+      "label": "load_benchmark",
+      "path": "pico/evaluator.py",
+      "startLine": 233,
+      "endLine": 238,
+      "params": [
+        "path",
+        "repo_root"
+      ],
+      "tags": [
+        "benchmark"
+      ],
+      "summary": "Loads and validates a benchmark JSON file from disk.",
+      "complexity": "moderate",
+      "name": "load_benchmark",
+      "filePath": "pico/evaluator.py"
+    },
+    {
+      "id": "class:pico/models.py:OllamaModelClient",
+      "type": "class",
+      "label": "OllamaModelClient",
+      "path": "pico/models.py",
+      "startLine": 33,
+      "endLine": 81,
+      "methods": [
+        "__init__",
+        "complete"
+      ],
+      "tags": [
+        "model-client",
+        "llm-adapter",
+        "api-client"
+      ],
+      "summary": "LLM API adapter that communicates with a local Ollama server.",
+      "complexity": "moderate",
+      "name": "OllamaModelClient",
+      "filePath": "pico/models.py"
+    },
+    {
+      "id": "class:pico/models.py:OpenAICompatibleModelClient",
+      "type": "class",
+      "label": "OpenAICompatibleModelClient",
+      "path": "pico/models.py",
+      "startLine": 226,
+      "endLine": 350,
+      "methods": [
+        "__init__",
+        "complete"
+      ],
+      "tags": [
+        "model-client",
+        "llm-adapter",
+        "api-client"
+      ],
+      "summary": "LLM API adapter for OpenAI-compatible endpoints, with SSE streaming and retry support.",
+      "complexity": "moderate",
+      "name": "OpenAICompatibleModelClient",
+      "filePath": "pico/models.py"
+    },
+    {
+      "id": "class:pico/models.py:AnthropicCompatibleModelClient",
+      "type": "class",
+      "label": "AnthropicCompatibleModelClient",
+      "path": "pico/models.py",
+      "startLine": 362,
+      "endLine": 441,
+      "methods": [
+        "__init__",
+        "complete"
+      ],
+      "tags": [
+        "model-client",
+        "llm-adapter",
+        "api-client"
+      ],
+      "summary": "LLM API adapter for Anthropic-compatible endpoints with retry support.",
+      "complexity": "moderate",
+      "name": "AnthropicCompatibleModelClient",
+      "filePath": "pico/models.py"
+    },
+    {
+      "id": "class:pico/models.py:FakeModelClient",
+      "type": "class",
+      "label": "FakeModelClient",
+      "path": "pico/models.py",
+      "startLine": 17,
+      "endLine": 30,
+      "methods": [
+        "__init__",
+        "complete"
+      ],
+      "tags": [
+        "model-client",
+        "test"
+      ],
+      "summary": "Scripted fake model client used in tests and benchmark evaluation dry-runs.",
+      "complexity": "moderate",
+      "name": "FakeModelClient",
+      "filePath": "pico/models.py"
+    },
+    {
+      "id": "config:.env.example",
+      "type": "config",
+      "label": ".env.example",
+      "path": ".env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "tags": [
+        "configuration",
+        "environment",
+        "security"
+      ],
+      "totalLines": 13,
+      "nonEmptyLines": 10,
+      "definitions": [
+        {
+          "name": "PICO_OPENAI_API_BASE",
+          "kind": "variable",
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "PICO_OPENAI_API_KEY",
+          "kind": "variable",
+          "startLine": 4,
+          "endLine": 4
+        },
+        {
+          "name": "PICO_OPENAI_MODEL",
+          "kind": "variable",
+          "startLine": 5,
+          "endLine": 5
+        },
+        {
+          "name": "PICO_ANTHROPIC_API_BASE",
+          "kind": "variable",
+          "startLine": 7,
+          "endLine": 7
+        },
+        {
+          "name": "PICO_ANTHROPIC_API_KEY",
+          "kind": "variable",
+          "startLine": 8,
+          "endLine": 8
+        },
+        {
+          "name": "PICO_ANTHROPIC_MODEL",
+          "kind": "variable",
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "PICO_DEEPSEEK_API_BASE",
+          "kind": "variable",
+          "startLine": 11,
+          "endLine": 11
+        },
+        {
+          "name": "PICO_DEEPSEEK_API_KEY",
+          "kind": "variable",
+          "startLine": 12,
+          "endLine": 12
+        },
+        {
+          "name": "PICO_DEEPSEEK_MODEL",
+          "kind": "variable",
+          "startLine": 13,
+          "endLine": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 9
+      },
+      "complexity": "moderate",
+      "name": ".env.example",
+      "filePath": ".env.example",
+      "summary": "Environment variable template showing required API keys for each supported model provider."
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "label": "README.md",
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "overview"
+      ],
+      "totalLines": 188,
+      "nonEmptyLines": 126,
+      "sections": [
+        {
+          "heading": "pico",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "适合做什么",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "主要特性",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "使用截图",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "安装",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "快速开始",
+          "level": 2,
+          "line": 57
+        },
+        {
+          "heading": "模型后端",
+          "level": 2,
+          "line": 83
+        },
+        {
+          "heading": "Ollama",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "OpenAI 兼容接口",
+          "level": 3,
+          "line": 107
+        },
+        {
+          "heading": "Anthropic 兼容接口",
+          "level": 3,
+          "line": 129
+        },
+        {
+          "heading": "DeepSeek",
+          "level": 3,
+          "line": 145
+        },
+        {
+          "heading": "常用交互命令",
+          "level": 2,
+          "line": 158
+        },
+        {
+          "heading": "安全与持久化",
+          "level": 2,
+          "line": 166
+        },
+        {
+          "heading": "开发",
+          "level": 2,
+          "line": 182
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      },
+      "complexity": "moderate",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Project overview and documentation covering installation, usage, model backend configuration, and safety controls."
+    },
+    {
+      "id": "config:pyproject.toml",
+      "type": "config",
+      "label": "pyproject.toml",
+      "path": "pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "tags": [
+        "configuration",
+        "build-system",
+        "package-metadata"
+      ],
+      "totalLines": 22,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "build-system",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "project.scripts",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "dependency-groups",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "tool.setuptools",
+          "level": 2,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      },
+      "complexity": "moderate",
+      "name": "pyproject.toml",
+      "filePath": "pyproject.toml",
+      "summary": "Python project manifest defining package metadata, entry point (pico.cli:main), and dev dependencies."
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "config",
+      "label": ".understandignore",
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "tags": [
+        "configuration",
+        "tooling",
+        "ignore-patterns"
+      ],
+      "summary": "Ignore patterns configuration for the understand-anything codebase analysis tool.",
+      "metrics": {
+        "totalLines": 42,
+        "nonEmptyLines": 37
+      },
+      "complexity": "moderate",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore"
+    },
+    {
+      "id": "config:benchmarks/coding_tasks.json",
+      "type": "config",
+      "label": "coding_tasks.json",
+      "path": "benchmarks/coding_tasks.json",
+      "language": "json",
+      "tags": [
+        "benchmark",
+        "test-data",
+        "configuration"
+      ],
+      "summary": "Benchmark task definitions used to evaluate pico's coding capabilities across different task types.",
+      "metrics": {
+        "totalLines": 147,
+        "nonEmptyLines": 147,
+        "sectionCount": 3
+      },
+      "complexity": "moderate",
+      "name": "coding_tasks.json",
+      "filePath": "benchmarks/coding_tasks.json"
+    },
+    {
+      "id": "document:tests/fixtures/bench_repo_patch/sample.txt",
+      "type": "document",
+      "label": "sample.txt",
+      "path": "tests/fixtures/bench_repo_patch/sample.txt",
+      "language": "txt",
+      "tags": [
+        "documentation",
+        "test-fixture"
+      ],
+      "summary": "Sample text fixture used in benchmark tests to validate file patching operations.",
+      "metrics": {
+        "totalLines": 4,
+        "nonEmptyLines": 4
+      },
+      "complexity": "moderate",
+      "name": "sample.txt",
+      "filePath": "tests/fixtures/bench_repo_patch/sample.txt"
+    },
+    {
+      "id": "document:tests/fixtures/bench_repo_readme/README.md",
+      "type": "document",
+      "label": "README.md",
+      "path": "tests/fixtures/bench_repo_readme/README.md",
+      "language": "markdown",
+      "tags": [
+        "documentation",
+        "test-fixture"
+      ],
+      "summary": "Minimal README fixture used in benchmark tests to validate README-reading and code-understanding tasks.",
+      "metrics": {
+        "totalLines": 8,
+        "nonEmptyLines": 5,
+        "sectionCount": 2
+      },
+      "complexity": "moderate",
+      "name": "README.md",
+      "filePath": "tests/fixtures/bench_repo_readme/README.md"
+    }
+  ],
+  "edges": [
+    {
+      "type": "imports",
+      "source": "file:pico/__init__.py",
+      "target": "file:pico/cli.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/__init__.py",
+      "target": "file:pico/models.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/__init__.py",
+      "target": "file:pico/runtime.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/__init__.py",
+      "target": "file:pico/workspace.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/runtime.py",
+      "target": "file:pico/context_manager.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/runtime.py",
+      "target": "file:pico/run_store.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/runtime.py",
+      "target": "file:pico/task_state.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/runtime.py",
+      "target": "file:pico/workspace.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:tests/test_context_manager.py",
+      "target": "file:pico/__init__.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:tests/test_context_manager.py",
+      "target": "file:pico/context_manager.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:tests/test_pico.py",
+      "target": "file:pico/__init__.py",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "tested_by",
+      "source": "file:pico/__init__.py",
+      "target": "file:tests/test_context_manager.py",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "type": "tested_by",
+      "source": "file:pico/context_manager.py",
+      "target": "file:tests/test_context_manager.py",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "type": "tested_by",
+      "source": "file:pico/__init__.py",
+      "target": "file:tests/test_pico.py",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/context_manager.py",
+      "target": "function:pico/context_manager.py::_tail_clip",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/context_manager.py",
+      "target": "class:pico/context_manager.py::SectionRender",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/context_manager.py",
+      "target": "class:pico/context_manager.py::ContextManager",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/runtime.py",
+      "target": "class:pico/runtime.py::PromptPrefix",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/runtime.py",
+      "target": "class:pico/runtime.py::SessionStore",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/runtime.py",
+      "target": "class:pico/runtime.py::Pico",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_context_manager.py",
+      "target": "function:tests/test_context_manager.py::build_agent",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_context_manager.py",
+      "target": "function:tests/test_context_manager.py::test_context_manager_assembles_sections_in_expected_order",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_context_manager.py",
+      "target": "function:tests/test_context_manager.py::test_context_manager_reduces_relevant_memory_before_history_and_preserves_newer_context",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_context_manager.py",
+      "target": "function:tests/test_context_manager.py::test_context_manager_renders_top_three_episodic_notes_per_note_under_budget",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_context_manager.py",
+      "target": "function:tests/test_context_manager.py::test_context_manager_preserves_current_request_when_over_budget",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_context_manager.py",
+      "target": "function:tests/test_context_manager.py::test_context_manager_collapses_older_duplicate_reads_into_one_summary_line",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_context_manager.py",
+      "target": "function:tests/test_context_manager.py::test_context_manager_summarizes_older_tool_output_into_one_line",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_context_manager.py",
+      "target": "function:tests/test_context_manager.py::test_context_manager_relevant_memory_can_mix_durable_notes",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::build_agent",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_runs_tool_then_final",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_updates_task_summary_on_each_request",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_only_stores_reusable_epistemic_notes",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_file_summary_cache_is_invalidated_on_out_of_band_edit_and_path_spelling",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_retries_after_empty_model_output",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_retries_after_malformed_tool_payload",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_accepts_xml_write_file_tool",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_retries_do_not_consume_the_whole_budget",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_saves_and_resumes_session",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_delegate_uses_child_agent",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_patch_file_replaces_exact_match",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_list_files_hides_internal_agent_state",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_welcome_screen_keeps_box_shape_for_long_paths",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_ollama_client_posts_expected_payload",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_openai_compatible_client_posts_expected_responses_payload",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_openai_compatible_client_sends_prompt_cache_fields_and_records_usage",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_openai_compatible_client_extracts_text_from_event_stream",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_openai_compatible_client_extracts_text_from_event_stream_deltas",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_anthropic_compatible_client_posts_expected_messages_payload",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_anthropic_compatible_client_extracts_first_text_block",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_build_agent_uses_openai_provider_and_model_override",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_build_agent_uses_anthropic_provider_and_openai_key_fallback",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_build_agent_uses_anthropic_default_model_when_env_is_missing",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_build_agent_uses_deepseek_provider_and_env_configuration",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_build_agent_uses_openai_provider_by_default",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_successful_run_persists_run_artifacts_and_stop_reason",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_trace_and_report_redact_secret_env_values",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_prompt_budget_metadata_records_budget_decisions",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_prompt_metadata_refreshes_prefix_when_workspace_changes",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_creates_checkpoint_when_context_reduction_happens_and_artifacts_only_reference_it",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_resume_prompt_uses_checkpoint_state_not_just_history",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_resume_invalidates_stale_file_summaries_and_marks_partial_stale",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_run_shell_nonzero_with_workspace_change_is_recorded_as_partial_success",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_resume_marks_workspace_mismatch_when_checkpoint_runtime_identity_is_stale",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_write_file_trace_records_minimum_tool_contract_fields",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_resume_marks_schema_mismatch_when_checkpoint_version_is_incompatible",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_resume_marks_no_checkpoint_when_session_has_no_checkpoint_state",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_freshness_mismatch_creates_checkpoint_before_model_completion",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_runtime_identity_persists_key_execution_metadata",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_resume_records_runtime_identity_mismatch_fields_in_metadata_and_trace",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_partial_success_creates_process_note_for_exploration_history",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_explicit_memory_promotion_persists_durable_memory_topics",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_explicit_memory_promotion_supports_chinese_intent_and_labels",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_explicit_memory_promotion_rejects_secret_shaped_and_transient_lines",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_explicit_memory_promotion_supersedes_matching_durable_fact",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_explicit_memory_promotion_dedupes_duplicate_durable_note",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_agent_records_model_cache_metadata_in_last_prompt_metadata",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_recent_transcript_entries_stay_richer_than_older_ones",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:tests/test_pico.py",
+      "target": "function:tests/test_pico.py::test_reviewer_skeleton_docs_exist",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/metrics.py",
+      "target": "file:pico/config.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/metrics.py",
+      "target": "file:pico/evaluator.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/metrics.py",
+      "target": "file:pico/models.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/metrics.py",
+      "target": "file:pico/runtime.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/metrics.py",
+      "target": "file:pico/workspace.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:scripts/collect_resume_metrics.py",
+      "target": "file:pico/metrics.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:scripts/run_large_scale_experiments.py",
+      "target": "file:pico/metrics.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:scripts/run_provider_experiments.py",
+      "target": "file:pico/metrics.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:tests/test_metrics.py",
+      "target": "file:pico/metrics.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "tested_by",
+      "source": "file:pico/metrics.py",
+      "target": "file:tests/test_metrics.py",
+      "label": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "type": "calls",
+      "source": "file:scripts/collect_resume_metrics.py",
+      "target": "function:pico/metrics.py::collect_resume_metrics",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:scripts/collect_resume_metrics.py",
+      "target": "function:pico/metrics.py::render_resume_metrics_markdown",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:scripts/run_large_scale_experiments.py",
+      "target": "function:pico/metrics.py::run_provider_experiments",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:scripts/run_large_scale_experiments.py",
+      "target": "function:pico/metrics.py::collect_resume_metrics",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:scripts/run_large_scale_experiments.py",
+      "target": "function:pico/metrics.py::render_resume_metrics_markdown",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:scripts/run_large_scale_experiments.py",
+      "target": "function:pico/metrics.py::render_large_scale_experiment_report",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:scripts/run_provider_experiments.py",
+      "target": "function:pico/metrics.py::run_provider_experiments",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:tests/test_metrics.py",
+      "target": "function:pico/metrics.py::run_context_ablation_v2",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:tests/test_metrics.py",
+      "target": "function:pico/metrics.py::run_memory_ablation_v2",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:tests/test_metrics.py",
+      "target": "function:pico/metrics.py::run_recovery_ablation_v2",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "file:tests/test_metrics.py",
+      "target": "function:pico/metrics.py::write_benchmark_core_report",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::aggregate_benchmark_artifact",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::aggregate_run_artifacts",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::measure_feature_ablation_metrics",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::build_stress_agent_metrics",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_memory_dependency_experiment",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_large_scale_memory_experiment",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_context_stress_matrix",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_security_experiment_suite",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_provider_experiments",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_real_memory_experiment",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_real_context_experiment",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_real_security_experiment_suite",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::collect_resume_metrics",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::render_resume_metrics_markdown",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::render_large_scale_experiment_report",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_context_ablation_v2",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_memory_ablation_v2",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::run_recovery_ablation_v2",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "function:pico/metrics.py::write_benchmark_core_report",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "class:pico/metrics.py::_MemoryExperimentModelClient",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/metrics.py",
+      "target": "class:pico/metrics.py::_RecoveryScenarioModelClient",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/run_store.py",
+      "target": "class:pico/run_store.py::RunStore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/task_state.py",
+      "target": "class:pico/task_state.py::TaskState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/test_run_store.py",
+      "target": "file:pico/run_store.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_run_store.py",
+      "target": "file:pico/task_state.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_safety_invariants.py",
+      "target": "file:pico/__init__.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_safety_invariants.py",
+      "target": "file:pico/task_state.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_task_state.py",
+      "target": "file:pico/task_state.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:pico/run_store.py",
+      "target": "file:tests/test_run_store.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:pico/task_state.py",
+      "target": "file:tests/test_task_state.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:pico/task_state.py",
+      "target": "file:tests/test_run_store.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "file:pico/workspace.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "file:pico/workspace.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_memory.py",
+      "target": "file:pico/memory.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "file:tests/test_memory.py",
+      "type": "tested_by",
+      "label": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "class:pico/memory.py:LayeredMemory",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "class:pico/memory.py:DurableMemoryStore",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/workspace.py",
+      "target": "class:pico/workspace.py:WorkspaceContext",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:default_memory_state",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:normalize_memory_state",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:set_task_summary",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:remember_file",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:append_note",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:set_file_summary",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:invalidate_file_summary",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:invalidate_stale_file_summaries",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:retrieval_candidates",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:retrieval_view",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:render_memory_text",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/memory.py",
+      "target": "function:pico/memory.py:is_effectively_empty",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "function:pico/tools.py:build_tool_registry",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "function:pico/tools.py:tool_list_files",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "function:pico/tools.py:tool_read_file",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "function:pico/tools.py:tool_search",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "function:pico/tools.py:tool_run_shell",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "function:pico/tools.py:tool_write_file",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "function:pico/tools.py:tool_patch_file",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/tools.py",
+      "target": "function:pico/tools.py:tool_delegate",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "class:pico/memory.py:LayeredMemory",
+      "target": "class:pico/memory.py:DurableMemoryStore",
+      "type": "uses",
+      "label": "uses",
+      "description": "LayeredMemory instantiates DurableMemoryStore for persistent note management",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "class:pico/memory.py:LayeredMemory",
+      "target": "function:pico/memory.py:normalize_memory_state",
+      "type": "uses",
+      "label": "uses",
+      "description": "LayeredMemory delegates state normalization to normalize_memory_state on every mutation",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/__main__.py",
+      "target": "file:pico/cli.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "calls",
+      "source": "file:pico/__main__.py",
+      "target": "function:__nofilepath__:fn:pico/cli.py:main",
+      "label": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/cli.py",
+      "target": "file:pico/config.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/cli.py",
+      "target": "file:pico/models.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/cli.py",
+      "target": "file:pico/runtime.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "imports",
+      "source": "file:pico/cli.py",
+      "target": "file:pico/workspace.py",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/cli.py",
+      "target": "function:__nofilepath__:fn:pico/cli.py:build_agent",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/cli.py",
+      "target": "function:__nofilepath__:fn:pico/cli.py:build_arg_parser",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/cli.py",
+      "target": "function:__nofilepath__:fn:pico/cli.py:main",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/config.py",
+      "target": "function:__nofilepath__:fn:pico/config.py:find_project_env",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/config.py",
+      "target": "function:__nofilepath__:fn:pico/config.py:load_project_env",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "contains",
+      "source": "file:pico/config.py",
+      "target": "function:__nofilepath__:fn:pico/config.py:provider_env",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "type": "calls",
+      "source": "function:__nofilepath__:fn:pico/cli.py:main",
+      "target": "function:__nofilepath__:fn:pico/cli.py:build_agent",
+      "label": "calls",
+      "lineNumber": 288,
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "function:__nofilepath__:fn:pico/cli.py:main",
+      "target": "function:__nofilepath__:fn:pico/cli.py:build_arg_parser",
+      "label": "calls",
+      "lineNumber": 287,
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "function:__nofilepath__:fn:pico/cli.py:build_agent",
+      "target": "function:__nofilepath__:fn:pico/config.py:load_project_env",
+      "label": "calls",
+      "lineNumber": 224,
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "function:__nofilepath__:fn:pico/cli.py:build_agent",
+      "target": "file:pico/runtime.py",
+      "label": "instantiates Pico",
+      "lineNumber": 242,
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "type": "calls",
+      "source": "function:__nofilepath__:fn:pico/config.py:load_project_env",
+      "target": "function:__nofilepath__:fn:pico/config.py:find_project_env",
+      "label": "calls",
+      "lineNumber": 45,
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "file:pico/models.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "file:pico/run_store.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "file:pico/runtime.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "file:pico/task_state.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "file:pico/workspace.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/test_evaluator.py",
+      "target": "file:pico/evaluator.py",
+      "type": "imports",
+      "label": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "file:tests/test_evaluator.py",
+      "type": "tested_by",
+      "label": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "class:pico/evaluator.py:BenchmarkEvaluator",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "function:pico/evaluator.py:run_fixed_benchmark",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "function:pico/evaluator.py:run_harness_regression_v2",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/evaluator.py",
+      "target": "function:pico/evaluator.py:load_benchmark",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/models.py",
+      "target": "class:pico/models.py:OllamaModelClient",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/models.py",
+      "target": "class:pico/models.py:OpenAICompatibleModelClient",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/models.py",
+      "target": "class:pico/models.py:AnthropicCompatibleModelClient",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:pico/models.py",
+      "target": "class:pico/models.py:FakeModelClient",
+      "type": "contains",
+      "label": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "config:benchmarks/coding_tasks.json",
+      "target": "file:pico/evaluator.py",
+      "relation": "configures",
+      "direction": "forward",
+      "type": "depends_on",
+      "weight": 0.6
+    },
+    {
+      "source": "document:tests/fixtures/bench_repo_patch/sample.txt",
+      "target": "config:benchmarks/coding_tasks.json",
+      "relation": "related",
+      "direction": "forward",
+      "type": "depends_on",
+      "weight": 0.6
+    },
+    {
+      "source": "document:tests/fixtures/bench_repo_readme/README.md",
+      "target": "config:benchmarks/coding_tasks.json",
+      "relation": "related",
+      "direction": "forward",
+      "type": "depends_on",
+      "weight": 0.6
+    },
+    {
+      "type": "configures",
+      "source": "config:pyproject.toml",
+      "target": "file:pico/cli.py",
+      "label": "declares entry point pico = pico.cli:main",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "type": "configures",
+      "source": "config:pyproject.toml",
+      "target": "file:pico/__main__.py",
+      "label": "defines package structure",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "type": "documents",
+      "source": "document:README.md",
+      "target": "file:pico/cli.py",
+      "label": "documents CLI usage and commands",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "type": "documents",
+      "source": "document:README.md",
+      "target": "config:.env.example",
+      "label": "references environment configuration",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "type": "configures",
+      "source": "config:.env.example",
+      "target": "file:pico/config.py",
+      "label": "config.py reads .env files for API keys and model settings",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:entry",
+      "description": "Command-line interface, module entry points, and environment configuration loader",
+      "nodeIds": [
+        "file:pico/__init__.py",
+        "file:pico/__main__.py",
+        "file:pico/cli.py",
+        "file:pico/config.py"
+      ],
+      "name": "CLI & Entry Points"
+    },
+    {
+      "id": "layer:runtime",
+      "description": "Agent execution loop, context assembly, task lifecycle management, and run persistence",
+      "nodeIds": [
+        "file:pico/runtime.py",
+        "file:pico/context_manager.py",
+        "file:pico/task_state.py",
+        "file:pico/run_store.py"
+      ],
+      "name": "Core Runtime"
+    },
+    {
+      "id": "layer:memory",
+      "description": "Working memory, durable memory store, episodic notes, file summaries, and workspace path utilities",
+      "nodeIds": [
+        "file:pico/memory.py",
+        "file:pico/workspace.py"
+      ],
+      "name": "Memory & Context"
+    },
+    {
+      "id": "layer:tools",
+      "description": "Tool registry (file read/write/search/shell/delegate) and LLM API adapters for Ollama, OpenAI, Anthropic, DeepSeek",
+      "nodeIds": [
+        "file:pico/tools.py",
+        "file:pico/models.py"
+      ],
+      "name": "Tools & Integration"
+    },
+    {
+      "id": "layer:evaluation",
+      "description": "Benchmark harness, metrics, ablation experiments, and benchmark task definitions",
+      "nodeIds": [
+        "file:pico/evaluator.py",
+        "file:pico/metrics.py",
+        "config:benchmarks/coding_tasks.json"
+      ],
+      "name": "Evaluation & Benchmarks"
+    },
+    {
+      "id": "layer:scripts",
+      "description": "Standalone CLI scripts for running experiments and collecting metrics reports",
+      "nodeIds": [
+        "file:scripts/collect_resume_metrics.py",
+        "file:scripts/run_large_scale_experiments.py",
+        "file:scripts/run_provider_experiments.py"
+      ],
+      "name": "Scripts"
+    },
+    {
+      "id": "layer:tests",
+      "description": "Pytest test suites and fixture files covering all core modules",
+      "nodeIds": [
+        "file:tests/test_context_manager.py",
+        "file:tests/test_pico.py",
+        "file:tests/test_metrics.py",
+        "file:tests/test_run_store.py",
+        "file:tests/test_safety_invariants.py",
+        "file:tests/test_task_state.py",
+        "file:tests/test_memory.py",
+        "file:tests/test_evaluator.py",
+        "document:tests/fixtures/bench_repo_patch/sample.txt",
+        "document:tests/fixtures/bench_repo_readme/README.md"
+      ],
+      "name": "Tests"
+    },
+    {
+      "id": "layer:project-support",
+      "description": "Project documentation, build configuration, environment variable template, and tooling ignore patterns",
+      "nodeIds": [
+        "document:README.md",
+        "config:pyproject.toml",
+        "config:.env.example",
+        "file:.understand-anything/.understandignore"
+      ],
+      "name": "Project Support"
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Overview",
+      "description": "pico is a lightweight terminal-based local coding agent written in Python with no runtime dependencies. It supports multiple LLM backends (Ollama, OpenAI-compatible, Anthropic-compatible, and DeepSeek) and operates directly on your code repository. The README (in Chinese) documents the full CLI interface, configuration options, and usage patterns.",
+      "nodeIds": [
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Project Setup",
+      "description": "The project is packaged as a standard Python package via pyproject.toml, with a single `pico` console script entry point. Environment configuration lives in `.env.example`, which documents the provider API keys and model selection variables that pico reads at startup. Copy `.env.example` to `.env` and fill in your credentials before first use.",
+      "nodeIds": [
+        "config:pyproject.toml",
+        "config:.env.example"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "CLI Entry Point",
+      "description": "Execution begins at `pico/__main__.py`, which simply delegates to `cli.py:main()`. The `main` function parses CLI arguments (task, provider, model, session flags), calls `build_agent` to wire up all subsystems, and then drives the interactive REPL or single-shot task run. Understanding this file gives you the full lifecycle of a pico invocation.",
+      "nodeIds": [
+        "file:pico/__main__.py",
+        "file:pico/cli.py",
+        "function:__nofilepath__:fn:pico/cli.py:main",
+        "function:__nofilepath__:fn:pico/cli.py:build_agent",
+        "function:__nofilepath__:fn:pico/cli.py:build_arg_parser"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Configuration System",
+      "description": "Provider and model selection is centralised in `config.py`. The `find_project_env` and `load_project_env` functions walk the directory tree to load a `.env` file closest to the current workspace. `provider_env` then resolves the active provider name and its corresponding API key and base-URL from environment variables, supporting per-project overrides.",
+      "nodeIds": [
+        "file:pico/config.py",
+        "function:__nofilepath__:fn:pico/config.py:find_project_env",
+        "function:__nofilepath__:fn:pico/config.py:load_project_env",
+        "function:__nofilepath__:fn:pico/config.py:provider_env"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Model Backends",
+      "description": "All LLM communication flows through one of four thin adapter classes in `models.py`: `OllamaModelClient` (local Ollama), `OpenAICompatibleModelClient` (OpenAI, DeepSeek, any OpenAI-format API), `AnthropicCompatibleModelClient` (Claude), and `FakeModelClient` (deterministic stub used in tests). Each adapter handles streaming, token-usage tracking, and error normalisation behind a common interface.",
+      "nodeIds": [
+        "file:pico/models.py",
+        "class:pico/models.py:OllamaModelClient",
+        "class:pico/models.py:OpenAICompatibleModelClient",
+        "class:pico/models.py:AnthropicCompatibleModelClient",
+        "class:pico/models.py:FakeModelClient"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Core Runtime: The Agent",
+      "description": "`runtime.py` is the heart of pico. The `Pico` class implements the main agent loop: it assembles the prompt, calls the model, parses tool invocations from the response, executes them, and iterates until the model signals completion. `SessionStore` handles serialising and deserialising in-progress sessions to disk, enabling the `--resume` workflow. `PromptPrefix` holds the static system-prompt metadata injected at the top of every request.",
+      "nodeIds": [
+        "file:pico/runtime.py",
+        "class:pico/runtime.py::Pico",
+        "class:pico/runtime.py::SessionStore",
+        "class:pico/runtime.py::PromptPrefix"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Context Management",
+      "description": "`context_manager.py` solves the token-budget problem: how to fit memory, history, and the current request into a finite context window. The `ContextManager` class assembles ordered sections (system prompt, durable notes, episodic notes, tool history, current request) and applies progressive reduction strategies — collapsing duplicate reads, summarising old tool output — until the assembled prompt fits within the model's limit. `SectionRender` is the lightweight dataclass that represents each rendered section.",
+      "nodeIds": [
+        "file:pico/context_manager.py",
+        "class:pico/context_manager.py::ContextManager",
+        "class:pico/context_manager.py::SectionRender",
+        "function:pico/context_manager.py::_tail_clip"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Memory System",
+      "description": "pico uses a layered memory architecture defined in `memory.py`. `LayeredMemory` holds three tiers: working memory (per-task summaries and file-content caches), durable memory (`DurableMemoryStore` for facts that persist across sessions), and episodic notes (timestamped observations appended during a run). Helper functions like `retrieval_candidates`, `retrieval_view`, and `render_memory_text` control what gets surfaced into the context window for each request.",
+      "nodeIds": [
+        "file:pico/memory.py",
+        "class:pico/memory.py:LayeredMemory",
+        "class:pico/memory.py:DurableMemoryStore",
+        "function:pico/memory.py:retrieval_candidates",
+        "function:pico/memory.py:retrieval_view",
+        "function:pico/memory.py:render_memory_text"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Tools & Workspace",
+      "description": "`tools.py` defines the tool registry that the agent can invoke: `tool_read_file`, `tool_write_file`, `tool_patch_file`, `tool_list_files`, `tool_search`, `tool_run_shell`, and `tool_delegate` (spawns a child agent). `build_tool_registry` wires them together with the current workspace. `WorkspaceContext` in `workspace.py` tracks the repository root, enforces path sandboxing, and detects out-of-band file changes that should invalidate cached summaries.",
+      "nodeIds": [
+        "file:pico/tools.py",
+        "file:pico/workspace.py",
+        "function:pico/tools.py:build_tool_registry",
+        "function:pico/tools.py:tool_read_file",
+        "function:pico/tools.py:tool_write_file",
+        "function:pico/tools.py:tool_patch_file",
+        "function:pico/tools.py:tool_delegate",
+        "function:pico/tools.py:tool_run_shell",
+        "class:pico/workspace.py:WorkspaceContext"
+      ]
+    },
+    {
+      "order": 10,
+      "title": "State & Persistence",
+      "description": "`task_state.py` manages the lifecycle of a single task run — tracking status (pending, running, complete, failed), the accumulated tool trace, and checkpoint state for mid-run context reductions. `RunStore` in `run_store.py` is the append-only artifact store that persists completed run records (trace, stop reason, token usage) to `.pico/runs/` for later inspection, metrics collection, and resume.",
+      "nodeIds": [
+        "file:pico/task_state.py",
+        "file:pico/run_store.py",
+        "class:pico/task_state.py::TaskState",
+        "class:pico/run_store.py::RunStore"
+      ]
+    },
+    {
+      "order": 11,
+      "title": "Benchmark Evaluation",
+      "description": "`evaluator.py` drives automated benchmark runs against a fixed task suite. `BenchmarkEvaluator` loads tasks from `benchmarks/coding_tasks.json`, spins up a sandboxed agent for each, and judges outcomes using configurable correctness checks. `run_fixed_benchmark` and `run_harness_regression_v2` are the two main entry points, while `metrics.py` aggregates raw run artifacts into pass-rate statistics and ablation reports.",
+      "nodeIds": [
+        "file:pico/evaluator.py",
+        "config:benchmarks/coding_tasks.json",
+        "class:pico/evaluator.py:BenchmarkEvaluator",
+        "function:pico/evaluator.py:run_fixed_benchmark",
+        "function:pico/evaluator.py:run_harness_regression_v2",
+        "function:pico/evaluator.py:load_benchmark",
+        "file:pico/metrics.py"
+      ]
+    },
+    {
+      "order": 12,
+      "title": "Test Suite",
+      "description": "The test suite covers the full agent stack. `test_pico.py` (1 630 lines) is the primary integration test file: it exercises the agent loop, session save/resume, model client payloads, memory promotion, and the delegate tool using `FakeModelClient`. `test_safety_invariants.py` specifically validates security properties — that secrets are redacted from traces, path traversal is blocked, and shell sandboxing holds — ensuring pico is safe to run on real repositories.",
+      "nodeIds": [
+        "file:tests/test_pico.py",
+        "file:tests/test_safety_invariants.py",
+        "function:tests/test_pico.py::test_agent_runs_tool_then_final",
+        "function:tests/test_pico.py::test_agent_saves_and_resumes_session",
+        "function:tests/test_pico.py::test_delegate_uses_child_agent",
+        "function:tests/test_pico.py::test_trace_and_report_redact_secret_env_values"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+# .understandignore
+# Syntax: same as .gitignore
+#
+# --- From .gitignore (uncomment to exclude) ---
+
+*.py[cod]
+*.pyo
+*.pyd
+# uv.lock
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+# .mini-coding-agent
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+tmp/
+.worktrees/
+.pico/
+artifacts/
+# readme_intro_locked/
+.env
+.env.*
+!.env.example
+# docs/
+.DS_Store
+pico.egg-info/
+
+# --- Detected directories (uncomment to exclude) ---
+
+# tests/
+# scripts/
+
+# --- Test file patterns (uncomment to exclude) ---
+
+# *.test.*
+# *.spec.*
+# *.snap

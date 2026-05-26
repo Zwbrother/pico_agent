@@ -1,0 +1,79 @@
+用户启动 pico
+    │
+    ▼
+┌─────────────────────────────────┐
+│   cli.py:main(argv)             │  ← 程序入口
+│                                 │
+│  ① parse_args()                 │  ← 解析 CLI 参数
+│  ② build_agent(args)            │  ← 装配 Agent（核心）
+│  ③ build_welcome()              │  ← 打印欢迎界面
+│  ④ if prompt: ask()             │  ← One-shot 模式
+│     else: REPL loop             │  ← 交互模式
+└─────────────────────────────────┘
+           │
+           ├─► build_agent(args)
+           │       │
+           │       ├─► WorkspaceContext.build(cwd)
+           │       │   └─► git 命令 + 读取项目文档
+           │       │
+           │       ├─► load_project_env(repo_root)
+           │       │   └─► 查找并加载 .env 文件
+           │       │
+           │       ├─► _configured_secret_names(args)
+           │       │   └─► 合并敏感变量名列表
+           │       │
+           │       ├─► SessionStore(...)
+           │       │   └─► 创建 session 存储目录
+           │       │
+           │       ├─► _build_model_client(args)
+           │       │   └─► 创建模型客户端实例
+           │       │
+           │       └─► Pico.__init__(...)
+           │           └─► 8步初始化流程（见下方）
+           │
+           └─► agent.ask(user_message)  ← 用户第一次输入后触发
+                   │
+                   └─► 进入 agent 控制循环...
+            
+
+Pico.__init__()
+    │
+    ├─► 1️⃣ 基础属性赋值
+    │   └─► model_client, workspace, root, session_store, ...
+    │
+    ├─► 2️⃣ 初始化 Session 结构
+    │   ├─► 生成 session ID (timestamp + UUID)
+    │   └─► _ensure_session_shape()
+    │       └─► history, memory, checkpoints, runtime_identity
+    │
+    ├─► 3️⃣ 初始化分层记忆系统
+    │   └─► LayeredMemory(working + durable + task_summary)
+    │
+    ├─► 4️⃣ 构建工具注册表
+    │   └─► build_tools()
+    │       ├─► 6个基础工具 (list_files, read_file, ...)
+    │       └─► delegate (如果 depth < max_depth)
+    │
+    ├─► 5️⃣ 构建 Prompt Prefix
+    │   └─► build_prefix()
+    │       ├─► 角色定义 + 规则说明
+    │       ├─► 工具详细说明 + 示例
+    │       ├─► 工作区快照 (git status, docs)
+    │       └─► 生成 hash + fingerprint (用于缓存)
+    │
+    ├─► 6️⃣ 初始化上下文管理器
+    │   └─► ContextManager(self)
+    │       └─► 配置 prompt 预算控制策略
+    │
+    ├─► 7️⃣ 评估恢复状态
+    │   └─► evaluate_resume_state()
+    │       ├─► 清理过期文件摘要
+    │       ├─► 检查 checkpoint 有效性
+    │       ├─► 验证 schema 版本
+    │       ├─► 检查文件新鲜度
+    │       ├─► 验证运行时身份
+    │       └─► 确定恢复状态 (no-checkpoint/full-valid/...)
+    │
+    └─► 8️⃣ 持久化 Session
+        └─► session_store.save(session)
+            └─► .pico/sessions/{session_id}.json

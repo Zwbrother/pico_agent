@@ -2,6 +2,88 @@
 
 Pico 就是包在模型外面的控制循环：负责组 prompt、解析模型输出、
 校验并执行工具、写 trace、更新工作记忆，以及在合适的时候停下来。
+
+## 核心职责
+1. Session 管理：维护对话历史和记忆状态
+2. Prompt 组装：通过 ContextManager 构建完整提示词
+3. 模型交互：调用模型客户端并解析输出
+4. 工具执行：校验、审批、执行工具调用
+5. 状态跟踪：记录 trace、report、checkpoint
+6. 安全控制：路径检查、敏感信息脱敏、重复调用检测
+
+## Pico.__init__() 初始化流程详解
+```
+Pico.__init__(model_client, workspace, session_store, ...)
+  │
+  ├─> 1. 基础属性赋值
+  │    ├─> self.model_client = model_client          # 模型客户端
+  │    ├─> self.workspace = workspace                # 工作区快照
+  │    ├─> self.root = Path(workspace.repo_root)     # 仓库根目录
+  │    ├─> self.session_store = session_store        # Session 存储
+  │    └─> ... (其他配置项)
+  │
+  ├─> 2. 初始化 Session 结构
+  │    ├─> 生成 session ID（时间戳 + UUID）
+  │    ├─> 初始化空 history 和 memory
+  │    └─> _ensure_session_shape()                   # 确保完整结构
+  │         ├─> history: []                          #   对话历史
+  │         ├─> memory: {...}                        #   分层记忆
+  │         ├─> checkpoints: {current_id, items}     #   检查点
+  │         ├─> runtime_identity: {...}              #   运行时身份
+  │         └─> resume_state: {...}                  #   恢复状态
+  │
+  ├─> 3. 初始化分层记忆系统
+  │    └─> LayeredMemory(session["memory"], workspace_root)
+  │         ├─> working_memory: 最近文件、笔记       #   工作记忆
+  │         ├─> durable_memory: 长期沉淀的知识       #   长期记忆
+  │         └─> task_summary: 当前任务摘要           #   任务摘要
+  │
+  ├─> 4. 构建工具注册表
+  │    └─> build_tools()
+  │         ├─> list_files (safe)                    #   列出文件
+  │         ├─> read_file (safe)                     #   读取文件
+  │         ├─> search (safe)                        #   搜索内容
+  │         ├─> run_shell (risky)                    #   执行命令
+  │         ├─> write_file (risky)                   #   写入文件
+  │         ├─> patch_file (risky)                   #   修补文件
+  │         └─> delegate (safe, 如果深度允许)        #   委托子 agent
+  │
+  ├─> 5. 构建 Prompt Prefix
+  │    └─> build_prefix()
+  │         ├─> 角色定义和规则说明
+  │         ├─> 工具详细说明（名称、参数、风险等级）
+  │         ├─> 工具调用示例
+  │         ├─> 工作区快照（Git 状态、分支、文档）
+  │         └─> 生成元数据
+  │              ├─> hash: SHA256(prefix text)       #   prefix 哈希
+  │              ├─> workspace_fingerprint            #   工作区指纹
+  │              ├─> tool_signature                   #   工具签名
+  │              └─> built_at                         #   构建时间
+  │
+  ├─> 6. 初始化上下文管理器
+  │    └─> ContextManager(self)
+  │         ├─> total_budget: 12000 chars            #   总预算
+  │         ├─> section_budgets: {...}               #   各部分预算
+  │         └─> reduction_order: (...)               #   裁剪顺序
+  │
+  ├─> 7. 评估恢复状态
+  │    └─> evaluate_resume_state()
+  │         ├─> invalidate_stale_memory()            #   清理过期摘要
+  │         ├─> 检查 checkpoint 是否存在
+  │         ├─> 验证 schema 版本匹配
+  │         ├─> 检查文件新鲜度（freshness mismatch）
+  │         ├─> 验证运行时身份（runtime identity）
+  │         └─> 确定恢复状态
+  │              ├─> no-checkpoint                    #   无 checkpoint
+  │              ├─> full-valid                       #   完全有效
+  │              ├─> partial-stale                    #   部分过期
+  │              ├─> workspace-mismatch               #   工作区不匹配
+  │              └─> schema-mismatch                  #   schema 不匹配
+  │
+  └─> 8. 持久化 Session
+       └─> session_store.save(session)
+            └─> 保存到 .pico/sessions/{session_id}.json
+```
 """
 
 import json
@@ -22,23 +104,40 @@ from .task_state import TaskState
 from . import tools as toolkit
 from .workspace import IGNORED_PATH_NAMES, MAX_HISTORY, WorkspaceContext, clip, now
 
+# ============================================================================
+# 常量定义
+# ============================================================================
+
+# 敏感环境变量名的识别标记（用于自动检测需要脱敏的变量）
 SENSITIVE_ENV_NAME_MARKERS = ("API_KEY", "TOKEN", "SECRET", "PASSWORD")
+
+# 脱敏后的占位符
 REDACTED_VALUE = "<redacted>"
+
+# Shell 环境变量白名单（只允许这些变量传递给子进程）
 DEFAULT_SHELL_ENV_ALLOWLIST = ("HOME", "LANG", "LC_ALL", "LC_CTYPE", "LOGNAME", "PATH", "PWD", "SHELL", "TERM", "TMPDIR", "TMP", "TEMP", "USER")
+
+# 默认功能开关
 DEFAULT_FEATURE_FLAGS = {
-    "memory": True,
-    "relevant_memory": True,
-    "context_reduction": True,
-    "prompt_cache": True,
+    "memory": True,              # 启用工作记忆
+    "relevant_memory": True,     # 启用相关记忆检索
+    "context_reduction": True,   # 启用上下文裁剪
+    "prompt_cache": True,        # 启用 prompt 缓存
 }
-CHECKPOINT_SCHEMA_VERSION = "phase1-v1"
-CHECKPOINT_NONE_STATUS = "no-checkpoint"
-CHECKPOINT_FULL_VALID_STATUS = "full-valid"
-CHECKPOINT_PARTIAL_STALE_STATUS = "partial-stale"
-CHECKPOINT_WORKSPACE_MISMATCH_STATUS = "workspace-mismatch"
-CHECKPOINT_SCHEMA_MISMATCH_STATUS = "schema-mismatch"
+
+# Checkpoint 相关常量
+CHECKPOINT_SCHEMA_VERSION = "phase1-v1"  # Checkpoint 结构版本
+CHECKPOINT_NONE_STATUS = "no-checkpoint"  # 无 checkpoint
+CHECKPOINT_FULL_VALID_STATUS = "full-valid"  # 完全有效
+CHECKPOINT_PARTIAL_STALE_STATUS = "partial-stale"  # 部分过期
+CHECKPOINT_WORKSPACE_MISMATCH_STATUS = "workspace-mismatch"  # 工作区不匹配
+CHECKPOINT_SCHEMA_MISMATCH_STATUS = "schema-mismatch"  # Schema 不匹配
+
+# 长期记忆意图识别模式（英文和中文）
 DURABLE_MEMORY_INTENT_PATTERN = re.compile(r"(?i)\b(capture|remember|save|store|persist|note)\b")
 DURABLE_MEMORY_INTENT_ZH_PATTERN = re.compile(r"(记住|保存|记录|沉淀|长期记忆|持久记忆)")
+
+# 长期记忆行模式匹配（支持中英文）
 DURABLE_MEMORY_LINE_PATTERNS = (
     ("project-conventions", re.compile(r"(?i)^Project convention:\s*(.+)$")),
     ("key-decisions", re.compile(r"(?i)^Decision:\s*(.+)$")),
@@ -49,13 +148,29 @@ DURABLE_MEMORY_LINE_PATTERNS = (
     ("dependency-facts", re.compile(r"^依赖：\s*(.+)$")),
     ("user-preferences", re.compile(r"^偏好：\s*(.+)$")),
 )
+
+# 密钥形状文本检测模式（用于识别可能的 API key 泄露）
 SECRET_SHAPED_TEXT_PATTERN = re.compile(r"(?i)(\b(api[_ -]?key|token|secret|password)\b|sk-[A-Za-z0-9_-]{6,})")
 
 
+# ============================================================================
+# 数据类定义
+# ============================================================================
+
 @dataclass
 class PromptPrefix:
-    # prefix 除了文本本身，还带一小份元数据，
-    # 这样 runtime 才能明确判断 prefix 是否可以复用。
+    """Prompt prefix 及其元数据。
+    
+    prefix 除了文本本身，还带一小份元数据，这样 runtime 才能明确判断 
+    prefix 是否可以复用（基于 hash、workspace_fingerprint、tool_signature）。
+    
+    Attributes:
+        text: prefix 的完整文本内容
+        hash: text 的 SHA256 哈希值，用于判断 prefix 是否变化
+        workspace_fingerprint: 工作区状态的指纹，用于判断工作区是否变化
+        tool_signature: 工具注册表的签名，用于判断工具集是否变化
+        built_at: 构建时间戳（ISO 格式）
+    """
     text: str
     hash: str
     workspace_fingerprint: str
@@ -63,28 +178,93 @@ class PromptPrefix:
     built_at: str
 
 
+# ============================================================================
+# Session 持久化存储
+# ============================================================================
+
 class SessionStore:
+    """Session 文件的持久化存储管理器。
+    
+    负责将 session 状态保存到磁盘，支持：
+    - 保存 session 到 JSON 文件
+    - 从 JSON 文件加载 session
+    - 查找最近修改的 session 文件
+    
+    文件路径格式：{root}/{session_id}.json
+    """
+    
     def __init__(self, root):
+        """初始化 SessionStore。
+        
+        Args:
+            root: Session 文件存储目录（通常是 .pico/sessions）
+        """
         self.root = Path(root)
-        self.root.mkdir(parents=True, exist_ok=True)
+        self.root.mkdir(parents=True, exist_ok=True)  # 确保目录存在
 
     def path(self, session_id):
+        """获取指定 session 的文件路径。
+        
+        Args:
+            session_id: Session ID
+            
+        Returns:
+            Path: session 文件的完整路径
+        """
         return self.root / f"{session_id}.json"
 
     def save(self, session):
+        """保存 session 到 JSON 文件。
+        
+        Args:
+            session: session 字典对象
+            
+        Returns:
+            Path: 保存的文件路径
+        """
         path = self.path(session["id"])
         path.write_text(json.dumps(session, indent=2), encoding="utf-8")
         return path
 
     def load(self, session_id):
+        """从 JSON 文件加载 session。
+        
+        Args:
+            session_id: Session ID
+            
+        Returns:
+            dict: 加载的 session 数据
+        """
         return json.loads(self.path(session_id).read_text(encoding="utf-8"))
 
     def latest(self):
+        """查找最近修改的 session 文件。
+        
+        Returns:
+            str or None: 最近 session 的 ID，如果没有则返回 None
+        """
         files = sorted(self.root.glob("*.json"), key=lambda path: path.stat().st_mtime)
         return files[-1].stem if files else None
 
 
+# ============================================================================
+# Pico 核心运行时类
+# ============================================================================
+
 class Pico:
+    """Pico Agent 的核心运行时类。
+    
+    这是整个 agent 系统的控制中心，负责：
+    1. 维护 session 状态（历史、记忆、checkpoint）
+    2. 组装 prompt 并调用模型
+    3. 解析模型输出并执行工具
+    4. 记录 trace 和 report
+    5. 管理安全策略（审批、脱敏、路径检查）
+    
+    ## 初始化流程
+    详见模块级文档字符串中的流程图。
+    """
+    
     def __init__(
         self,
         model_client,
@@ -102,6 +282,27 @@ class Pico:
         secret_env_names=None,
         feature_flags=None,
     ):
+        """初始化 Pico 运行时实例。
+        
+        Args:
+            model_client: 模型客户端实例（OpenAI/Anthropic/Ollama）
+            workspace: 工作区快照（WorkspaceContext）
+            session_store: Session 存储管理器
+            session: 可选的已有 session 数据（用于恢复）
+            run_store: 运行记录存储（默认为 .pico/runs）
+            approval_policy: 危险工具审批策略（ask/auto/never）
+            max_steps: 每轮最大工具调用步数
+            max_new_tokens: 模型每次输出的最大 token 数
+            depth: 当前 agent 深度（用于 delegate）
+            max_depth: 最大允许的深度
+            read_only: 是否只读模式（禁止所有危险工具）
+            shell_env_allowlist: Shell 环境变量白名单
+            secret_env_names: 需要脱敏的环境变量名列表
+            feature_flags: 功能开关字典
+        """
+        # ====================================================================
+        # 步骤1: 基础属性赋值
+        # ====================================================================
         self.model_client = model_client
         self.workspace = workspace
         self.root = Path(workspace.repo_root)
@@ -118,6 +319,11 @@ class Pico:
         if feature_flags:
             self.feature_flags.update({str(key): bool(value) for key, value in feature_flags.items()})
         self.run_store = run_store or RunStore(Path(workspace.repo_root) / ".pico" / "runs")
+        
+        # ====================================================================
+        # 步骤2: 初始化 Session 结构
+        # ====================================================================
+        # 如果是新 session，生成 ID 和初始状态
         self.session = session or {
             "id": datetime.now().strftime("%Y%m%d-%H%M%S") + "-" + uuid.uuid4().hex[:6],
             "created_at": now(),
@@ -125,26 +331,55 @@ class Pico:
             "history": [],
             "memory": memorylib.default_memory_state(),
         }
+        # 确保 session 有完整的嵌套结构（checkpoints、runtime_identity 等）
         self._ensure_session_shape()
+        
+        # ====================================================================
+        # 步骤3: 初始化分层记忆系统
+        # ====================================================================
         self.memory = memorylib.LayeredMemory(
             self.session.setdefault("memory", memorylib.default_memory_state()),
             workspace_root=self.root,
         )
         self.session["memory"] = self.memory.to_dict()
+        
+        # ====================================================================
+        # 步骤4: 构建工具注册表
+        # ====================================================================
         self.tools = self.build_tools()
+        
+        # ====================================================================
+        # 步骤5: 构建 Prompt Prefix
+        # ====================================================================
         self.prefix_state = self.build_prefix()
         self.prefix = self.prefix_state.text
+        
+        # ====================================================================
+        # 步骤6: 初始化上下文管理器
+        # ====================================================================
         self.context_manager = ContextManager(self)
+        
+        # ====================================================================
+        # 步骤7: 评估恢复状态
+        # ====================================================================
         self.resume_state = self.evaluate_resume_state()
+        
+        # ====================================================================
+        # 步骤8: 持久化 Session
+        # ====================================================================
         self.session_path = self.session_store.save(self.session)
-        self.current_task_state = None
-        self.current_run_dir = None
-        self.last_prompt_metadata = {}
-        self.last_completion_metadata = {}
-        self.last_durable_promotions = []
-        self.last_durable_rejections = []
-        self.last_durable_superseded = []
-        self._last_tool_result_metadata = {}
+        
+        # ====================================================================
+        # 运行时状态跟踪变量
+        # ====================================================================
+        self.current_task_state = None  # 当前任务状态
+        self.current_run_dir = None  # 当前运行记录目录
+        self.last_prompt_metadata = {}  # 上一轮 prompt 元数据
+        self.last_completion_metadata = {}  # 上一轮模型完成元数据
+        self.last_durable_promotions = []  # 上一轮提升的长期记忆
+        self.last_durable_rejections = []  # 上一轮拒绝的长期记忆
+        self.last_durable_superseded = []  # 上一轮被替代的长期记忆
+        self._last_tool_result_metadata = {}  # 上一次工具执行结果元数据
         self._last_prefix_refresh = {
             "workspace_changed": False,
             "prefix_changed": False,
@@ -152,6 +387,18 @@ class Pico:
 
     @classmethod
     def from_session(cls, model_client, workspace, session_store, session_id, **kwargs):
+        """从已有 session 恢复 Pico 实例。
+        
+        Args:
+            model_client: 模型客户端实例
+            workspace: 工作区快照
+            session_store: Session 存储管理器
+            session_id: 要恢复的 session ID
+            **kwargs: 其他传递给 __init__ 的参数
+            
+        Returns:
+            Pico: 恢复后的 Pico 实例
+        """
         return cls(
             model_client=model_client,
             workspace=workspace,
@@ -161,22 +408,45 @@ class Pico:
         )
 
     def _ensure_session_shape(self):
+        """确保 session 有完整的嵌套结构。
+        
+        为新创建的 session 或从旧版本恢复的 session 补充缺失的字段，
+        保证后续代码可以安全访问这些嵌套结构。
+        """
         self.session.setdefault("history", [])
         self.session.setdefault("memory", memorylib.default_memory_state())
+        
+        # 确保 checkpoints 结构
         checkpoints = self.session.setdefault("checkpoints", {})
         if not isinstance(checkpoints, dict):
             checkpoints = {}
             self.session["checkpoints"] = checkpoints
         checkpoints.setdefault("current_id", "")
         checkpoints.setdefault("items", {})
+        
+        # 确保 runtime_identity 结构
         runtime_identity = self.session.setdefault("runtime_identity", {})
         if not isinstance(runtime_identity, dict):
             self.session["runtime_identity"] = {}
+        
+        # 确保 resume_state 结构
         resume_state = self.session.setdefault("resume_state", {})
         if not isinstance(resume_state, dict):
             self.session["resume_state"] = {}
 
     def current_runtime_identity(self):
+        """获取当前运行时的身份标识。
+        
+        这个标识用于判断 checkpoint 是否可以安全恢复。如果以下任何一项
+        发生变化，checkpoint 可能不再有效：
+        - 工作区路径或状态
+        - 模型配置
+        - 安全策略
+        - 工具注册表
+        
+        Returns:
+            dict: 运行时身份标识字典
+        """
         return {
             "session_id": self.session.get("id", ""),
             "cwd": str(self.root),
@@ -193,10 +463,20 @@ class Pico:
         }
 
     def checkpoint_state(self):
+        """获取 checkpoint 状态。
+        
+        Returns:
+            dict: checkpoint 状态字典
+        """
         self._ensure_session_shape()
         return self.session["checkpoints"]
 
     def current_checkpoint(self):
+        """获取当前 checkpoint。
+        
+        Returns:
+            dict or None: 当前 checkpoint 字典，如果没有则返回 None
+        """
         state = self.checkpoint_state()
         checkpoint_id = str(state.get("current_id", "")).strip()
         if not checkpoint_id:
@@ -204,11 +484,21 @@ class Pico:
         return state.get("items", {}).get(checkpoint_id)
 
     def invalidate_stale_memory(self):
+        """清理过期的文件摘要。
+        
+        Returns:
+            list: 被清理的文件路径列表
+        """
         invalidated = self.memory.invalidate_stale_file_summaries()
         self.session["memory"] = self.memory.to_dict()
         return invalidated
 
     def evaluate_resume_state(self):
+        """评估当前 session 的恢复状态。
+        
+        Returns:
+            dict: 恢复状态字典
+        """
         previous_resume_state = dict(self.session.get("resume_state", {}) or {})
         invalidated = self.invalidate_stale_memory()
         checkpoint = self.current_checkpoint()
@@ -271,6 +561,11 @@ class Pico:
         return resume_state
 
     def render_checkpoint_text(self):
+        """渲染当前 checkpoint 的文本描述。
+        
+        Returns:
+            str: checkpoint 文本描述
+        """
         checkpoint = self.current_checkpoint()
         if not checkpoint:
             return ""
@@ -296,6 +591,13 @@ class Pico:
 
     @staticmethod
     def remember(bucket, item, limit):
+        """将 item 添加到 bucket 中，保持 bucket 的大小不超过 limit。
+        
+        Args:
+            bucket: 目标列表
+            item: 要添加的元素
+            limit: 最大元素数量
+        """
         if not item:
             return
         if item in bucket:
@@ -304,9 +606,19 @@ class Pico:
         del bucket[:-limit]
 
     def build_tools(self):
+        """构建工具注册表。
+        
+        Returns:
+            dict: 工具注册表
+        """
         return toolkit.build_tool_registry(self)
 
     def tool_signature(self):
+        """生成工具注册表的签名。
+        
+        Returns:
+            str: 工具注册表的 SHA256 哈希值
+        """
         payload = []
         for name in sorted(self.tools):
             tool = self.tools[name]
@@ -321,6 +633,11 @@ class Pico:
         return hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()
 
     def build_prefix(self):
+        """构建 Prompt Prefix。
+        
+        Returns:
+            PromptPrefix: Prompt Prefix 对象
+        """
         tool_lines = []
         for name, tool in self.tools.items():
             fields = ", ".join(f"{key}: {value}" for key, value in tool["schema"].items())
@@ -379,10 +696,23 @@ class Pico:
         )
 
     def _apply_prefix_state(self, prefix_state):
+        """应用新的 Prefix State。
+        
+        Args:
+            prefix_state: 新的 PromptPrefix 对象
+        """
         self.prefix_state = prefix_state
         self.prefix = prefix_state.text
 
     def refresh_prefix(self, force=False):
+        """刷新 Prefix。
+        
+        Args:
+            force: 是否强制刷新
+        
+        Returns:
+            dict: 刷新结果字典
+        """
         previous_hash = getattr(getattr(self, "prefix_state", None), "hash", None)
         previous_workspace_fingerprint = getattr(getattr(self, "prefix_state", None), "workspace_fingerprint", None)
 
@@ -406,9 +736,19 @@ class Pico:
         return dict(self._last_prefix_refresh)
 
     def memory_text(self):
+        """获取当前记忆的文本表示。
+        
+        Returns:
+            str: 内存文本表示
+        """
         return self.memory.render_memory_text()
 
     def history_text(self):
+        """获取当前对话历史的文本表示。
+        
+        Returns:
+            str: 对话历史文本表示
+        """
         history = self.session["history"]
         if not history:
             return "- empty"
@@ -435,26 +775,68 @@ class Pico:
         return clip("\n".join(lines), MAX_HISTORY)
 
     def feature_enabled(self, name):
+        """检查某个功能是否启用。
+        
+        Args:
+            name: 功能名称
+            
+        Returns:
+            bool: 是否启用
+        """
         return bool(self.feature_flags.get(str(name), False))
 
     def prompt(self, user_message):
+        """生成 prompt。
+        
+        Args:
+            user_message: 用户输入的消息
+            
+        Returns:
+            str: 生成的 prompt
+        """
         prompt, _ = self._build_prompt_and_metadata(user_message)
         return prompt
 
     def record(self, item):
+        """记录对话历史。
+        
+        Args:
+            item: 对话历史项
+        """
         self.session["history"].append(item)
         self.session_path = self.session_store.save(self.session)
 
     @staticmethod
     def looks_sensitive_env_name(name):
+        """判断环境变量名是否看起来敏感。
+        
+        Args:
+            name: 环境变量名
+            
+        Returns:
+            bool: 是否看起来敏感
+        """
         upper = str(name).upper()
         return any(upper == marker or upper.endswith(marker) or upper.endswith(f"_{marker}") for marker in SENSITIVE_ENV_NAME_MARKERS)
 
     def is_secret_env_name(self, name):
+        """判断环境变量名是否是敏感的。
+        
+        Args:
+            name: 环境变量名
+            
+        Returns:
+            bool: 是否是敏感的
+        """
         upper = str(name).upper()
         return upper in self.secret_env_names or self.looks_sensitive_env_name(upper)
 
     def configured_secret_env_items(self):
+        """获取配置的敏感环境变量。
+        
+        Returns:
+            list: 敏感环境变量列表
+        """
         items = [
             (name, value)
             for name, value in os.environ.items()
@@ -464,6 +846,11 @@ class Pico:
         return items
 
     def detected_secret_env_items(self):
+        """检测所有敏感环境变量。
+        
+        Returns:
+            list: 敏感环境变量列表
+        """
         items = [
             (name, value)
             for name, value in os.environ.items()
@@ -473,6 +860,11 @@ class Pico:
         return items
 
     def secret_env_summary(self):
+        """获取配置的敏感环境变量摘要。
+        
+        Returns:
+            dict: 敏感环境变量摘要
+        """
         names = [name for name, _ in self.configured_secret_env_items()]
         return {
             "secret_env_count": len(names),
@@ -480,6 +872,11 @@ class Pico:
         }
 
     def detected_secret_env_summary(self):
+        """获取检测到的敏感环境变量摘要。
+        
+        Returns:
+            dict: 敏感环境变量摘要
+        """
         names = [name for name, _ in self.detected_secret_env_items()]
         return {
             "secret_env_count": len(names),
@@ -487,12 +884,29 @@ class Pico:
         }
 
     def redact_text(self, text):
+        """脱敏文本。
+        
+        Args:
+            text: 要脱敏的文本
+            
+        Returns:
+            str: 脱敏后的文本
+        """
         text = str(text)
         for _, value in sorted(self.detected_secret_env_items(), key=lambda item: len(item[1]), reverse=True):
             text = text.replace(value, REDACTED_VALUE)
         return text
 
     def redact_artifact(self, value, key=None):
+        """脱敏数据结构。
+        
+        Args:
+            value: 要脱敏的数据结构
+            key: 数据结构中的键（用于判断是否是敏感变量）
+            
+        Returns:
+            脱敏后的数据结构
+        """
         if key and self.is_secret_env_name(key):
             return REDACTED_VALUE
         if isinstance(value, dict):
@@ -510,6 +924,11 @@ class Pico:
         return value
 
     def shell_env(self):
+        """获取允许传递给子进程的 Shell 环境变量。
+        
+        Returns:
+            dict: 允许传递的环境变量字典
+        """
         env = {
             name: os.environ[name]
             for name in self.shell_env_allowlist
@@ -521,10 +940,27 @@ class Pico:
         return env
 
     def prompt_metadata(self, user_message, prompt):
+        """获取 prompt 的元数据。
+        
+        Args:
+            user_message: 用户输入的消息
+            prompt: 生成的 prompt
+            
+        Returns:
+            dict: prompt 的元数据
+        """
         _, metadata = self._build_prompt_and_metadata(user_message)
         return metadata
 
     def _build_prompt_and_metadata(self, user_message):
+        """构建 prompt 和元数据。
+        
+        Args:
+            user_message: 用户输入的消息
+            
+        Returns:
+            tuple: (prompt, metadata)
+        """
         refresh = self.refresh_prefix()
         self.resume_state = self.evaluate_resume_state()
         prompt, metadata = self.context_manager.build(user_message)
@@ -557,6 +993,16 @@ class Pico:
         return prompt, metadata
 
     def emit_trace(self, task_state, event, payload=None):
+        """记录 trace 事件。
+        
+        Args:
+            task_state: 当前任务状态
+            event: 事件名称
+            payload: 事件负载（可选）
+            
+        Returns:
+            dict: 记录的事件负载
+        """
         payload = self.redact_artifact(payload or {})
         payload["event"] = event
         payload["created_at"] = now()
@@ -565,6 +1011,11 @@ class Pico:
         return payload
 
     def capture_workspace_snapshot(self):
+        """捕获当前工作区的快照。
+        
+        Returns:
+            dict: 工作区快照
+        """
         snapshot = {}
         for path in self.root.rglob("*"):
             try:
@@ -583,6 +1034,15 @@ class Pico:
 
     @staticmethod
     def diff_workspace_snapshots(before, after):
+        """比较两个工作区快照。
+        
+        Args:
+            before: 之前的快照
+            after: 之后的快照
+            
+        Returns:
+            tuple: (变化的路径列表, 变化摘要列表)
+        """
         changed_paths = []
         summaries = []
         all_paths = sorted(set(before) | set(after))
@@ -599,6 +1059,16 @@ class Pico:
         return changed_paths, summaries
 
     def create_checkpoint(self, task_state, user_message, trigger):
+        """创建 checkpoint。
+        
+        Args:
+            task_state: 当前任务状态
+            user_message: 用户输入的消息
+            trigger: 触发 checkpoint 的原因
+            
+        Returns:
+            dict: checkpoint 数据
+        """
         state = self.checkpoint_state()
         current = self.current_checkpoint()
         checkpoint_id = "ckpt_" + uuid.uuid4().hex[:8]
@@ -631,6 +1101,14 @@ class Pico:
         return checkpoint
 
     def infer_next_step(self, task_state):
+        """推断下一步操作。
+        
+        Args:
+            task_state: 当前任务状态
+            
+        Returns:
+            str: 下一步操作描述
+        """
         if task_state.status == "completed":
             return "No next step recorded."
         if task_state.stop_reason == "step_limit_reached":
@@ -674,9 +1152,22 @@ class Pico:
             self.memory.invalidate_file_summary(canonical_path)
 
     def note_tool(self, name, args, result):
+        """记录工具调用结果。
+        
+        Args:
+            name: 工具名称
+            args: 工具参数
+            result: 工具结果
+        """
         self.update_memory_after_tool(name, args, result)
 
     def record_process_note_for_tool(self, name, metadata):
+        """记录工具调用的处理日志。
+        
+        Args:
+            name: 工具名称
+            metadata: 工具调用元数据
+        """
         status = str(metadata.get("tool_status", "")).strip()
         if status not in {"partial_success", "error", "rejected"}:
             return
@@ -693,6 +1184,14 @@ class Pico:
         self.session["memory"] = self.memory.to_dict()
 
     def reject_durable_reason(self, note_text):
+        """判断长期记忆是否应该被拒绝。
+        
+        Args:
+            note_text: 长期记忆内容
+            
+        Returns:
+            str: 拒绝原因（如果有的话）
+        """
         text = str(note_text or "").strip()
         lowered = text.lower()
         if not text:
@@ -721,6 +1220,15 @@ class Pico:
         return ""
 
     def extract_durable_promotions(self, user_message, final_answer):
+        """提取长期记忆的提升和拒绝。
+        
+        Args:
+            user_message: 用户输入的消息
+            final_answer: 最终答案
+            
+        Returns:
+            tuple: (提升列表, 拒绝列表)
+        """
         user_text = str(user_message or "")
         if not (DURABLE_MEMORY_INTENT_PATTERN.search(user_text) or DURABLE_MEMORY_INTENT_ZH_PATTERN.search(user_text)):
             return [], []
@@ -745,6 +1253,15 @@ class Pico:
         return promotions, rejections
 
     def promote_durable_memory(self, user_message, final_answer):
+        """提升长期记忆。
+        
+        Args:
+            user_message: 用户输入的消息
+            final_answer: 最终答案
+            
+        Returns:
+            tuple: (提升列表, 拒绝列表, 被替代的列表)
+        """
         promotions, rejections = self.extract_durable_promotions(user_message, final_answer)
         promoted, superseded = self.memory.promote_durable(promotions)
         self.session["memory"] = self.memory.to_dict()
@@ -924,6 +1441,17 @@ class Pico:
                 )
                 checkpoint = self.create_checkpoint(task_state, user_message, trigger="tool_executed")
                 self.run_store.write_task_state(task_state)
+                self.emit_trace(
+                    task_state,
+                    "checkpoint_created",
+                    {
+                        "checkpoint_id": checkpoint["checkpoint_id"],
+                        "trigger": "tool_executed",
+                    },
+                )
+            elif kind == "final":
+                task_state.final_answer = payload
+                self.record({"role": "final", "content": payload, "created_at": now()})
                 self.emit_trace(
                     task_state,
                     "checkpoint_created",
@@ -1347,3 +1875,123 @@ class Pico:
 
 
 MiniAgent = Pico
+
+"""
+ agent 的核心调度器，执行流程：
+┌─────────────────────────────────────────┐
+│ 1. 初始化                                │
+│    - 记录用户消息到 history              │
+│    - 创建 TaskState                     │
+│    - 启动 run (trace/report)            │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│ 2. 主循环 (while tool_steps < max)      │
+│                                         │
+│   ┌─────────────────────────────────┐   │
+│   │ A. 感知: 构建 prompt            │   │
+│   │    - _build_prompt_and_metadata │   │
+│   │    - emit_trace(prompt_built)   │   │
+│   │    - 检查恢复状态，必要时创建    │   │
+│   │      checkpoint                 │   │
+│   └──────────────┬──────────────────┘   │
+│                  │                       │
+│                  ▼                       │
+│   ┌─────────────────────────────────┐   │
+│   │ B. 决策: 调用模型               │   │
+│   │    - model_client.complete()    │   │
+│   │    - parse(raw) → kind/payload  │   │
+│   │    - emit_trace(model_parsed)   │   │
+│   └──────────────┬──────────────────┘   │
+│                  │                       │
+│        ┌─────────┴─────────┐            │
+│        │                   │            │
+│   kind=tool          kind=final/retry   │
+│        │                   │            │
+│        ▼                   ▼            │
+│   ┌──────────────┐  ┌──────────────┐   │
+│   │ C. 行动:     │  │ 记录答案     │   │
+│   │ run_tool()   │  │ 完成任务     │   │
+│   │ 执行工具     │  │ promote_     │   │
+│   │ 更新 memory  │  │ durable_     │   │
+│   │ 创建         │  │ memory()     │   │
+│   │ checkpoint   │  │ 创建         │   │
+│   └──────────────┘  │ checkpoint   │   │
+│                     └──────────────┘   │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│ 3. 终止处理                              │
+│    - 达到步数上限或重试上限              │
+│    - 写入最终 report                    │
+│    - 返回最终答案                       │
+└─────────────────────────────────────────┘
+
+
+run_tool
+┌──────────────────────────────────────┐
+│ 1. 工具存在性检查                     │
+│    tools.get(name) → None?           │
+└──────────────┬───────────────────────┘
+               │ exists
+               ▼
+┌──────────────────────────────────────┐
+│ 2. 参数合法性校验                     │
+│    validate_tool(name, args)         │
+│    - 通用校验 (toolkit)              │
+│    - delegate 深度限制               │
+└──────────────┬───────────────────────┘
+               │ valid
+               ▼
+┌──────────────────────────────────────┐
+│ 3. 重复调用检测                       │
+│    repeated_tool_call(name, args)    │
+│    - 检查最近 2 次工具调用           │
+└──────────────┬───────────────────────┘
+               │ not repeated
+               ▼
+┌──────────────────────────────────────┐
+│ 4. 审批策略检查                       │
+│    approve(name, args)               │
+│    - read_only?                      │
+│    - approval_policy (auto/ask/never)│
+└──────────────┬───────────────────────┘
+               │ approved
+               ▼
+┌──────────────────────────────────────┐
+│ 5. 执行前快照 (risky 工具)            │
+│    capture_workspace_snapshot()      │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│ 6. 真正执行工具                       │
+│    tool["run"](args)                 │
+│    clip(result)                      │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│ 7. 执行后快照 + diff                  │
+│    diff_workspace_snapshots()        │
+│    → affected_paths, diff_summary    │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│ 8. 更新工作记忆                       │
+│    update_memory_after_tool()        │
+│    record_process_note_for_tool()    │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│ 9. 返回结果 (成功/错误)               │
+└──────────────────────────────────────┘
+
+
+
+
+"""

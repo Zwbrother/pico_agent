@@ -430,7 +430,7 @@ def build_agent(args):
     model = _build_model_client(args)
     
     # 步骤6: 决定是恢复旧 session 还是创建新 session
-    session_id = args.resume
+    session_id = args.resume  #指定要恢复的 session ID 参数
     if session_id == "latest":
         session_id = store.latest()  # 找到最近修改的 session 文件
     
@@ -477,7 +477,7 @@ def build_arg_parser():
     parser.add_argument("--cwd", default=".", help="Workspace directory.")
     
     # 模型提供商选择
-    parser.add_argument("--provider", choices=("ollama", "openai", "anthropic", "deepseek"), default="openai", help="Model backend to use.")
+    parser.add_argument("--provider", choices=("ollama", "openai", "anthropic", "deepseek"), default="deepseek", help="Model backend to use.")
     
     # 模型名称覆盖
     parser.add_argument(

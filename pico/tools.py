@@ -99,8 +99,7 @@ TOOL_EXAMPLES = {
 def build_tool_registry(agent):
     """构建工具注册表。
     
-    工具不是动态发现的，而是显式注册的。这样模型看到的是一个有边界、
-    可审计的动作集合。
+    工具不是动态发现的，而是显式注册的。这样模型看到的是一个有边界、可审计的动作集合。
     
     Args:
         agent: Pico 实例，用于绑定到工具执行函数
@@ -370,6 +369,8 @@ def tool_search(agent, args):
             cwd=agent.root,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
         )
         return result.stdout.strip() or result.stderr.strip() or "(no matches)"
 
@@ -417,6 +418,8 @@ def tool_run_shell(agent, args):
         capture_output=True,
         text=True,
         timeout=timeout,
+        encoding="utf-8",
+        errors="replace",
         # 这里传入的是过滤后的环境变量，而不是直接继承整个父 shell 环境，
         # 目的是减少敏感信息被意外带进命令执行环境的风险。
         env=agent.shell_env(),

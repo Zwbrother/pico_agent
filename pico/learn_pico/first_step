@@ -1,3 +1,4 @@
+"""
 用户启动 pico
     │
     ▼
@@ -77,3 +78,43 @@ Pico.__init__()
     └─► 8️⃣ 持久化 Session
         └─► session_store.save(session)
             └─► .pico/sessions/{session_id}.json
+
+    evaluate_resume_state()
+  │
+  ├─> 步骤1: 清理过期文件摘要
+  │    └─> invalidate_stale_memory()
+  │         检查 memory.file_summaries 中的缓存
+  │         如果文件 SHA256 变化，清除缓存
+  │
+  ├─> 步骤2: 获取当前 checkpoint
+  │    └─> current_checkpoint()
+  │         从 session.checkpoints.items 中获取
+  │
+  ├─> 步骤3: 第1层验证 - Schema 版本检查
+  │    └─> if checkpoint.schema_version != CHECKPOINT_SCHEMA_VERSION:
+  │         status = "schema-mismatch"
+  │         return  ← 直接返回，不进行后续检查
+  │
+  ├─> 步骤4: 第2层验证 - 文件新鲜度检查
+  │    └─> for file in checkpoint.key_files:
+  │         expected = file.freshness  # checkpoint 创建时的 SHA256
+  │         current = file_freshness(file.path)  # 当前文件的 SHA256
+  │         if expected != current:
+  │           stale_paths.append(file.path)
+  │
+  ├─> 步骤5: 第3层验证 - 运行时身份检查
+  │    └─> for key in 11个关键字段:
+  │         if saved_identity[key] != current_identity[key]:
+  │           mismatch_fields.append(key)
+  │
+  └─> 步骤6: 确定最终状态
+       if stale_paths:
+         status = "partial-stale"  # 文件过期但环境一致
+       elif mismatch_fields:
+         status = "workspace-mismatch"  # 环境变化太大
+       else:
+         status = "full-valid"  # 完全有效
+
+
+            
+"""

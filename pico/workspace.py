@@ -209,6 +209,8 @@ class WorkspaceContext:
                     cwd=cwd,
                     capture_output=True,
                     text=True,
+                    encoding="utf-8",
+                    errors="replace",
                     check=True,
                     timeout=5,
                 )
@@ -312,8 +314,7 @@ class WorkspaceContext:
     def fingerprint(self):
         """计算工作区状态的指纹（SHA256 哈希）。
         
-        这个指纹用来判断仓库状态是否发生了足够大的变化，从而决定是否需要
-        重建缓存中的 prompt prefix。
+        这个指纹用来判断仓库状态是否发生了足够大的变化，从而决定是否需要重建缓存中的 prompt prefix。
         
         指纹基于以下信息计算：
         - cwd 和 repo_root

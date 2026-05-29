@@ -676,9 +676,16 @@ def _extract_anthropic_text(data):
     Returns:
         str: 提取的文本内容，如果找不到则返回空字符串
     """
+    # 优先提取 text 类型（标准响应）
     for item in data.get("content", []):
         if isinstance(item, dict) and item.get("type") == "text":
             text = item.get("text")
+            if isinstance(text, str) and text:
+                return text
+    # 兜底：提取 thinking 类型（DeepSeek/Claude 扩展思考模式）
+    for item in data.get("content", []):
+        if isinstance(item, dict) and item.get("type") == "thinking":
+            text = item.get("thinking")
             if isinstance(text, str) and text:
                 return text
     return ""

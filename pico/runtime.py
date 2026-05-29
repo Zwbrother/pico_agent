@@ -885,6 +885,7 @@ class Pico:
                     "name": name,
                     "schema": tool["schema"],
                     "risky": tool["risky"],
+                    "capabilities": list(tool.get("capabilities", ())),
                     "description": tool["description"],
                 }
             )
@@ -913,10 +914,12 @@ class Pico:
         for name, tool in self.tools.items():
             # 提取工具的参数 schema，格式化为 "param1: type1, param2: type2"
             fields = ", ".join(f"{key}: {value}" for key, value in tool["schema"].items())
-            # 根据 risky 标记确定风险等级提示
-            risk = "approval required" if tool["risky"] else "safe"
-            # 组装成统一的格式：- tool_name(param1: type1, ...) [risk_level] description
-            tool_lines.append(f"- {name}({fields}) [{risk}] {tool['description']}")
+            # 渲染 capabilities + 审批提示，让模型对每个工具的副作用面有更细的认知
+            caps = tool.get("capabilities", ()) or ("read",)
+            caps_label = ",".join(caps)
+            risk_hint = "approval required" if tool["risky"] else "safe"
+            # 组装成统一的格式：- tool_name(param1: type1, ...) [caps:... | risk_hint] description
+            tool_lines.append(f"- {name}({fields}) [caps:{caps_label} | {risk_hint}] {tool['description']}")
         # 将所有工具说明用换行符连接成完整文本
         tool_text = "\n".join(tool_lines)
         
@@ -1999,17 +2002,22 @@ class Pico:
                 self.run_store.write_task_state(task_state)
                 
                 # 记录工具执行的 trace 事件
-                self.emit_trace(
-                    task_state,
-                    "tool_executed",
-                    {
-                        "name": name,
-                        "args": args,
-                        "result": clip(result, 500),  # 截断过长结果
-                        "duration_ms": int((time.monotonic() - tool_started_at) * 1000),
-                        **dict(self._last_tool_result_metadata or {}),  # 展开工具执行元数据
-                    },
-                )
+                # `result_text` 截断给人看；`result_payload` 不截断，给评测脚本
+                # 和 trace 聚合做结构化分析（exit_code、bytes_changed、match_count 等）。
+                metadata = dict(self._last_tool_result_metadata or {})
+                trace_payload = {
+                    "name": name,
+                    "args": args,
+                    "result": clip(result, 500),
+                    "result_chars": len(result or ""),
+                    "duration_ms": int((time.monotonic() - tool_started_at) * 1000),
+                    **metadata,
+                }
+                # 提升关键字段的可见性：放到顶层 key，trace 消费方不需要再去
+                # `tool_result_payload` 里挖。
+                if isinstance(metadata.get("tool_result_payload"), dict):
+                    trace_payload["result_payload"] = metadata["tool_result_payload"]
+                self.emit_trace(task_state, "tool_executed", trace_payload)
                 
                 # 【关键】每次工具执行后创建 checkpoint
                 # 这样可以在下次运行时从这一步继续，而不必重头开始
@@ -2185,6 +2193,9 @@ class Pico:
                 "security_event_type": "",
                 "risk_level": "high",
                 "read_only": False,
+                "capabilities": [],
+                "tool_result_payload": {},
+                "tool_result_ok": False,
                 "affected_paths": [],
                 "workspace_changed": False,
                 "diff_summary": [],
@@ -2217,6 +2228,9 @@ class Pico:
                 "security_event_type": security_event_type,
                 "risk_level": "high" if tool["risky"] else "low",
                 "read_only": not tool["risky"],
+                "capabilities": list(tool.get("capabilities", ())),
+                "tool_result_payload": {},
+                "tool_result_ok": False,
                 "affected_paths": [],
                 "workspace_changed": False,
                 "diff_summary": [],
@@ -2235,6 +2249,9 @@ class Pico:
                 "security_event_type": "",
                 "risk_level": "high" if tool["risky"] else "low",
                 "read_only": not tool["risky"],
+                "capabilities": list(tool.get("capabilities", ())),
+                "tool_result_payload": {},
+                "tool_result_ok": False,
                 "affected_paths": [],
                 "workspace_changed": False,
                 "diff_summary": [],
@@ -2249,13 +2266,16 @@ class Pico:
         # - policy="auto": 自动通过
         # - policy="never": 一律拒绝
         # - policy="ask": 询问用户确认
-        if tool["risky"] and not self.approve(name, args):
+        if tool["risky"] and not self.approve(name, args, capabilities=tool.get("capabilities", ())):
             self._last_tool_result_metadata = {
                 "tool_status": "rejected",
                 "tool_error_code": "approval_denied",
                 "security_event_type": "read_only_block" if self.read_only else "approval_denied",
                 "risk_level": "high",
                 "read_only": False,
+                "capabilities": list(tool.get("capabilities", ())),
+                "tool_result_payload": {},
+                "tool_result_ok": False,
                 "affected_paths": [],
                 "workspace_changed": False,
                 "diff_summary": [],
@@ -2274,8 +2294,11 @@ class Pico:
         # --------------------------------------------------------------------
         try:
             # 调用工具的实际实现函数
-            # clip() 会截断过长的输出，防止超出 token 限制
-            result = clip(tool["run"](args))
+            # 工具统一返回 ToolResult；clip() 只对要喂回模型的 text 做截断，
+            # payload 不截断，方便 trace 聚合和评测脚本拿到完整字段。
+            raw_result = tool["run"](args)
+            tool_result = raw_result if isinstance(raw_result, toolkit.ToolResult) else toolkit.ToolResult(text="" if raw_result is None else str(raw_result))
+            result = clip(tool_result.text)
             
             # 执行后再次捕获快照（仅 risky 工具）
             after_snapshot = self.capture_workspace_snapshot() if tool["risky"] else before_snapshot
@@ -2289,15 +2312,23 @@ class Pico:
             tool_error_code = ""
             
             # 特殊处理：run_shell 需要检查退出码
+            # 现在 ToolResult.payload 直接给了结构化的 exit_code / timed_out，
+            # 不再依赖正则解析文本。同时保留正则做兜底（万一某个自定义工具叫
+            # run_shell 但没填 payload）。
             if name == "run_shell":
-                match = re.search(r"exit_code:\s*(-?\d+)", result)
-                exit_code = int(match.group(1)) if match else 0
-                if exit_code != 0 and workspace_changed:
-                    # 命令失败但工作区有变化 → 部分成功
+                payload = tool_result.payload or {}
+                if "exit_code" in payload or "timed_out" in payload:
+                    exit_code = payload.get("exit_code")
+                    timed_out = bool(payload.get("timed_out"))
+                    failed = timed_out or (exit_code is not None and exit_code != 0)
+                else:
+                    match = re.search(r"exit_code:\s*(-?\d+)", result)
+                    exit_code = int(match.group(1)) if match else 0
+                    failed = exit_code != 0
+                if failed and workspace_changed:
                     tool_status = "partial_success"
                     tool_error_code = "tool_partial_success"
-                elif exit_code != 0:
-                    # 命令失败且无变化 → 完全失败
+                elif failed:
                     tool_status = "error"
                     tool_error_code = "tool_failed"
             
@@ -2314,6 +2345,9 @@ class Pico:
                 "security_event_type": "",
                 "risk_level": "high" if tool["risky"] else "low",
                 "read_only": not tool["risky"],
+                "capabilities": list(tool.get("capabilities", ())),
+                "tool_result_payload": dict(tool_result.payload or {}),
+                "tool_result_ok": bool(tool_result.ok),
                 "affected_paths": affected_paths,
                 "workspace_changed": workspace_changed,
                 "workspace_fingerprint": self.workspace.fingerprint(),
@@ -2343,6 +2377,9 @@ class Pico:
                 "security_event_type": security_event_type,
                 "risk_level": "high" if tool["risky"] else "low",
                 "read_only": not tool["risky"],
+                "capabilities": list(tool.get("capabilities", ())),
+                "tool_result_payload": {},
+                "tool_result_ok": False,
                 "affected_paths": affected_paths,
                 "workspace_changed": workspace_changed,
                 "workspace_fingerprint": self.workspace.fingerprint(),
@@ -2447,28 +2484,83 @@ class Pico:
             if self.depth >= self.max_depth:
                 raise ValueError("delegate depth exceeded")
 
+    # ------------------------------------------------------------------
+    # 工具旁路入口
+    # 这些方法是给「不走 registry、直接调具体工具」的旧调用方留的兼容入口
+    # （包括内部代码和测试）。工具内部统一返回 `ToolResult`，这里把 `.text`
+    # 抽出来返回，让旁路调用方拿到的还是字符串，与历史接口一致。
+    # 如果调用方想要结构化字段，直接走 `self.run_tool(name, args)` 或
+    # 用 `self.tools[name]["run"](args)`，再读 `_last_tool_result_metadata`。
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _unwrap_tool_result(value):
+        if isinstance(value, toolkit.ToolResult):
+            return value.text
+        return value
+
     def tool_list_files(self, args):
-        return toolkit.tool_list_files(self, args)
+        return self._unwrap_tool_result(toolkit.tool_list_files(self, args))
 
     def tool_read_file(self, args):
-        return toolkit.tool_read_file(self, args)
+        return self._unwrap_tool_result(toolkit.tool_read_file(self, args))
 
     def tool_search(self, args):
-        return toolkit.tool_search(self, args)
+        return self._unwrap_tool_result(toolkit.tool_search(self, args))
 
     def tool_run_shell(self, args):
-        return toolkit.tool_run_shell(self, args)
+        return self._unwrap_tool_result(toolkit.tool_run_shell(self, args))
 
     def tool_write_file(self, args):
-        return toolkit.tool_write_file(self, args)
+        return self._unwrap_tool_result(toolkit.tool_write_file(self, args))
 
     def tool_patch_file(self, args):
-        return toolkit.tool_patch_file(self, args)
+        return self._unwrap_tool_result(toolkit.tool_patch_file(self, args))
 
     def tool_delegate(self, args):
-        return toolkit.tool_delegate(self, args)
+        return self._unwrap_tool_result(toolkit.tool_delegate(self, args))
 
-    def approve(self, name, args):
+    def _resolve_capability_policy(self, capabilities):
+        """把 `approval_policy` 归一化为「针对这次工具调用」的最终决策。
+
+        `approval_policy` 接受两种形态：
+        - 旧形态：字符串 `"ask" / "auto" / "never"`，所有危险能力共享同一档；
+        - 新形态：dict `{"read": "auto", "write": "ask", "exec": "ask", "net": "never"}`，
+          按 capability 分档。
+
+        归一化规则：取本次涉及到的「危险」capability（write/exec/net）对应的策略，
+        合并方式按严格度选最严：
+            never > ask > auto
+
+        若工具只带 read，直接返回 "auto"，永不进入交互或拒绝路径。
+
+        Args:
+            capabilities: 本次工具声明的 capability 元组
+
+        Returns:
+            str: "auto" / "ask" / "never" 中的一种
+        """
+        risky_caps = [c for c in capabilities if c in toolkit.RISKY_CAPABILITIES]
+        if not risky_caps:
+            return "auto"
+
+        policy = self.approval_policy
+        if isinstance(policy, str):
+            # 旧形态：所有危险能力共享同一档
+            cap_policies = [policy] * len(risky_caps)
+        elif isinstance(policy, dict):
+            # 新形态：按 capability 查表，未指定的默认与旧 "ask" 等价
+            cap_policies = [policy.get(c, "ask") for c in risky_caps]
+        else:
+            cap_policies = ["ask"]
+
+        # 合并：选最严
+        if "never" in cap_policies:
+            return "never"
+        if "ask" in cap_policies:
+            return "ask"
+        return "auto"
+
+    def approve(self, name, args, capabilities=()):
         """根据审批策略决定是否允许执行危险工具。
 
         为什么存在：
@@ -2481,9 +2573,14 @@ class Pico:
         3. policy="never" → 一律拒绝，适合纯分析场景
         4. policy="ask"   → 交互式询问用户，适合交互式 CLI
 
+        `approval_policy` 现在也可以是 dict，按 capability 分档，例如
+            {"write": "ask", "exec": "ask", "net": "never"}
+        语义在 `_resolve_capability_policy()` 里归一化。
+
         Args:
             name: 工具名称（如 write_file, run_shell）
             args: 工具参数字典
+            capabilities: 工具声明的能力元组，用于按 capability 分档审批
 
         Returns:
             bool: True 表示允许执行，False 表示拒绝
@@ -2491,15 +2588,17 @@ class Pico:
         # 只读模式：无论策略如何，一律拒绝危险操作
         if self.read_only:
             return False
+        effective = self._resolve_capability_policy(capabilities)
         # 自动审批：不弹出提示，直接通过（适合 CI 场景）
-        if self.approval_policy == "auto":
+        if effective == "auto":
             return True
         # 永不审批：始终拒绝（适合只做分析、不允许修改的场景）
-        if self.approval_policy == "never":
+        if effective == "never":
             return False
         # 交互式询问：在终端显示工具调用详情，等待用户输入 y/yes
         try:
-            answer = input(f"approve {name} {json.dumps(args, ensure_ascii=True)}? [y/N] ")
+            cap_hint = ",".join(capabilities) if capabilities else "?"
+            answer = input(f"approve {name} [caps:{cap_hint}] {json.dumps(args, ensure_ascii=True)}? [y/N] ")
         except EOFError:
             # 非交互式环境（如管道重定向）下 input() 抛出 EOFError，默认拒绝
             return False

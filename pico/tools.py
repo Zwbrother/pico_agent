@@ -541,6 +541,7 @@ def tool_delegate(agent, args):
         read_only=True,                 # 只读模式
         secret_env_names=agent.secret_env_names,
         shell_env_allowlist=agent.shell_env_allowlist,
+        parent_run_id=getattr(agent, "_current_run_id", ""),
     )
     
     # 委派的目标是"调查"，不是"放权执行"。

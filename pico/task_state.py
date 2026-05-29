@@ -17,6 +17,7 @@ STOP_REASON_FINAL_ANSWER_RETURNED = "final_answer_returned"
 STOP_REASON_STEP_LIMIT_REACHED = "step_limit_reached"
 STOP_REASON_RETRY_LIMIT_REACHED = "retry_limit_reached"
 STOP_REASON_MODEL_ERROR = "model_error"
+STOP_REASON_BACKEND_ERROR = "backend_error"
 STOP_REASON_TOOL_TIMEOUT = "tool_timeout"
 STOP_REASON_APPROVAL_DENIED = "approval_denied"
 STOP_REASON_DELEGATE_FAILED = "delegate_failed"
@@ -37,12 +38,13 @@ class TaskState:
     final_answer: str = ""
     checkpoint_id: str = ""
     resume_status: str = ""
+    parent_run_id: str = ""
 
     @classmethod
-    def create(cls, task_id, user_request, run_id=""):
+    def create(cls, task_id, user_request, run_id="", parent_run_id=""):
         if not run_id:
             run_id = "run_" + datetime.now().strftime("%Y%m%d-%H%M%S") + "-" + uuid4().hex[:6]
-        return cls(run_id=run_id, task_id=task_id, user_request=user_request)
+        return cls(run_id=run_id, task_id=task_id, user_request=user_request, parent_run_id=str(parent_run_id or ""))
 
     @classmethod
     def from_dict(cls, data):
@@ -58,6 +60,7 @@ class TaskState:
             final_answer=str(data.get("final_answer", "")),
             checkpoint_id=str(data.get("checkpoint_id", "")),
             resume_status=str(data.get("resume_status", "")),
+            parent_run_id=str(data.get("parent_run_id", "")),
         )
 
     def record_attempt(self):
@@ -88,6 +91,9 @@ class TaskState:
     def stop_model_error(self, final_answer=""):
         return self.stop(STOP_REASON_MODEL_ERROR, status=STATUS_FAILED, final_answer=final_answer)
 
+    def stop_backend_error(self, final_answer=""):
+        return self.stop(STOP_REASON_BACKEND_ERROR, status=STATUS_FAILED, final_answer=final_answer)
+
     def finish_success(self, final_answer):
         self.status = STATUS_COMPLETED
         self.stop_reason = STOP_REASON_FINAL_ANSWER_RETURNED
@@ -107,4 +113,5 @@ class TaskState:
             "final_answer": self.final_answer,
             "checkpoint_id": self.checkpoint_id,
             "resume_status": self.resume_status,
+            "parent_run_id": self.parent_run_id,
         }

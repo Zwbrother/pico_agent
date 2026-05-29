@@ -152,6 +152,31 @@ DURABLE_MEMORY_LINE_PATTERNS = (
 # 密钥形状文本检测模式（用于识别可能的 API key 泄露）
 SECRET_SHAPED_TEXT_PATTERN = re.compile(r"(?i)(\b(api[_ -]?key|token|secret|password)\b|sk-[A-Za-z0-9_-]{6,})")
 
+# Trace 事件的阶段映射：每个事件属于哪个执行阶段。
+# 用于可视化和分析时快速过滤某一阶段的事件序列。
+# checkpoint_created 的 phase 由其 trigger 字段动态推导（见 emit_trace）。
+TRACE_EVENT_PHASE = {
+    "run_started":                "init",
+    "runtime_identity_mismatch":  "init",
+    "prompt_built":               "plan",
+    "model_requested":            "plan",
+    "model_parsed":               "decide",
+    "tool_executed":              "act",
+    "run_finished":               "finish",
+}
+
+# checkpoint_created 的 trigger → phase 映射
+_CHECKPOINT_TRIGGER_PHASE = {
+    "tool_executed":          "act",
+    "run_finished":           "finish",
+    "step_limit_reached":     "finish",
+    "retry_limit_reached":    "finish",
+    "run_stopped":            "finish",
+    "freshness_mismatch":     "plan",
+    "workspace_mismatch":     "plan",
+    "context_reduction":      "plan",
+}
+
 
 # ============================================================================
 # 数据类定义
@@ -281,6 +306,7 @@ class Pico:
         shell_env_allowlist=None,
         secret_env_names=None,
         feature_flags=None,
+        parent_run_id="",
     ):
         """初始化 Pico 运行时实例。
         
@@ -319,6 +345,9 @@ class Pico:
         if feature_flags:
             self.feature_flags.update({str(key): bool(value) for key, value in feature_flags.items()})
         self.run_store = run_store or RunStore(Path(workspace.repo_root) / ".pico" / "runs")
+        self.parent_run_id = str(parent_run_id or "")
+        # _current_run_id is set at the start of ask() so tool_delegate can read it
+        self._current_run_id = ""
         
         # ====================================================================
         # 步骤2: 初始化 Session 结构
@@ -1268,6 +1297,13 @@ class Pico:
         payload = self.redact_artifact(payload or {})
         payload["event"] = event
         payload["created_at"] = now()
+        # 注入 phase 字段，便于可视化和评测时按阶段过滤事件
+        phase = TRACE_EVENT_PHASE.get(event)
+        if phase is None and event == "checkpoint_created":
+            trigger = payload.get("trigger", "")
+            phase = _CHECKPOINT_TRIGGER_PHASE.get(trigger, "act")
+        if phase:
+            payload["phase"] = phase
         # trace 是运行中的逐事件时间线，适合回答“这一轮 agent 到底做了什么”。
         self.run_store.append_trace(task_state, payload)
         return payload
@@ -1706,7 +1742,14 @@ class Pico:
 
         # 创建新的任务状态对象
         # TaskState 跟踪整个运行的元数据：run_id, task_id, 工具调用次数等
-        task_state = TaskState.create(run_id=self.new_run_id(), task_id=self.new_task_id(), user_request=user_message)
+        task_state = TaskState.create(
+            run_id=self.new_run_id(),
+            task_id=self.new_task_id(),
+            user_request=user_message,
+            parent_run_id=self.parent_run_id,
+        )
+        # Expose current run_id so tool_delegate can pass it as parent_run_id to children
+        self._current_run_id = task_state.run_id
         
         # 设置恢复状态（从之前可能的 checkpoint 中读取）
         # 可能的值：no-checkpoint, full-valid, partial-stale, workspace-mismatch, schema-mismatch
@@ -1727,6 +1770,7 @@ class Pico:
             {
                 "task_id": task_state.task_id,
                 "user_request": clip(user_message, 300),  # 截断过长内容
+                "parent_run_id": task_state.parent_run_id,
             },
         )
 
@@ -1863,12 +1907,29 @@ class Pico:
             
             # 【关键】调用模型客户端获取响应
             model_started_at = time.monotonic()
-            raw = self.model_client.complete(
-                prompt,
-                self.max_new_tokens,
-                prompt_cache_key=prompt_cache_key,
-                prompt_cache_retention=prompt_cache_retention,
-            )
+            try:
+                raw = self.model_client.complete(
+                    prompt,
+                    self.max_new_tokens,
+                    prompt_cache_key=prompt_cache_key,
+                    prompt_cache_retention=prompt_cache_retention,
+                )
+            except RuntimeError as _backend_exc:
+                _err_msg = str(_backend_exc)
+                task_state.stop_backend_error(_err_msg)
+                self.record({"role": "assistant", "content": _err_msg, "created_at": now()})
+                self.run_store.write_task_state(task_state)
+                self.emit_trace(
+                    task_state,
+                    "run_finished",
+                    {
+                        "status": task_state.status,
+                        "stop_reason": task_state.stop_reason,
+                        "run_duration_ms": int((time.monotonic() - run_started_at) * 1000),
+                    },
+                )
+                self.run_store.write_report(task_state, self.redact_artifact(self.build_report(task_state)))
+                return f"Stopped due to backend error: {_err_msg}"
             
             # 提取模型返回的元数据（usage、cache 统计等）
             completion_metadata = dict(getattr(self.model_client, "last_completion_metadata", {}) or {})
@@ -1890,7 +1951,7 @@ class Pico:
             # - kind="tool": payload={"name": "...", "args": {...}}
             # - kind="final": payload="最终答案文本"
             # - kind="retry": payload="错误提示信息"
-            kind, payload = self.parse(raw)
+            kind, payload, parse_detail = self.parse(raw)
             
             # 记录解析结果的 trace 事件
             self.emit_trace(
@@ -1898,6 +1959,7 @@ class Pico:
                 "model_parsed",
                 {
                     "kind": kind,
+                    "parse_detail": parse_detail,
                     "completion_metadata": completion_metadata,
                     "duration_ms": int((time.monotonic() - model_started_at) * 1000),
                 },
@@ -2359,6 +2421,7 @@ class Pico:
         return {
             "run_id": task_state.run_id,
             "task_id": task_state.task_id,
+            "parent_run_id": task_state.parent_run_id,
             "status": task_state.status,
             "stop_reason": task_state.stop_reason,
             "final_answer": task_state.final_answer,
@@ -2494,15 +2557,15 @@ class Pico:
                 payload = json.loads(body)
             except Exception:
                 # JSON 解析失败，返回 retry
-                return "retry", Pico.retry_notice("model returned malformed tool JSON")
+                return "retry", Pico.retry_notice("model returned malformed tool JSON"), {"retry_reason": "json_parse_error"}
             
             # 校验 payload 必须是字典
             if not isinstance(payload, dict):
-                return "retry", Pico.retry_notice("tool payload must be a JSON object")
+                return "retry", Pico.retry_notice("tool payload must be a JSON object"), {"retry_reason": "json_schema_error"}
             
             # 校验必须包含 name 字段
             if not str(payload.get("name", "")).strip():
-                return "retry", Pico.retry_notice("tool payload is missing a tool name")
+                return "retry", Pico.retry_notice("tool payload is missing a tool name"), {"retry_reason": "json_schema_error"}
             
             # 处理 args 字段（允许缺失，默认为空字典）
             args = payload.get("args", {})
@@ -2510,9 +2573,9 @@ class Pico:
                 payload["args"] = {}
             elif not isinstance(args, dict):
                 # args 必须是字典
-                return "retry", Pico.retry_notice()
+                return "retry", Pico.retry_notice(), {"retry_reason": "json_schema_error"}
             
-            return "tool", payload
+            return "tool", payload, {"format": "json"}
         
         # ====================================================================
         # 解析策略2: 检测 XML 属性格式的工具调用
@@ -2525,9 +2588,9 @@ class Pico:
             # 使用专门的 XML 解析器处理复杂结构
             payload = Pico.parse_xml_tool(raw)
             if payload is not None:
-                return "tool", payload
+                return "tool", payload, {"format": "xml"}
             # XML 解析失败，返回 retry
-            return "retry", Pico.retry_notice()
+            return "retry", Pico.retry_notice(), {"retry_reason": "xml_parse_error"}
         
         # ====================================================================
         # 解析策略3: 检测 <final> 标签的最终答案
@@ -2536,21 +2599,21 @@ class Pico:
             # 提取 <final> 和 </final> 之间的内容
             final = Pico.extract(raw, "final").strip()
             if final:
-                return "final", final
+                return "final", final, {"format": "tagged"}
             # 空的 <final> 标签，返回 retry
-            return "retry", Pico.retry_notice("model returned an empty <final> answer")
+            return "retry", Pico.retry_notice("model returned an empty <final> answer"), {"retry_reason": "empty_final"}
         
         # ====================================================================
         # 解析策略4: 纯文本视为最终答案
         # ====================================================================
         raw = raw.strip()
         if raw:
-            return "final", raw
+            return "final", raw, {"format": "plain"}
         
         # ====================================================================
         # 解析策略5: 空响应返回 retry
         # ====================================================================
-        return "retry", Pico.retry_notice("model returned an empty response")
+        return "retry", Pico.retry_notice("model returned an empty response"), {"retry_reason": "empty_response"}
 
     @staticmethod
     def retry_notice(problem=None):
